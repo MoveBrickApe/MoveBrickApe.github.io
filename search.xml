@@ -1,6 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>MySQL 数据库</title>
+    <url>/2021/10/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
+    <content><![CDATA[<h2 id="一、数据库基本概念"><a href="#一、数据库基本概念" class="headerlink" title="一、数据库基本概念"></a>一、数据库基本概念</h2><h4 id="1-什么是数据库"><a href="#1-什么是数据库" class="headerlink" title="1.什么是数据库"></a>1.什么是数据库</h4><ul>
+<li>数据库是用来组织、存储和管理数据的仓库<span id="more"></span></li>
+<li>为了方便管理互联网世界中数据，就有了数据库管理系统的概念。用户可以对数据库进行新增、查询、更新、删除等操作。</li>
+</ul>
+<h4 id="2-常见数据库及其分类"><a href="#2-常见数据库及其分类" class="headerlink" title="2.常见数据库及其分类"></a>2.常见数据库及其分类</h4><ul>
+<li>常见数据库分类<ul>
+<li>MySQL 数据库</li>
+<li>Oracle 数据库（收费）</li>
+<li>SQL Server 数据库（收费）</li>
+<li>Mongodb 数据库</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、SQL-语句"><a href="#二、SQL-语句" class="headerlink" title="二、SQL 语句"></a>二、SQL 语句</h2><h4 id="1、什么是SQL"><a href="#1、什么是SQL" class="headerlink" title="1、什么是SQL"></a>1、什么是SQL</h4><ul>
+<li>SQL 是结构化查询语言，专门用来访问和数据库的编程语言，能够以变成形式，操作数据库里面的数据。</li>
+<li>三个关键点：<ul>
+<li>SQL 是一门数据库编程语言</li>
+<li>使用 SQL 语言编写出来的代码，叫做 SQL 语句</li>
+<li>SQL 语言只能关系型数据库中使用（例如 MySQL、Oracle、SQL Server）。非关系型数据库（例如 Mongodb）不支持 SQL 语言</li>
+</ul>
+</li>
+</ul>
+<h4 id="2、SQL-的语句"><a href="#2、SQL-的语句" class="headerlink" title="2、SQL 的语句"></a>2、SQL 的语句</h4><ul>
+<li>数据库名字 ==users==</li>
+<li>通过 * 把 users 表中的所有的数据查询出来<br><code>select * from users</code></li>
+<li>把表格 username,password 项都找出来<br><code>select username,password from users</code></li>
+<li>向数据表插入新的数据行<br><code>insert into users (username,password) values (&#39;mz&#39;,&#39;123&#39;)</code><br><code>insert into users set username = &#39;mz&#39;,password = &#39;123&#39;</code></li>
+<li>选择性更新数据 where 后面更新的条件<br><code>update users set password=8888,status=1 where id=4</code></li>
+<li>删除表中`delete from users where id=- where子句 运<img src="/2021/10/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/1.png"></li>
+<li>可以通过 where 子句来限定 select 的查询条件<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 查询 id 为 1 的所有用户</span><br><span class="line">select * from users where id=1</span><br><span class="line">-- 查询 username 不等于 zx 的所有用户</span><br><span class="line">select * from users where username&lt;&gt;&#x27;zx&#x27;</span><br></pre></td></tr></table></figure></li>
+<li>使用 and 来显示所有 status=0,并且 id 小于3 的用户<br><code>select * from users where status=0 and id&lt;3</code></li>
+<li>使用 or 来显示所有 status 为1，或者 username 为 zs 的用户<br><code>select * from users where status=0 or username=&#39;zs&#39;</code></li>
+<li>order by 子句 - 升序排序，按照 id<br><code>select * from users order by id asc</code></li>
+<li>order by 子句 - 降序排序 按 username 第一个字母进行降序排序<br><code>select * from users order by username desc</code></li>
+<li>多重排序<br><code>select * from users order by id asc,username desc</code></li>
+<li>count(*)函数用于返回查询 status=1 结果的总数据条数的数量得到一个数字<br><code>select count(*) from users where status=1</code></li>
+<li>使用 AS 为列设置别名<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 将列名 username 改为 uname , password 改为 upwd</span><br><span class="line">`select username as uname, password as upwd from users`</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="三、MySQL模块"><a href="#三、MySQL模块" class="headerlink" title="三、MySQL模块"></a>三、MySQL模块</h2><h4 id="1、作用"><a href="#1、作用" class="headerlink" title="1、作用"></a>1、作用</h4><ul>
+<li>通过 mysql 模块连接到 mySQL 数据库</li>
+<li>通过 mysql 模块执行 SQL 语句</li>
+</ul>
+<h4 id="2、安装配置-mysql-模块"><a href="#2、安装配置-mysql-模块" class="headerlink" title="2、安装配置 mysql 模块"></a>2、安装配置 mysql 模块</h4><ul>
+<li>安装命令<br>`npm i mysql</li>
+<li>配置 mysql 模块<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 1.导入 musql 模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line"></span><br><span class="line">// 2.建立与 mysql 数据库连接</span><br><span class="line">const db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 检测 mysql 模块是否能正常工作</span><br><span class="line">db.query(&#x27;select 1&#x27;,(err,data)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    console.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3、使用-select-语句查询数据"><a href="#3、使用-select-语句查询数据" class="headerlink" title="3、使用 select 语句查询数据"></a>3、使用 select 语句查询数据</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 1.导入mysql模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line"></span><br><span class="line">// 与服务器建立连接</span><br><span class="line">var db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 查询users中所有用户数据</span><br><span class="line">db.query(&#x27;select * from users&#x27;,(err,data)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    console.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、使用-insert-into-语句插入数据"><a href="#4、使用-insert-into-语句插入数据" class="headerlink" title="4、使用 insert into 语句插入数据"></a>4、使用 insert into 语句插入数据</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入mysql模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line">// 与数据库建立连接</span><br><span class="line">var db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line">// 要插入的数据</span><br><span class="line">const data = &#123;</span><br><span class="line">    username:&#x27;kxu&#x27;,</span><br><span class="line">    password:&#x27;123&#x27;</span><br><span class="line">&#125;</span><br><span class="line">// mysql语句</span><br><span class="line">const dl = &#x27;insert into users set?&#x27;</span><br><span class="line"></span><br><span class="line">// 给数据库插入值</span><br><span class="line">db.query(dl,data,(err,user)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    console.log(user);</span><br><span class="line">    if(user.affectedRows ===1) return console.log(&#x27;插入成功&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、使用-update-语句更新数据"><a href="#5、使用-update-语句更新数据" class="headerlink" title="5、使用 update 语句更新数据"></a>5、使用 update 语句更新数据</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 1.导入 mysql 模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line">// 与数据库建立连接</span><br><span class="line">var db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 要更新的数据</span><br><span class="line">const data = &#123;</span><br><span class="line">    id: 4,</span><br><span class="line">    username:&#x27;ffff&#x27;,</span><br><span class="line">    password:&#x27;123&#x27;,</span><br><span class="line">&#125;</span><br><span class="line">// mysql语句</span><br><span class="line">const ql = &#x27;update users set ? where id=?&#x27;</span><br><span class="line"></span><br><span class="line">// 更新数据</span><br><span class="line">db.query(ql,[data,data.id],(err,user)=&gt;&#123;</span><br><span class="line">    console.log(user);</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    if (user.affectedRows===1) return console.log(&#x27;更新成功&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-使用-update-语句标记删除数据"><a href="#6-使用-update-语句标记删除数据" class="headerlink" title="6.使用 update 语句标记删除数据"></a>6.使用 update 语句标记删除数据</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line"></span><br><span class="line">// 连接数据库</span><br><span class="line">var db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// mysql语句</span><br><span class="line">const dl = &#x27;update users set status=0 where id=?&#x27;</span><br><span class="line"></span><br><span class="line">// 删除</span><br><span class="line">db.query(dl,9,(err,data)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    if(data.affectedRows===1) return  console.log(&#x27;删除成功&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-通过-node-来操作-mysql"><a href="#7-通过-node-来操作-mysql" class="headerlink" title="7.通过 node 来操作 mysql"></a>7.通过 node 来操作 mysql</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line">// 连接数据库</span><br><span class="line">const db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 把数据返回客户端</span><br><span class="line">app.get(&#x27;/user&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    db.query(&#x27;select * from users&#x27;, (err, data) =&gt; &#123;</span><br><span class="line">        if(err) return console.log(err.message);</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            status:0,</span><br><span class="line">            msg:&#x27;请求成功&#x27;,</span><br><span class="line">            data</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">// 解析post数据全局中间件</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;))</span><br><span class="line">// 给users中添加用户名密码</span><br><span class="line">app.post(&#x27;/postuser&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    const body = req.body</span><br><span class="line">    const dl = &#x27;insert into users set ?&#x27;</span><br><span class="line">    db.query(dl,body, (err, data) =&gt; &#123;</span><br><span class="line">        if (err) return console.log(err.message);</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            status: 0,</span><br><span class="line">            msg: &#x27;添加成功&#x27;,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">// 根据id更新用户名</span><br><span class="line">app.post(&#x27;/duser&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    const body = req.body</span><br><span class="line">    const dl = &#x27;update users set ? where id=?&#x27;</span><br><span class="line">    db.query(dl,[body,body.id], (err, data) =&gt; &#123;</span><br><span class="line">        if (err) return console.log(err.message);</span><br><span class="line">        if(data.affactedRows!==1) console.log(&#x27;更新失败&#x27;);</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            status: 0,</span><br><span class="line">            msg: &#x27;更新成功&#x27;,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">// 根据id删除</span><br><span class="line">app.get(&#x27;/iuser/:id&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    const user = req.params.id</span><br><span class="line">    const dl = &#x27;delete from users where id=?&#x27;</span><br><span class="line">    db.query(dl, user, (err, data) =&gt; &#123;</span><br><span class="line">        if (err) return console.log(err.message);</span><br><span class="line">        if (data.affactedRows !== 1) console.log(&#x27;更新失败&#x27;);</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            status: 0,</span><br><span class="line">            msg: &#x27;删除成功&#x27;,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3000,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>MySQL数据库</tag>
+        <tag>node</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jsonp or cors 解决跨域</title>
+    <url>/2021/10/08/jsonp%E5%92%8Ccors%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F/</url>
+    <content><![CDATA[<p>JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。对于JSON大家应该是很了解了吧，不是很清楚的朋友可以去json.org上了解下，简单易懂。</p>
+<span id="more"></span>
+<h4 id="1-什么是跨域"><a href="#1-什么是跨域" class="headerlink" title="1.什么是跨域"></a>1.什么是跨域</h4><p>要了解跨域，先说说同源策略。同源策略是 Netscape 公司提出的一个著名的安全策略，所有支持 JavaScript 的浏览器都会使用这个策略。所谓同源是指，域名，协议，端口相同。当页面在执行一个脚本时会检查所访问的资源是否同源，如果非同源，那么在请求数据时，浏览器会在控制台中报一个异常。拒绝访问。</p>
+<h4 id="2-jsonp实现原理"><a href="#2-jsonp实现原理" class="headerlink" title="2.jsonp实现原理"></a>2.jsonp实现原理</h4><p>利用在页面创建<code>&lt;script&gt;</code>节点的方法向不同域提交HTTP，然后调用 html 页面函数，通过这项技术可以解决跨域提交Ajax请求的问题。<br>缺点：只支持 get 请求</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">app.get(&#x27;/json&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // 结构</span><br><span class="line">    const &#123;callback&#125; =req.query</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        name:&#x27;fs&#x27;,</span><br><span class="line">        age:12</span><br><span class="line">    &#125;</span><br><span class="line">    // 转为查询字符串</span><br><span class="line">    res.send(`$&#123;callback&#125;($&#123;JSON.stringify(obj)&#125;)`)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3001,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">   <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">res</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">       <span class="built_in">console</span>.log(res);</span></span><br><span class="line"><span class="javascript">   &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://localhost:3001/json?callback=fn&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="3-cors实现原理"><a href="#3-cors实现原理" class="headerlink" title="3.cors实现原理"></a>3.cors实现原理</h4><p>cors 是 Express 的一个第三方中间件.通过安装和配置 cors 中间件，可以很方便解决跨域问题。</p>
+<ul>
+<li>使用步骤<ul>
+<li>安装中间件：<code>npm i cors</code></li>
+<li>导入中间件：`const cors = require(‘cors’)</li>
+<li>配置中间件：在路由之前调用<code>app.use(cors())</code></li>
+</ul>
+</li>
+<li>案例代码<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入 express 模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line"></span><br><span class="line">// 创建 express 的服务器实例</span><br><span class="line">const app = express()</span><br><span class="line"></span><br><span class="line">// 导入中间件</span><br><span class="line">const cors = require(&#x27;cors&#x27;)</span><br><span class="line">// 配置中间件</span><br><span class="line">app.use(cors())</span><br><span class="line"></span><br><span class="line">// 配置解析表单数据的中间件</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;))</span><br><span class="line"></span><br><span class="line">// 导入路由模块</span><br><span class="line">const router = require(&#x27;./020-apiRouter&#x27;)</span><br><span class="line">// 把路由模块，注册到 app 上</span><br><span class="line">app.use(&#x27;/api&#x27;, router)</span><br><span class="line"></span><br><span class="line">// 调用 app.listen 方法，指定端口号并启动 web 服务器</span><br><span class="line">app.listen(3000, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;running……&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>jsonp</tag>
+        <tag>跨域</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>中间件的学习心得</title>
     <url>/2021/10/08/%E4%B8%AD%E9%97%B4%E4%BB%B6/</url>
     <content><![CDATA[<h5 id="1-中间件概念"><a href="#1-中间件概念" class="headerlink" title="1.中间件概念"></a>1.中间件概念</h5><p>所谓中间件，特指业务流程中间处理环节</p>
@@ -67,104 +165,6 @@
       <tags>
         <tag>node</tag>
         <tag>中间件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>jsonp or cors 解决跨域</title>
-    <url>/2021/10/08/jsonp%E5%92%8Ccors%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F/</url>
-    <content><![CDATA[<p>JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。对于JSON大家应该是很了解了吧，不是很清楚的朋友可以去json.org上了解下，简单易懂。</p>
-<span id="more"></span>
-<h4 id="1-什么是跨域"><a href="#1-什么是跨域" class="headerlink" title="1.什么是跨域"></a>1.什么是跨域</h4><p>要了解跨域，先说说同源策略。同源策略是 Netscape 公司提出的一个著名的安全策略，所有支持 JavaScript 的浏览器都会使用这个策略。所谓同源是指，域名，协议，端口相同。当页面在执行一个脚本时会检查所访问的资源是否同源，如果非同源，那么在请求数据时，浏览器会在控制台中报一个异常。拒绝访问。</p>
-<h4 id="2-jsonp实现原理"><a href="#2-jsonp实现原理" class="headerlink" title="2.jsonp实现原理"></a>2.jsonp实现原理</h4><p>利用在页面创建<code>&lt;script&gt;</code>节点的方法向不同域提交HTTP，然后调用 html 页面函数，通过这项技术可以解决跨域提交Ajax请求的问题。<br>缺点：只支持 get 请求</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">app.get(&#x27;/json&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // 结构</span><br><span class="line">    const &#123;callback&#125; =req.query</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        name:&#x27;fs&#x27;,</span><br><span class="line">        age:12</span><br><span class="line">    &#125;</span><br><span class="line">    // 转为查询字符串</span><br><span class="line">    res.send(`$&#123;callback&#125;($&#123;JSON.stringify(obj)&#125;)`)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3001,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">   <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">res</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">       <span class="built_in">console</span>.log(res);</span></span><br><span class="line"><span class="javascript">   &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://localhost:3001/json?callback=fn&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="3-cors实现原理"><a href="#3-cors实现原理" class="headerlink" title="3.cors实现原理"></a>3.cors实现原理</h4><p>cors 是 Express 的一个第三方中间件.通过安装和配置 cors 中间件，可以很方便解决跨域问题。</p>
-<ul>
-<li>使用步骤<ul>
-<li>安装中间件：<code>npm i cors</code></li>
-<li>导入中间件：`const cors = require(‘cors’)</li>
-<li>配置中间件：在路由之前调用<code>app.use(cors())</code></li>
-</ul>
-</li>
-<li>案例代码<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入 express 模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line"></span><br><span class="line">// 创建 express 的服务器实例</span><br><span class="line">const app = express()</span><br><span class="line"></span><br><span class="line">// 导入中间件</span><br><span class="line">const cors = require(&#x27;cors&#x27;)</span><br><span class="line">// 配置中间件</span><br><span class="line">app.use(cors())</span><br><span class="line"></span><br><span class="line">// 配置解析表单数据的中间件</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;))</span><br><span class="line"></span><br><span class="line">// 导入路由模块</span><br><span class="line">const router = require(&#x27;./020-apiRouter&#x27;)</span><br><span class="line">// 把路由模块，注册到 app 上</span><br><span class="line">app.use(&#x27;/api&#x27;, router)</span><br><span class="line"></span><br><span class="line">// 调用 app.listen 方法，指定端口号并启动 web 服务器</span><br><span class="line">app.listen(3000, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;running……&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>jsonp</tag>
-        <tag>跨域</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MySQL 数据库</title>
-    <url>/2021/10/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
-    <content><![CDATA[<h2 id="一、数据库基本概念"><a href="#一、数据库基本概念" class="headerlink" title="一、数据库基本概念"></a>一、数据库基本概念</h2><h4 id="1-什么是数据库"><a href="#1-什么是数据库" class="headerlink" title="1.什么是数据库"></a>1.什么是数据库</h4><ul>
-<li>数据库是用来组织、存储和管理数据的仓库<span id="more"></span></li>
-<li>为了方便管理互联网世界中数据，就有了数据库管理系统的概念。用户可以对数据库进行新增、查询、更新、删除等操作。</li>
-</ul>
-<h4 id="2-常见数据库及其分类"><a href="#2-常见数据库及其分类" class="headerlink" title="2.常见数据库及其分类"></a>2.常见数据库及其分类</h4><ul>
-<li>常见数据库分类<ul>
-<li>MySQL 数据库</li>
-<li>Oracle 数据库（收费）</li>
-<li>SQL Server 数据库（收费）</li>
-<li>Mongodb 数据库</li>
-</ul>
-</li>
-</ul>
-<h2 id="二、SQL-语句"><a href="#二、SQL-语句" class="headerlink" title="二、SQL 语句"></a>二、SQL 语句</h2><h4 id="1、什么是SQL"><a href="#1、什么是SQL" class="headerlink" title="1、什么是SQL"></a>1、什么是SQL</h4><ul>
-<li>SQL 是结构化查询语言，专门用来访问和数据库的编程语言，能够以变成形式，操作数据库里面的数据。</li>
-<li>三个关键点：<ul>
-<li>SQL 是一门数据库编程语言</li>
-<li>使用 SQL 语言编写出来的代码，叫做 SQL 语句</li>
-<li>SQL 语言只能关系型数据库中使用（例如 MySQL、Oracle、SQL Server）。非关系型数据库（例如 Mongodb）不支持 SQL 语言</li>
-</ul>
-</li>
-</ul>
-<h4 id="2、SQL-的语句"><a href="#2、SQL-的语句" class="headerlink" title="2、SQL 的语句"></a>2、SQL 的语句</h4><ul>
-<li>数据库名字 ==users==</li>
-<li>通过 * 把 users 表中的所有的数据查询出来<br><code>select * from users</code></li>
-<li>把表格 username,password 项都找出来<br><code>select username,password from users</code></li>
-<li>向数据表插入新的数据行<br><code>insert into users (username,password) values (&#39;mz&#39;,&#39;123&#39;)</code><br><code>insert into users set username = &#39;mz&#39;,password = &#39;123&#39;</code></li>
-<li>选择性更新数据 where 后面更新的条件<br><code>update users set password=8888,status=1 where id=4</code></li>
-<li>删除表中`delete from users where id=- where子句 运<img src="/2021/10/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/1.png"></li>
-<li>可以通过 where 子句来限定 select 的查询条件<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 查询 id 为 1 的所有用户</span><br><span class="line">select * from users where id=1</span><br><span class="line">-- 查询 username 不等于 zx 的所有用户</span><br><span class="line">select * from users where username&lt;&gt;&#x27;zx&#x27;</span><br></pre></td></tr></table></figure></li>
-<li>使用 and 来显示所有 status=0,并且 id 小于3 的用户<br><code>select * from users where status=0 and id&lt;3</code></li>
-<li>使用 or 来显示所有 status 为1，或者 username 为 zs 的用户<br><code>select * from users where status=0 or username=&#39;zs&#39;</code></li>
-<li>order by 子句 - 升序排序，按照 id<br><code>select * from users order by id asc</code></li>
-<li>order by 子句 - 降序排序 按 username 第一个字母进行降序排序<br><code>select * from users order by username desc</code></li>
-<li>多重排序<br><code>select * from users order by id asc,username desc</code></li>
-<li>count(*)函数用于返回查询 status=1 结果的总数据条数的数量得到一个数字<br><code>select count(*) from users where status=1</code></li>
-<li>使用 AS 为列设置别名<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 将列名 username 改为 uname , password 改为 upwd</span><br><span class="line">`select username as uname, password as upwd from users`</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="三、MySQL模块"><a href="#三、MySQL模块" class="headerlink" title="三、MySQL模块"></a>三、MySQL模块</h2><h4 id="1、作用"><a href="#1、作用" class="headerlink" title="1、作用"></a>1、作用</h4><ul>
-<li>通过 mysql 模块连接到 mySQL 数据库</li>
-<li>通过 mysql 模块执行 SQL 语句</li>
-</ul>
-<h4 id="2、安装配置-mysql-模块"><a href="#2、安装配置-mysql-模块" class="headerlink" title="2、安装配置 mysql 模块"></a>2、安装配置 mysql 模块</h4><ul>
-<li>安装命令<br>`npm i mysql</li>
-<li>配置 mysql 模块<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 1.导入 musql 模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line"></span><br><span class="line">// 2.建立与 mysql 数据库连接</span><br><span class="line">const db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 检测 mysql 模块是否能正常工作</span><br><span class="line">db.query(&#x27;select 1&#x27;,(err,data)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    console.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="3、使用-select-语句查询数据"><a href="#3、使用-select-语句查询数据" class="headerlink" title="3、使用 select 语句查询数据"></a>3、使用 select 语句查询数据</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 1.导入mysql模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line"></span><br><span class="line">// 与服务器建立连接</span><br><span class="line">var db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 查询users中所有用户数据</span><br><span class="line">db.query(&#x27;select * from users&#x27;,(err,data)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    console.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="4、使用-insert-into-语句插入数据"><a href="#4、使用-insert-into-语句插入数据" class="headerlink" title="4、使用 insert into 语句插入数据"></a>4、使用 insert into 语句插入数据</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入mysql模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line">// 与数据库建立连接</span><br><span class="line">var db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line">// 要插入的数据</span><br><span class="line">const data = &#123;</span><br><span class="line">    username:&#x27;kxu&#x27;,</span><br><span class="line">    password:&#x27;123&#x27;</span><br><span class="line">&#125;</span><br><span class="line">// mysql语句</span><br><span class="line">const dl = &#x27;insert into users set?&#x27;</span><br><span class="line"></span><br><span class="line">// 给数据库插入值</span><br><span class="line">db.query(dl,data,(err,user)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    console.log(user);</span><br><span class="line">    if(user.affectedRows ===1) return console.log(&#x27;插入成功&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="5、使用-update-语句更新数据"><a href="#5、使用-update-语句更新数据" class="headerlink" title="5、使用 update 语句更新数据"></a>5、使用 update 语句更新数据</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 1.导入 mysql 模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line">// 与数据库建立连接</span><br><span class="line">var db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 要更新的数据</span><br><span class="line">const data = &#123;</span><br><span class="line">    id: 4,</span><br><span class="line">    username:&#x27;ffff&#x27;,</span><br><span class="line">    password:&#x27;123&#x27;,</span><br><span class="line">&#125;</span><br><span class="line">// mysql语句</span><br><span class="line">const ql = &#x27;update users set ? where id=?&#x27;</span><br><span class="line"></span><br><span class="line">// 更新数据</span><br><span class="line">db.query(ql,[data,data.id],(err,user)=&gt;&#123;</span><br><span class="line">    console.log(user);</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    if (user.affectedRows===1) return console.log(&#x27;更新成功&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="6-使用-update-语句标记删除数据"><a href="#6-使用-update-语句标记删除数据" class="headerlink" title="6.使用 update 语句标记删除数据"></a>6.使用 update 语句标记删除数据</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line"></span><br><span class="line">// 连接数据库</span><br><span class="line">var db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// mysql语句</span><br><span class="line">const dl = &#x27;update users set status=0 where id=?&#x27;</span><br><span class="line"></span><br><span class="line">// 删除</span><br><span class="line">db.query(dl,9,(err,data)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    if(data.affectedRows===1) return  console.log(&#x27;删除成功&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="7-通过-node-来操作-mysql"><a href="#7-通过-node-来操作-mysql" class="headerlink" title="7.通过 node 来操作 mysql"></a>7.通过 node 来操作 mysql</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line">// 连接数据库</span><br><span class="line">const db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 把数据返回客户端</span><br><span class="line">app.get(&#x27;/user&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    db.query(&#x27;select * from users&#x27;, (err, data) =&gt; &#123;</span><br><span class="line">        if(err) return console.log(err.message);</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            status:0,</span><br><span class="line">            msg:&#x27;请求成功&#x27;,</span><br><span class="line">            data</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">// 解析post数据全局中间件</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;))</span><br><span class="line">// 给users中添加用户名密码</span><br><span class="line">app.post(&#x27;/postuser&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    const body = req.body</span><br><span class="line">    const dl = &#x27;insert into users set ?&#x27;</span><br><span class="line">    db.query(dl,body, (err, data) =&gt; &#123;</span><br><span class="line">        if (err) return console.log(err.message);</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            status: 0,</span><br><span class="line">            msg: &#x27;添加成功&#x27;,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">// 根据id更新用户名</span><br><span class="line">app.post(&#x27;/duser&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    const body = req.body</span><br><span class="line">    const dl = &#x27;update users set ? where id=?&#x27;</span><br><span class="line">    db.query(dl,[body,body.id], (err, data) =&gt; &#123;</span><br><span class="line">        if (err) return console.log(err.message);</span><br><span class="line">        if(data.affactedRows!==1) console.log(&#x27;更新失败&#x27;);</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            status: 0,</span><br><span class="line">            msg: &#x27;更新成功&#x27;,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">// 根据id删除</span><br><span class="line">app.get(&#x27;/iuser/:id&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    const user = req.params.id</span><br><span class="line">    const dl = &#x27;delete from users where id=?&#x27;</span><br><span class="line">    db.query(dl, user, (err, data) =&gt; &#123;</span><br><span class="line">        if (err) return console.log(err.message);</span><br><span class="line">        if (data.affactedRows !== 1) console.log(&#x27;更新失败&#x27;);</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            status: 0,</span><br><span class="line">            msg: &#x27;删除成功&#x27;,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3000,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>node</tag>
-        <tag>MySQL数据库</tag>
       </tags>
   </entry>
   <entry>
