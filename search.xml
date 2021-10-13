@@ -1,34 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>jsonp or cors 解决跨域</title>
-    <url>/2021/10/08/jsonp%E5%92%8Ccors%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F/</url>
-    <content><![CDATA[<p>JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。对于JSON大家应该是很了解了吧，不是很清楚的朋友可以去json.org上了解下，简单易懂。</p>
-<span id="more"></span>
-<h4 id="1-什么是跨域"><a href="#1-什么是跨域" class="headerlink" title="1.什么是跨域"></a>1.什么是跨域</h4><p>要了解跨域，先说说同源策略。同源策略是 Netscape 公司提出的一个著名的安全策略，所有支持 JavaScript 的浏览器都会使用这个策略。所谓同源是指，域名，协议，端口相同。当页面在执行一个脚本时会检查所访问的资源是否同源，如果非同源，那么在请求数据时，浏览器会在控制台中报一个异常。拒绝访问。</p>
-<h4 id="2-jsonp实现原理"><a href="#2-jsonp实现原理" class="headerlink" title="2.jsonp实现原理"></a>2.jsonp实现原理</h4><p>利用在页面创建<code>&lt;script&gt;</code>节点的方法向不同域提交HTTP，然后调用 html 页面函数，通过这项技术可以解决跨域提交Ajax请求的问题。<br>缺点：只支持 get 请求</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">app.get(&#x27;/json&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // 结构</span><br><span class="line">    const &#123;callback&#125; =req.query</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        name:&#x27;fs&#x27;,</span><br><span class="line">        age:12</span><br><span class="line">    &#125;</span><br><span class="line">    // 转为查询字符串</span><br><span class="line">    res.send(`$&#123;callback&#125;($&#123;JSON.stringify(obj)&#125;)`)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3001,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">   <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">res</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">       <span class="built_in">console</span>.log(res);</span></span><br><span class="line"><span class="javascript">   &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://localhost:3001/json?callback=fn&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="3-cors实现原理"><a href="#3-cors实现原理" class="headerlink" title="3.cors实现原理"></a>3.cors实现原理</h4><p>cors 是 Express 的一个第三方中间件.通过安装和配置 cors 中间件，可以很方便解决跨域问题。</p>
-<ul>
-<li>使用步骤<ul>
-<li>安装中间件：<code>npm i cors</code></li>
-<li>导入中间件：`const cors = require(‘cors’)</li>
-<li>配置中间件：在路由之前调用<code>app.use(cors())</code></li>
-</ul>
-</li>
-<li>案例代码<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入 express 模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line"></span><br><span class="line">// 创建 express 的服务器实例</span><br><span class="line">const app = express()</span><br><span class="line"></span><br><span class="line">// 导入中间件</span><br><span class="line">const cors = require(&#x27;cors&#x27;)</span><br><span class="line">// 配置中间件</span><br><span class="line">app.use(cors())</span><br><span class="line"></span><br><span class="line">// 配置解析表单数据的中间件</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;))</span><br><span class="line"></span><br><span class="line">// 导入路由模块</span><br><span class="line">const router = require(&#x27;./020-apiRouter&#x27;)</span><br><span class="line">// 把路由模块，注册到 app 上</span><br><span class="line">app.use(&#x27;/api&#x27;, router)</span><br><span class="line"></span><br><span class="line">// 调用 app.listen 方法，指定端口号并启动 web 服务器</span><br><span class="line">app.listen(3000, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;running……&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>jsonp</tag>
-        <tag>跨域</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MySQL 数据库</title>
     <url>/2021/10/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
     <content><![CDATA[<h2 id="一、数据库基本概念"><a href="#一、数据库基本概念" class="headerlink" title="一、数据库基本概念"></a>一、数据库基本概念</h2><h4 id="1-什么是数据库"><a href="#1-什么是数据库" class="headerlink" title="1.什么是数据库"></a>1.什么是数据库</h4><ul>
@@ -96,6 +68,34 @@
       <tags>
         <tag>MySQL数据库</tag>
         <tag>node</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jsonp or cors 解决跨域</title>
+    <url>/2021/10/08/jsonp%E5%92%8Ccors%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F/</url>
+    <content><![CDATA[<p>JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。对于JSON大家应该是很了解了吧，不是很清楚的朋友可以去json.org上了解下，简单易懂。</p>
+<span id="more"></span>
+<h4 id="1-什么是跨域"><a href="#1-什么是跨域" class="headerlink" title="1.什么是跨域"></a>1.什么是跨域</h4><p>要了解跨域，先说说同源策略。同源策略是 Netscape 公司提出的一个著名的安全策略，所有支持 JavaScript 的浏览器都会使用这个策略。所谓同源是指，域名，协议，端口相同。当页面在执行一个脚本时会检查所访问的资源是否同源，如果非同源，那么在请求数据时，浏览器会在控制台中报一个异常。拒绝访问。</p>
+<h4 id="2-jsonp实现原理"><a href="#2-jsonp实现原理" class="headerlink" title="2.jsonp实现原理"></a>2.jsonp实现原理</h4><p>利用在页面创建<code>&lt;script&gt;</code>节点的方法向不同域提交HTTP，然后调用 html 页面函数，通过这项技术可以解决跨域提交Ajax请求的问题。<br>缺点：只支持 get 请求</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">app.get(&#x27;/json&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // 结构</span><br><span class="line">    const &#123;callback&#125; =req.query</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        name:&#x27;fs&#x27;,</span><br><span class="line">        age:12</span><br><span class="line">    &#125;</span><br><span class="line">    // 转为查询字符串</span><br><span class="line">    res.send(`$&#123;callback&#125;($&#123;JSON.stringify(obj)&#125;)`)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3001,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">   <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">res</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">       <span class="built_in">console</span>.log(res);</span></span><br><span class="line"><span class="javascript">   &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://localhost:3001/json?callback=fn&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="3-cors实现原理"><a href="#3-cors实现原理" class="headerlink" title="3.cors实现原理"></a>3.cors实现原理</h4><p>cors 是 Express 的一个第三方中间件.通过安装和配置 cors 中间件，可以很方便解决跨域问题。</p>
+<ul>
+<li>使用步骤<ul>
+<li>安装中间件：<code>npm i cors</code></li>
+<li>导入中间件：`const cors = require(‘cors’)</li>
+<li>配置中间件：在路由之前调用<code>app.use(cors())</code></li>
+</ul>
+</li>
+<li>案例代码<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入 express 模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line"></span><br><span class="line">// 创建 express 的服务器实例</span><br><span class="line">const app = express()</span><br><span class="line"></span><br><span class="line">// 导入中间件</span><br><span class="line">const cors = require(&#x27;cors&#x27;)</span><br><span class="line">// 配置中间件</span><br><span class="line">app.use(cors())</span><br><span class="line"></span><br><span class="line">// 配置解析表单数据的中间件</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;))</span><br><span class="line"></span><br><span class="line">// 导入路由模块</span><br><span class="line">const router = require(&#x27;./020-apiRouter&#x27;)</span><br><span class="line">// 把路由模块，注册到 app 上</span><br><span class="line">app.use(&#x27;/api&#x27;, router)</span><br><span class="line"></span><br><span class="line">// 调用 app.listen 方法，指定端口号并启动 web 服务器</span><br><span class="line">app.listen(3000, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;running……&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>jsonp</tag>
+        <tag>跨域</tag>
       </tags>
   </entry>
   <entry>
