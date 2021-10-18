@@ -1,34 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>jsonp or cors 解决跨域</title>
-    <url>/2021/10/08/jsonp%E5%92%8Ccors%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F/</url>
-    <content><![CDATA[<p>JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。对于JSON大家应该是很了解了吧，不是很清楚的朋友可以去json.org上了解下，简单易懂。</p>
-<span id="more"></span>
-<h4 id="1-什么是跨域"><a href="#1-什么是跨域" class="headerlink" title="1.什么是跨域"></a>1.什么是跨域</h4><p>要了解跨域，先说说同源策略。同源策略是 Netscape 公司提出的一个著名的安全策略，所有支持 JavaScript 的浏览器都会使用这个策略。所谓同源是指，域名，协议，端口相同。当页面在执行一个脚本时会检查所访问的资源是否同源，如果非同源，那么在请求数据时，浏览器会在控制台中报一个异常。拒绝访问。</p>
-<h4 id="2-jsonp实现原理"><a href="#2-jsonp实现原理" class="headerlink" title="2.jsonp实现原理"></a>2.jsonp实现原理</h4><p>利用在页面创建<code>&lt;script&gt;</code>节点的方法向不同域提交HTTP，然后调用 html 页面函数，通过这项技术可以解决跨域提交Ajax请求的问题。<br>缺点：只支持 get 请求</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">app.get(&#x27;/json&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // 结构</span><br><span class="line">    const &#123;callback&#125; =req.query</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        name:&#x27;fs&#x27;,</span><br><span class="line">        age:12</span><br><span class="line">    &#125;</span><br><span class="line">    // 转为查询字符串</span><br><span class="line">    res.send(`$&#123;callback&#125;($&#123;JSON.stringify(obj)&#125;)`)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3001,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">   <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">res</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">       <span class="built_in">console</span>.log(res);</span></span><br><span class="line"><span class="javascript">   &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://localhost:3001/json?callback=fn&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="3-cors实现原理"><a href="#3-cors实现原理" class="headerlink" title="3.cors实现原理"></a>3.cors实现原理</h4><p>cors 是 Express 的一个第三方中间件.通过安装和配置 cors 中间件，可以很方便解决跨域问题。</p>
-<ul>
-<li>使用步骤<ul>
-<li>安装中间件：<code>npm i cors</code></li>
-<li>导入中间件：`const cors = require(‘cors’)</li>
-<li>配置中间件：在路由之前调用<code>app.use(cors())</code></li>
-</ul>
-</li>
-<li>案例代码<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入 express 模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line"></span><br><span class="line">// 创建 express 的服务器实例</span><br><span class="line">const app = express()</span><br><span class="line"></span><br><span class="line">// 导入中间件</span><br><span class="line">const cors = require(&#x27;cors&#x27;)</span><br><span class="line">// 配置中间件</span><br><span class="line">app.use(cors())</span><br><span class="line"></span><br><span class="line">// 配置解析表单数据的中间件</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;))</span><br><span class="line"></span><br><span class="line">// 导入路由模块</span><br><span class="line">const router = require(&#x27;./020-apiRouter&#x27;)</span><br><span class="line">// 把路由模块，注册到 app 上</span><br><span class="line">app.use(&#x27;/api&#x27;, router)</span><br><span class="line"></span><br><span class="line">// 调用 app.listen 方法，指定端口号并启动 web 服务器</span><br><span class="line">app.listen(3000, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;running……&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>jsonp</tag>
-        <tag>跨域</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MySQL 数据库</title>
     <url>/2021/10/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
     <content><![CDATA[<h2 id="一、数据库基本概念"><a href="#一、数据库基本概念" class="headerlink" title="一、数据库基本概念"></a>一、数据库基本概念</h2><h4 id="1-什么是数据库"><a href="#1-什么是数据库" class="headerlink" title="1.什么是数据库"></a>1.什么是数据库</h4><ul>
@@ -157,65 +129,31 @@
       </tags>
   </entry>
   <entry>
-    <title>导入导出、回调地狱、同异微宏任务</title>
-    <url>/2021/10/08/%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E3%80%81%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1%E3%80%81%E5%90%8C%E5%BC%82%E5%BE%AE%E5%AE%8F%E4%BB%BB%E5%8A%A1/</url>
-    <content><![CDATA[<ul>
-<li>默认导入导出<ul>
-<li>默认导出： export default {xxx}<span id="more"></span></li>
-<li>默认导入： import 接收名称 from ‘模块地址</li>
-</ul>
-</li>
-</ul>
-<p><strong>每个模块只允许默认导出一次</strong></p>
+    <title>jsonp or cors 解决跨域</title>
+    <url>/2021/10/08/jsonp%E5%92%8Ccors%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F/</url>
+    <content><![CDATA[<p>JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。对于JSON大家应该是很了解了吧，不是很清楚的朋友可以去json.org上了解下，简单易懂。</p>
+<span id="more"></span>
+<h4 id="1-什么是跨域"><a href="#1-什么是跨域" class="headerlink" title="1.什么是跨域"></a>1.什么是跨域</h4><p>要了解跨域，先说说同源策略。同源策略是 Netscape 公司提出的一个著名的安全策略，所有支持 JavaScript 的浏览器都会使用这个策略。所谓同源是指，域名，协议，端口相同。当页面在执行一个脚本时会检查所访问的资源是否同源，如果非同源，那么在请求数据时，浏览器会在控制台中报一个异常。拒绝访问。</p>
+<h4 id="2-jsonp实现原理"><a href="#2-jsonp实现原理" class="headerlink" title="2.jsonp实现原理"></a>2.jsonp实现原理</h4><p>利用在页面创建<code>&lt;script&gt;</code>节点的方法向不同域提交HTTP，然后调用 html 页面函数，通过这项技术可以解决跨域提交Ajax请求的问题。<br>缺点：只支持 get 请求</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">app.get(&#x27;/json&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // 结构</span><br><span class="line">    const &#123;callback&#125; =req.query</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        name:&#x27;fs&#x27;,</span><br><span class="line">        age:12</span><br><span class="line">    &#125;</span><br><span class="line">    // 转为查询字符串</span><br><span class="line">    res.send(`$&#123;callback&#125;($&#123;JSON.stringify(obj)&#125;)`)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3001,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">   <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">res</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">       <span class="built_in">console</span>.log(res);</span></span><br><span class="line"><span class="javascript">   &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://localhost:3001/json?callback=fn&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="3-cors实现原理"><a href="#3-cors实现原理" class="headerlink" title="3.cors实现原理"></a>3.cors实现原理</h4><p>cors 是 Express 的一个第三方中间件.通过安装和配置 cors 中间件，可以很方便解决跨域问题。</p>
 <ul>
-<li><p>按需导入导出</p>
-<pre><code>  按需导出：export 导出的成员（let a = 10)
-  按需导入： import &#123;多个接收名称&#125; from &#39;模块地址&#39;
-</code></pre>
-</li>
-</ul>
-<p><strong>每个模块可以按需导出多次</strong></p>
-<p><code>as</code> 关键字可以改名字<code>（import &#123;a as b&#125; from &#39;模块地址&#39;）</code></p>
-<ul>
-<li><p>按需导入导出可以同时使用，导入方法不同</p>
-<ul>
-<li>import   <strong>默认导入名称</strong>，**{按需导入名称}** from ‘模块地址’</li>
+<li>使用步骤<ul>
+<li>安装中间件：<code>npm i cors</code></li>
+<li>导入中间件：`const cors = require(‘cors’)</li>
+<li>配置中间件：在路由之前调用<code>app.use(cors())</code></li>
 </ul>
 </li>
-<li><p>直接运行导入模块代码，并不执行模块向外共享代码</p>
-<pre><code>  import &#39;模块地址&#39;
-</code></pre>
-</li>
-<li><p>解决回调地狱</p>
-<ul>
-<li><code>async</code> 和 <code>await</code> 语法</li>
-<li>注意：<ul>
-<li><code>await</code>关键字后面要跟 <strong>promise对象</strong></li>
-<li><code>awaut</code>关键字仅仅只能出现在被<code>async</code>修饰函数里面</li>
-<li> 在<code>async</code>方法中，第一个<code>await</code>,之前得代码会同步执行，<code>await</code>之后的代码会异步执行</li>
-<li> <code>thenfs</code>是第三方包读取文件包</li>
+<li>案例代码<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入 express 模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line"></span><br><span class="line">// 创建 express 的服务器实例</span><br><span class="line">const app = express()</span><br><span class="line"></span><br><span class="line">// 导入中间件</span><br><span class="line">const cors = require(&#x27;cors&#x27;)</span><br><span class="line">// 配置中间件</span><br><span class="line">app.use(cors())</span><br><span class="line"></span><br><span class="line">// 配置解析表单数据的中间件</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;))</span><br><span class="line"></span><br><span class="line">// 导入路由模块</span><br><span class="line">const router = require(&#x27;./020-apiRouter&#x27;)</span><br><span class="line">// 把路由模块，注册到 app 上</span><br><span class="line">app.use(&#x27;/api&#x27;, router)</span><br><span class="line"></span><br><span class="line">// 调用 app.listen 方法，指定端口号并启动 web 服务器</span><br><span class="line">app.listen(3000, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;running……&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192759.png"></p>
-<ul>
-<li><p>同步任务与异步任务</p>
-<p> <img src="/2021/10/08/%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E3%80%81%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1%E3%80%81%E5%90%8C%E5%BC%82%E5%BE%AE%E5%AE%8F%E4%BB%BB%E5%8A%A1/20211016194522.png"></p>
-</li>
-<li><p>宏任务与微任务</p>
-<p><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192907.png"></p>
-</li>
-</ul>
-<p>  <img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192855.png"></p>
 ]]></content>
       <categories>
         <category>前端</category>
       </categories>
       <tags>
-        <tag>回调地狱</tag>
-        <tag>同异微宏任务</tag>
+        <tag>jsonp</tag>
+        <tag>跨域</tag>
       </tags>
   </entry>
   <entry>
@@ -285,6 +223,68 @@
       <tags>
         <tag>node</tag>
         <tag>中间件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>导入导出、回调地狱、同异微宏任务</title>
+    <url>/2021/10/16/%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E3%80%81%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1%E3%80%81%E5%90%8C%E5%BC%82%E5%BE%AE%E5%AE%8F%E4%BB%BB%E5%8A%A1/</url>
+    <content><![CDATA[<ul>
+<li>默认导入导出<ul>
+<li>默认导出： export default {xxx}<span id="more"></span></li>
+<li>默认导入： import 接收名称 from ‘模块地址</li>
+</ul>
+</li>
+</ul>
+<p><strong>每个模块只允许默认导出一次</strong></p>
+<ul>
+<li><p>按需导入导出</p>
+<pre><code>  按需导出：export 导出的成员（let a = 10)
+  按需导入： import &#123;多个接收名称&#125; from &#39;模块地址&#39;
+</code></pre>
+</li>
+</ul>
+<p><strong>每个模块可以按需导出多次</strong></p>
+<p><code>as</code> 关键字可以改名字<code>（import &#123;a as b&#125; from &#39;模块地址&#39;）</code></p>
+<ul>
+<li><p>按需导入导出可以同时使用，导入方法不同</p>
+<ul>
+<li>import   <strong>默认导入名称</strong>，**{按需导入名称}** from ‘模块地址’</li>
+</ul>
+</li>
+<li><p>直接运行导入模块代码，并不执行模块向外共享代码</p>
+<pre><code>  import &#39;模块地址&#39;
+</code></pre>
+</li>
+<li><p>解决回调地狱</p>
+<ul>
+<li><code>async</code> 和 <code>await</code> 语法</li>
+<li>注意：<ul>
+<li><code>await</code>关键字后面要跟 <strong>promise对象</strong></li>
+<li><code>awaut</code>关键字仅仅只能出现在被<code>async</code>修饰函数里面</li>
+<li> 在<code>async</code>方法中，第一个<code>await</code>,之前得代码会同步执行，<code>await</code>之后的代码会异步执行</li>
+<li> <code>thenfs</code>是第三方包读取文件包</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192759.png"></p>
+<ul>
+<li><p>同步任务与异步任务</p>
+<p> <img src="/2021/10/16/%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E3%80%81%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1%E3%80%81%E5%90%8C%E5%BC%82%E5%BE%AE%E5%AE%8F%E4%BB%BB%E5%8A%A1/20211016194522.png"></p>
+</li>
+<li><p>宏任务与微任务</p>
+<p><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192907.png"></p>
+</li>
+</ul>
+<p>  <img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192855.png"></p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>回调地狱</tag>
+        <tag>同异微宏任务</tag>
       </tags>
   </entry>
   <entry>
