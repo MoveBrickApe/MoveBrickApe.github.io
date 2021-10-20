@@ -147,7 +147,8 @@
    <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> /* 覆盖webpack的配置 */</span><br><span class="line">module.exports = &#123;</span><br><span class="line">devServer: &#123; // 自定义服务配置</span><br><span class="line">  open: true, // 自动打开浏览器</span><br><span class="line">  port: 3000</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h6 id="6、关闭代码检查工具"><a href="#6、关闭代码检查工具" class="headerlink" title="6、关闭代码检查工具"></a>6、关闭代码检查工具</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">    // ...其他配置</span><br><span class="line">    lintOnSave: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h6 id="7、打包压缩配置"><a href="#7、打包压缩配置" class="headerlink" title="7、打包压缩配置"></a>7、打包压缩配置</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> module.exports = &#123;</span><br><span class="line">    // ...其他配置</span><br><span class="line">    mode: &#x27;development&#x27; // 开发环境, 不压缩, 不混淆 打包速度非常快,不设置默认压缩</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Vue-指令"><a href="#Vue-指令" class="headerlink" title="Vue 指令"></a>Vue 指令</h4><h6 id="1、插值表达式"><a href="#1、插值表达式" class="headerlink" title="1、插值表达式"></a>1、插值表达式</h6><p>   语法：</p>
+
+<h4 id="Vue指令"><a href="#Vue指令" class="headerlink" title="Vue指令"></a>Vue指令</h4><h6 id="1、插值表达式"><a href="#1、插值表达式" class="headerlink" title="1、插值表达式"></a>1、插值表达式</h6><p>   语法：</p>
 <pre><code>    &lt;h1&gt;&#123;&#123; msg &#125;&#125;&lt;/h1&gt;
 </code></pre>
 <h6 id="2-v-bind-属性动态赋值"><a href="#2-v-bind-属性动态赋值" class="headerlink" title="2. v-bind 属性动态赋值"></a>2. v-bind 属性动态赋值</h6><p>   语法：<code>v-bind: 属性名 = &#39;变量&#39;</code><br>   简写：<code>:属性名 = &#39;vue 变量&#39;</code></p>
@@ -190,6 +191,40 @@
       <tags>
         <tag>vue 指令</tag>
         <tag>脚手架</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VUE中v-for更新检测</title>
+    <url>/2021/10/20/VUE%E4%B8%ADv-for%E6%9B%B4%E6%96%B0%E6%A3%80%E6%B5%8B/</url>
+    <content><![CDATA[<h5 id="口诀："><a href="#口诀：" class="headerlink" title="口诀："></a>口诀：</h5><ul>
+<li>数组变更方法，就会导致 v-for 更新，页面更新<span id="more"></span></li>
+<li>数组非变更方法：返回新数组，就不会导致 v-for 更新，更新值检测不到可采用覆盖或者 this.$set()</li>
+</ul>
+<h6 id="数组变更方法如下："><a href="#数组变更方法如下：" class="headerlink" title="数组变更方法如下："></a>数组变更方法如下：</h6><h6 id="1-arr-push-从后面添加元素"><a href="#1-arr-push-从后面添加元素" class="headerlink" title="1. arr.push()从后面添加元素"></a>1. arr.push()从后面添加元素</h6><pre><code>    arr.push(5)
+</code></pre>
+<h6 id="2-arr-pop-从后面删除元素，只能是一个"><a href="#2-arr-pop-从后面删除元素，只能是一个" class="headerlink" title="2. arr.pop()从后面删除元素，只能是一个"></a>2. arr.pop()从后面删除元素，只能是一个</h6><pre><code>    arr.pop()
+</code></pre>
+<h6 id="3-arr-shift-从前面删除元素，只能删除一个"><a href="#3-arr-shift-从前面删除元素，只能删除一个" class="headerlink" title="3. arr.shift()从前面删除元素，只能删除一个"></a>3. arr.shift()从前面删除元素，只能删除一个</h6><pre><code>    arr.shift()
+</code></pre>
+<h6 id="4-arr-unshift-从前面添加元素，返回值时添加完后数组长度"><a href="#4-arr-unshift-从前面添加元素，返回值时添加完后数组长度" class="headerlink" title="4. arr.unshift()从前面添加元素，返回值时添加完后数组长度"></a>4. arr.unshift()从前面添加元素，返回值时添加完后数组长度</h6><pre><code>    arr.unshift(8)
+</code></pre>
+<h6 id="5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数"><a href="#5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数" class="headerlink" title="5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数"></a>5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.splice(2,2))     //[3,4]</span><br><span class="line">console.log(arr)    // [1,2,5]</span><br></pre></td></tr></table></figure>
+
+<h6 id="6-arr-sort-将数组进行排序，返回值排好的数组"><a href="#6-arr-sort-将数组进行排序，返回值排好的数组" class="headerlink" title="6. arr.sort()将数组进行排序，返回值排好的数组"></a>6. arr.sort()将数组进行排序，返回值排好的数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [2,10,6,1,4,22,3]</span><br><span class="line">console.log(arr.sort())   // [1, 10, 2, 22, 3, 4, 6]</span><br><span class="line">let arr1 = arr.sort((a, b) =&gt;a - b)  </span><br><span class="line">console.log(arr1)   // [1, 2, 3, 4, 6, 10, 22]</span><br><span class="line">let arr2 = arr.sort((a, b) =&gt;b-a)  </span><br><span class="line">console.log(arr2)  // [22, 10, 6, 4, 3, 2, 1]</span><br></pre></td></tr></table></figure>
+
+<h6 id="7-arr-reverse-将数组反转"><a href="#7-arr-reverse-将数组反转" class="headerlink" title="7. arr.reverse() 将数组反转"></a>7. arr.reverse() 将数组反转</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.reverse())    // [5,4,3,2,1]</span><br><span class="line">console.log(arr)    // [5,4,3,2,1]</span><br></pre></td></tr></table></figure>
+
+<h5 id="数组非变更方法如下："><a href="#数组非变更方法如下：" class="headerlink" title="数组非变更方法如下："></a>数组非变更方法如下：</h5><h6 id="1-arr-concat-连接两个数组"><a href="#1-arr-concat-连接两个数组" class="headerlink" title="1. arr.concat()连接两个数组"></a>1. arr.concat()连接两个数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.concat([1,2]))  // [1,2,3,4,5,1,2]</span><br><span class="line">console.log(arr)   // [1,2,3,4,5]</span><br></pre></td></tr></table></figure>
+<h6 id="2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值"><a href="#2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值" class="headerlink" title="2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值"></a>2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.slice(1,3))   // [2,3]</span><br></pre></td></tr></table></figure>
+<h5 id="覆盖方法"><a href="#覆盖方法" class="headerlink" title="覆盖方法"></a>覆盖方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;截取前3个&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">    sliceBtn()&#123;</span><br><span class="line">   // 2. 数组slice方法不会造成v-for更新</span><br><span class="line">   // slice不会改变原始数组</span><br><span class="line">   // this.arr.slice(0, 3)</span><br><span class="line"></span><br><span class="line">   // 解决v-for更新 - 覆盖原始数组</span><br><span class="line">   let newArr = this.arr.slice(0, 3)</span><br><span class="line">   this.arr = newArr</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
+
+<h5 id="this-set-方法"><a href="#this-set-方法" class="headerlink" title="this.$set()方法"></a>this.$set()方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;更新下标0的值&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">   sliceBtn()&#123;</span><br><span class="line">   // 更新某个值时，v-for是检测不到的</span><br><span class="line">   // this.arr[0] = 1000</span><br><span class="line">   </span><br><span class="line">   // 解决- this.$set()</span><br><span class="line">   // 参数1：更新目标结构</span><br><span class="line">   // 参数2：更新位置</span><br><span class="line">   // 参数3：更新值</span><br><span class="line">   let newArr = this.arr.slice(0, 3)</span><br><span class="line">   this.arr = newArr</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>v-for循环</tag>
       </tags>
   </entry>
   <entry>
@@ -349,6 +384,92 @@
       <tags>
         <tag>回调地狱</tag>
         <tag>同异微宏任务</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数组遍历方法</title>
+    <url>/2021/10/20/%E6%95%B0%E7%BB%84%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h4 id="reduce-求数组和"><a href="#reduce-求数组和" class="headerlink" title="reduce 求数组和"></a>reduce 求数组和</h4><ol>
+<li><p>语法：</p>
+<span id="more"></span>
+<pre><code> arr.reduce(function(prev,cur,index,arr)&#123;
+ ...
+ &#125;, init);
+</code></pre>
+</li>
+<li><p>回调里面有4个参数：</p>
+<ul>
+<li>prev 表示上一次调用回调时的返回值，或者初始值 init;</li>
+<li>cur 表示当前正在处理的数组元素；</li>
+<li>index 表示当前正在处理的数组元素的索引，若提供 init 值，则索引为0，否则索引为1；</li>
+<li>arr 表示原数组；</li>
+<li>init 表示初始值。</li>
+</ul>
+</li>
+<li><p>传入初始值<br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017194223.png"><br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017194227.png"></p>
+</li>
+<li><p>不传初始值<br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017194231.png"><br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017194233.png" alt="4"></p>
+</li>
+</ol>
+<h4 id="jquery-遍历数组"><a href="#jquery-遍历数组" class="headerlink" title="jquery 遍历数组"></a>jquery 遍历数组</h4><ol>
+<li>只能运用于<code>jquery</code>语法中，i是数组的索引，x是数组的值.<br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017195814.png"></li>
+</ol>
+<h4 id="forEach-遍历数组"><a href="#forEach-遍历数组" class="headerlink" title="forEach 遍历数组"></a>forEach 遍历数组</h4><ol>
+<li>无return  即使有return，也不会返回任何值，并且会影响原来的数组</li>
+<li>有三个默认值：</li>
+</ol>
+<ul>
+<li>第一个 当前数组值</li>
+<li>第二个 索引</li>
+<li>第三个 就是原数组<br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017195818.png" alt="57"><br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017195821.png" alt="07"></li>
+</ul>
+<h4 id="filter-过滤数组"><a href="#filter-过滤数组" class="headerlink" title="filter 过滤数组"></a>filter 过滤数组</h4><ol>
+<li><p>过滤数组，返回一个满足要求的数组</p>
+</li>
+<li><p>有两个默认值</p>
+<ul>
+<li>第一个当前索引值</li>
+<li>第二个索引</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">let arr1 = arr.filter( (value, index) =&gt; value&lt;3)</span><br><span class="line">console.log(arr1)    // [1, 2]</span><br></pre></td></tr></table></figure>
+<h4 id="map-遍历数组"><a href="#map-遍历数组" class="headerlink" title="map 遍历数组"></a>map 遍历数组</h4></li>
+<li><p>映射数组(遍历数组),有return 返回一个新数组</p>
+</li>
+<li><p>有三个默认值：</p>
+<ul>
+<li>第一个 当前数组值</li>
+<li>第二个 索引</li>
+<li>第三个 就是原数组</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var res1 = arr1.map((item,index,arr)=&gt;&#123; </span><br><span class="line">item = item * 3; </span><br><span class="line"> return item; </span><br><span class="line"> &#125;)</span><br><span class="line">console.log(res1); // [3,6,9,12]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="every-判断数组全满足条件"><a href="#every-判断数组全满足条件" class="headerlink" title="every 判断数组全满足条件"></a>every 判断数组全满足条件</h4><ol>
+<li><p>依据判断条件，数组的元素是否全满足，若满足则返回ture</p>
+</li>
+<li><p>有两个默认值：</p>
+<ul>
+<li>第一个当前索引值</li>
+<li>第二个索引<figure class="highlight plaintext"><figcaption><span>arr </span></figcaption><table><tr><td class="code"><pre><span class="line">let arr1 = arr.every( (value, index) =&gt;value&lt;3)</span><br><span class="line">console.log(arr1) // false</span><br><span class="line">let arr2 = arr.every( (value, index) =&gt;value&lt;6)</span><br><span class="line">console.log(arr2)  // true</span><br></pre></td></tr></table></figure>
+<h4 id="some-遍历判断数组满足条件"><a href="#some-遍历判断数组满足条件" class="headerlink" title="some 遍历判断数组满足条件"></a>some 遍历判断数组满足条件</h4></li>
+</ul>
+</li>
+<li><p>依据判断条件，数组的元素是否有一个满足，若有一个满足则返回ture</p>
+</li>
+<li><p>有两个默认值：</p>
+<ul>
+<li>第一个当前索引值</li>
+<li>第二个索引</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [1,2,3,4,5]</span><br><span class="line">let arr1 = arr.some( (value, index) =&gt;value&lt;3)</span><br><span class="line">console.log(arr1) // true</span><br><span class="line">let arr2 = arr.some( (value, index) =&gt;value&gt;6)</span><br><span class="line">console.log(arr2) // false</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>Ps : Array.from() 将伪数组变成数组，就是只要有length的就可以转成数组</p>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let str = &#x27;12345&#x27;</span><br><span class="line">console.log(Array.from(str))    // [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;]</span><br><span class="line">let obj = &#123;0:&#x27;a&#x27;,1:&#x27;b&#x27;,length:2&#125;</span><br><span class="line">console.log(Array.from(obj))   // [&quot;a&quot;, &quot;b&quot;]</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+        <tag>数组遍历</tag>
       </tags>
   </entry>
   <entry>
