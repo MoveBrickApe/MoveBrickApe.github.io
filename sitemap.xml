@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://www.kongxiaojun.cn/2021/10/20/vue%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4%E4%B8%8E%E8%84%9A%E6%89%8B%E6%9E%B6%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE/</loc>
+    <loc>http://www.kongxiaojun.cn/2021/10/16/%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E3%80%81%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1%E3%80%81%E5%90%8C%E5%BC%82%E5%BE%AE%E5%AE%8F%E4%BB%BB%E5%8A%A1/</loc>
     
     <lastmod>2021-10-20</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.kongxiaojun.cn/2021/10/16/%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E3%80%81%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1%E3%80%81%E5%90%8C%E5%BC%82%E5%BE%AE%E5%AE%8F%E4%BB%BB%E5%8A%A1/</loc>
+    <loc>http://www.kongxiaojun.cn/2021/10/20/vue%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4%E4%B8%8E%E8%84%9A%E6%89%8B%E6%9E%B6%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE/</loc>
     
-    <lastmod>2021-10-16</lastmod>
+    <lastmod>2021-10-20</lastmod>
     
   </url>
   
@@ -67,14 +67,14 @@
 
   
   <url>
-    <loc>http://www.kongxiaojun.cn/tags/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <loc>http://www.kongxiaojun.cn/tags/vue-%E6%8C%87%E4%BB%A4/</loc>
     <lastmod>2021-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.kongxiaojun.cn/tags/node/</loc>
+    <loc>http://www.kongxiaojun.cn/tags/%E8%84%9A%E6%89%8B%E6%9E%B6/</loc>
     <lastmod>2021-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -95,7 +95,21 @@
   </url>
   
   <url>
+    <loc>http://www.kongxiaojun.cn/tags/node/</loc>
+    <lastmod>2021-10-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://www.kongxiaojun.cn/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
+    <lastmod>2021-10-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.kongxiaojun.cn/tags/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2021-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -124,20 +138,6 @@
   
   <url>
     <loc>http://www.kongxiaojun.cn/tags/kexo/</loc>
-    <lastmod>2021-10-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.kongxiaojun.cn/tags/vue-%E6%8C%87%E4%BB%A4/</loc>
-    <lastmod>2021-10-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.kongxiaojun.cn/tags/%E8%84%9A%E6%89%8B%E6%9E%B6/</loc>
     <lastmod>2021-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
