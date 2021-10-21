@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>VUE中v-for更新检测</title>
+    <url>/2021/10/20/VUE%E4%B8%ADv-for%E6%9B%B4%E6%96%B0%E6%A3%80%E6%B5%8B/</url>
+    <content><![CDATA[<h5 id="口诀："><a href="#口诀：" class="headerlink" title="口诀："></a>口诀：</h5><ul>
+<li>数组变更方法，就会导致 v-for 更新，页面更新<span id="more"></span></li>
+<li>数组非变更方法：返回新数组，就不会导致 v-for 更新，更新值检测不到可采用覆盖或者 this.$set()</li>
+</ul>
+<h6 id="一、数组变更方法如下："><a href="#一、数组变更方法如下：" class="headerlink" title="一、数组变更方法如下："></a>一、数组变更方法如下：</h6><h6 id="1-arr-push-从后面添加元素"><a href="#1-arr-push-从后面添加元素" class="headerlink" title="1. arr.push()从后面添加元素"></a>1. arr.push()从后面添加元素</h6><pre><code>    arr.push(5)
+</code></pre>
+<h6 id="2-arr-pop-从后面删除元素，只能是一个"><a href="#2-arr-pop-从后面删除元素，只能是一个" class="headerlink" title="2. arr.pop()从后面删除元素，只能是一个"></a>2. arr.pop()从后面删除元素，只能是一个</h6><pre><code>    arr.pop()
+</code></pre>
+<h6 id="3-arr-shift-从前面删除元素，只能删除一个"><a href="#3-arr-shift-从前面删除元素，只能删除一个" class="headerlink" title="3. arr.shift()从前面删除元素，只能删除一个"></a>3. arr.shift()从前面删除元素，只能删除一个</h6><pre><code>    arr.shift()
+</code></pre>
+<h6 id="4-arr-unshift-从前面添加元素，返回值时添加完后数组长度"><a href="#4-arr-unshift-从前面添加元素，返回值时添加完后数组长度" class="headerlink" title="4. arr.unshift()从前面添加元素，返回值时添加完后数组长度"></a>4. arr.unshift()从前面添加元素，返回值时添加完后数组长度</h6><pre><code>    arr.unshift(8)
+</code></pre>
+<h6 id="5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数"><a href="#5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数" class="headerlink" title="5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数"></a>5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.splice(2,2))     //[3,4]</span><br><span class="line">console.log(arr)    // [1,2,5]</span><br></pre></td></tr></table></figure>
+
+<h6 id="6-arr-sort-将数组进行排序，返回值排好的数组"><a href="#6-arr-sort-将数组进行排序，返回值排好的数组" class="headerlink" title="6. arr.sort()将数组进行排序，返回值排好的数组"></a>6. arr.sort()将数组进行排序，返回值排好的数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [2,10,6,1,4,22,3]</span><br><span class="line">console.log(arr.sort())   // [1, 10, 2, 22, 3, 4, 6]</span><br><span class="line">let arr1 = arr.sort((a, b) =&gt;a - b)  </span><br><span class="line">console.log(arr1)   // [1, 2, 3, 4, 6, 10, 22]</span><br><span class="line">let arr2 = arr.sort((a, b) =&gt;b-a)  </span><br><span class="line">console.log(arr2)  // [22, 10, 6, 4, 3, 2, 1]</span><br></pre></td></tr></table></figure>
+
+<h6 id="7-arr-reverse-将数组反转"><a href="#7-arr-reverse-将数组反转" class="headerlink" title="7. arr.reverse() 将数组反转"></a>7. arr.reverse() 将数组反转</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.reverse())    // [5,4,3,2,1]</span><br><span class="line">console.log(arr)    // [5,4,3,2,1]</span><br></pre></td></tr></table></figure>
+
+<h5 id="二、数组非变更方法如下："><a href="#二、数组非变更方法如下：" class="headerlink" title="二、数组非变更方法如下："></a>二、数组非变更方法如下：</h5><h6 id="1-arr-concat-连接两个数组"><a href="#1-arr-concat-连接两个数组" class="headerlink" title="1. arr.concat()连接两个数组"></a>1. arr.concat()连接两个数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.concat([1,2]))  // [1,2,3,4,5,1,2]</span><br><span class="line">console.log(arr)   // [1,2,3,4,5]</span><br></pre></td></tr></table></figure>
+<h6 id="2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值"><a href="#2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值" class="headerlink" title="2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值"></a>2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.slice(1,3))   // [2,3]</span><br></pre></td></tr></table></figure>
+<h5 id="三、覆盖方法"><a href="#三、覆盖方法" class="headerlink" title="三、覆盖方法"></a>三、覆盖方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;截取前3个&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">    sliceBtn()&#123;</span><br><span class="line">   // 2. 数组slice方法不会造成v-for更新</span><br><span class="line">   // slice不会改变原始数组</span><br><span class="line">   // this.arr.slice(0, 3)</span><br><span class="line"></span><br><span class="line">   // 解决v-for更新 - 覆盖原始数组</span><br><span class="line">   let newArr = this.arr.slice(0, 3)</span><br><span class="line">   this.arr = newArr</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
+
+<h5 id="四、this-set-方法"><a href="#四、this-set-方法" class="headerlink" title="四、this.$set()方法"></a>四、this.$set()方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;更新下标0的值&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">   sliceBtn()&#123;</span><br><span class="line">   // 更新某个值时，v-for是检测不到的</span><br><span class="line">   // this.arr[0] = 1000</span><br><span class="line">   </span><br><span class="line">   // 解决- this.$set()</span><br><span class="line">   // 参数1：更新目标结构</span><br><span class="line">   // 参数2：更新位置</span><br><span class="line">   // 参数3：更新值</span><br><span class="line">    this.$set(this.arr,0,1000)</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>v-for循环</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MySQL 数据库</title>
     <url>/2021/10/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
     <content><![CDATA[<h3 id="一、数据库基本概念"><a href="#一、数据库基本概念" class="headerlink" title="一、数据库基本概念"></a>一、数据库基本概念</h3><h4 id="1-什么是数据库"><a href="#1-什么是数据库" class="headerlink" title="1.什么是数据库"></a>1.什么是数据库</h4><ul>
@@ -123,68 +157,6 @@
       </tags>
   </entry>
   <entry>
-    <title>VUE中v-for更新检测</title>
-    <url>/2021/10/20/VUE%E4%B8%ADv-for%E6%9B%B4%E6%96%B0%E6%A3%80%E6%B5%8B/</url>
-    <content><![CDATA[<h5 id="口诀："><a href="#口诀：" class="headerlink" title="口诀："></a>口诀：</h5><ul>
-<li>数组变更方法，就会导致 v-for 更新，页面更新<span id="more"></span></li>
-<li>数组非变更方法：返回新数组，就不会导致 v-for 更新，更新值检测不到可采用覆盖或者 this.$set()</li>
-</ul>
-<h6 id="一、数组变更方法如下："><a href="#一、数组变更方法如下：" class="headerlink" title="一、数组变更方法如下："></a>一、数组变更方法如下：</h6><h6 id="1-arr-push-从后面添加元素"><a href="#1-arr-push-从后面添加元素" class="headerlink" title="1. arr.push()从后面添加元素"></a>1. arr.push()从后面添加元素</h6><pre><code>    arr.push(5)
-</code></pre>
-<h6 id="2-arr-pop-从后面删除元素，只能是一个"><a href="#2-arr-pop-从后面删除元素，只能是一个" class="headerlink" title="2. arr.pop()从后面删除元素，只能是一个"></a>2. arr.pop()从后面删除元素，只能是一个</h6><pre><code>    arr.pop()
-</code></pre>
-<h6 id="3-arr-shift-从前面删除元素，只能删除一个"><a href="#3-arr-shift-从前面删除元素，只能删除一个" class="headerlink" title="3. arr.shift()从前面删除元素，只能删除一个"></a>3. arr.shift()从前面删除元素，只能删除一个</h6><pre><code>    arr.shift()
-</code></pre>
-<h6 id="4-arr-unshift-从前面添加元素，返回值时添加完后数组长度"><a href="#4-arr-unshift-从前面添加元素，返回值时添加完后数组长度" class="headerlink" title="4. arr.unshift()从前面添加元素，返回值时添加完后数组长度"></a>4. arr.unshift()从前面添加元素，返回值时添加完后数组长度</h6><pre><code>    arr.unshift(8)
-</code></pre>
-<h6 id="5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数"><a href="#5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数" class="headerlink" title="5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数"></a>5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.splice(2,2))     //[3,4]</span><br><span class="line">console.log(arr)    // [1,2,5]</span><br></pre></td></tr></table></figure>
-
-<h6 id="6-arr-sort-将数组进行排序，返回值排好的数组"><a href="#6-arr-sort-将数组进行排序，返回值排好的数组" class="headerlink" title="6. arr.sort()将数组进行排序，返回值排好的数组"></a>6. arr.sort()将数组进行排序，返回值排好的数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [2,10,6,1,4,22,3]</span><br><span class="line">console.log(arr.sort())   // [1, 10, 2, 22, 3, 4, 6]</span><br><span class="line">let arr1 = arr.sort((a, b) =&gt;a - b)  </span><br><span class="line">console.log(arr1)   // [1, 2, 3, 4, 6, 10, 22]</span><br><span class="line">let arr2 = arr.sort((a, b) =&gt;b-a)  </span><br><span class="line">console.log(arr2)  // [22, 10, 6, 4, 3, 2, 1]</span><br></pre></td></tr></table></figure>
-
-<h6 id="7-arr-reverse-将数组反转"><a href="#7-arr-reverse-将数组反转" class="headerlink" title="7. arr.reverse() 将数组反转"></a>7. arr.reverse() 将数组反转</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.reverse())    // [5,4,3,2,1]</span><br><span class="line">console.log(arr)    // [5,4,3,2,1]</span><br></pre></td></tr></table></figure>
-
-<h5 id="二、数组非变更方法如下："><a href="#二、数组非变更方法如下：" class="headerlink" title="二、数组非变更方法如下："></a>二、数组非变更方法如下：</h5><h6 id="1-arr-concat-连接两个数组"><a href="#1-arr-concat-连接两个数组" class="headerlink" title="1. arr.concat()连接两个数组"></a>1. arr.concat()连接两个数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.concat([1,2]))  // [1,2,3,4,5,1,2]</span><br><span class="line">console.log(arr)   // [1,2,3,4,5]</span><br></pre></td></tr></table></figure>
-<h6 id="2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值"><a href="#2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值" class="headerlink" title="2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值"></a>2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.slice(1,3))   // [2,3]</span><br></pre></td></tr></table></figure>
-<h5 id="三、覆盖方法"><a href="#三、覆盖方法" class="headerlink" title="三、覆盖方法"></a>三、覆盖方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;截取前3个&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">    sliceBtn()&#123;</span><br><span class="line">   // 2. 数组slice方法不会造成v-for更新</span><br><span class="line">   // slice不会改变原始数组</span><br><span class="line">   // this.arr.slice(0, 3)</span><br><span class="line"></span><br><span class="line">   // 解决v-for更新 - 覆盖原始数组</span><br><span class="line">   let newArr = this.arr.slice(0, 3)</span><br><span class="line">   this.arr = newArr</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
-
-<h5 id="四、this-set-方法"><a href="#四、this-set-方法" class="headerlink" title="四、this.$set()方法"></a>四、this.$set()方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;更新下标0的值&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">   sliceBtn()&#123;</span><br><span class="line">   // 更新某个值时，v-for是检测不到的</span><br><span class="line">   // this.arr[0] = 1000</span><br><span class="line">   </span><br><span class="line">   // 解决- this.$set()</span><br><span class="line">   // 参数1：更新目标结构</span><br><span class="line">   // 参数2：更新位置</span><br><span class="line">   // 参数3：更新值</span><br><span class="line">    this.$set(this.arr,0,1000)</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
-        <tag>v-for循环</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>jsonp or cors 解决跨域</title>
-    <url>/2021/10/08/jsonp%E5%92%8Ccors%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F/</url>
-    <content><![CDATA[<p>JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。对于JSON大家应该是很了解了吧，不是很清楚的朋友可以去json.org上了解下，简单易懂。</p>
-<span id="more"></span>
-<h4 id="1-什么是跨域"><a href="#1-什么是跨域" class="headerlink" title="1.什么是跨域"></a>1.什么是跨域</h4><p>要了解跨域，先说说同源策略。同源策略是 Netscape 公司提出的一个著名的安全策略，所有支持 JavaScript 的浏览器都会使用这个策略。所谓同源是指，域名，协议，端口相同。当页面在执行一个脚本时会检查所访问的资源是否同源，如果非同源，那么在请求数据时，浏览器会在控制台中报一个异常。拒绝访问。</p>
-<h4 id="2-jsonp实现原理"><a href="#2-jsonp实现原理" class="headerlink" title="2.jsonp实现原理"></a>2.jsonp实现原理</h4><p>利用在页面创建<code>&lt;script&gt;</code>节点的方法向不同域提交HTTP，然后调用 html 页面函数，通过这项技术可以解决跨域提交Ajax请求的问题。<br>缺点：只支持 get 请求</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">app.get(&#x27;/json&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // 结构</span><br><span class="line">    const &#123;callback&#125; =req.query</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        name:&#x27;fs&#x27;,</span><br><span class="line">        age:12</span><br><span class="line">    &#125;</span><br><span class="line">    // 转为查询字符串</span><br><span class="line">    res.send(`$&#123;callback&#125;($&#123;JSON.stringify(obj)&#125;)`)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3001,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">   <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">res</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">       <span class="built_in">console</span>.log(res);</span></span><br><span class="line"><span class="javascript">   &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://localhost:3001/json?callback=fn&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="3-cors实现原理"><a href="#3-cors实现原理" class="headerlink" title="3.cors实现原理"></a>3.cors实现原理</h4><p>cors 是 Express 的一个第三方中间件.通过安装和配置 cors 中间件，可以很方便解决跨域问题。</p>
-<ul>
-<li>使用步骤<ul>
-<li>安装中间件：<code>npm i cors</code></li>
-<li>导入中间件：`const cors = require(‘cors’)</li>
-<li>配置中间件：在路由之前调用<code>app.use(cors())</code></li>
-</ul>
-</li>
-<li>案例代码<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入 express 模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line"></span><br><span class="line">// 创建 express 的服务器实例</span><br><span class="line">const app = express()</span><br><span class="line"></span><br><span class="line">// 导入中间件</span><br><span class="line">const cors = require(&#x27;cors&#x27;)</span><br><span class="line">// 配置中间件</span><br><span class="line">app.use(cors())</span><br><span class="line"></span><br><span class="line">// 配置解析表单数据的中间件</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;))</span><br><span class="line"></span><br><span class="line">// 导入路由模块</span><br><span class="line">const router = require(&#x27;./020-apiRouter&#x27;)</span><br><span class="line">// 把路由模块，注册到 app 上</span><br><span class="line">app.use(&#x27;/api&#x27;, router)</span><br><span class="line"></span><br><span class="line">// 调用 app.listen 方法，指定端口号并启动 web 服务器</span><br><span class="line">app.listen(3000, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;running……&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>jsonp</tag>
-        <tag>跨域</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>vue基本指令与脚手架基本配置</title>
     <url>/2021/10/20/vue%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4%E4%B8%8E%E8%84%9A%E6%89%8B%E6%9E%B6%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h5 id="一、脚手架-vue-cli-创建项目启动服务"><a href="#一、脚手架-vue-cli-创建项目启动服务" class="headerlink" title="一、脚手架(@vue/cli)创建项目启动服务"></a>一、脚手架(@vue/cli)创建项目启动服务</h5><h6 id="1、创建项目"><a href="#1、创建项目" class="headerlink" title="1、创建项目"></a>1、创建项目</h6><span id="more"></span>
@@ -247,6 +219,34 @@
       <tags>
         <tag>vue 指令</tag>
         <tag>脚手架</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jsonp or cors 解决跨域</title>
+    <url>/2021/10/08/jsonp%E5%92%8Ccors%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F/</url>
+    <content><![CDATA[<p>JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。对于JSON大家应该是很了解了吧，不是很清楚的朋友可以去json.org上了解下，简单易懂。</p>
+<span id="more"></span>
+<h4 id="1-什么是跨域"><a href="#1-什么是跨域" class="headerlink" title="1.什么是跨域"></a>1.什么是跨域</h4><p>要了解跨域，先说说同源策略。同源策略是 Netscape 公司提出的一个著名的安全策略，所有支持 JavaScript 的浏览器都会使用这个策略。所谓同源是指，域名，协议，端口相同。当页面在执行一个脚本时会检查所访问的资源是否同源，如果非同源，那么在请求数据时，浏览器会在控制台中报一个异常。拒绝访问。</p>
+<h4 id="2-jsonp实现原理"><a href="#2-jsonp实现原理" class="headerlink" title="2.jsonp实现原理"></a>2.jsonp实现原理</h4><p>利用在页面创建<code>&lt;script&gt;</code>节点的方法向不同域提交HTTP，然后调用 html 页面函数，通过这项技术可以解决跨域提交Ajax请求的问题。<br>缺点：只支持 get 请求</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">app.get(&#x27;/json&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // 结构</span><br><span class="line">    const &#123;callback&#125; =req.query</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        name:&#x27;fs&#x27;,</span><br><span class="line">        age:12</span><br><span class="line">    &#125;</span><br><span class="line">    // 转为查询字符串</span><br><span class="line">    res.send(`$&#123;callback&#125;($&#123;JSON.stringify(obj)&#125;)`)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3001,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">   <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">res</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">       <span class="built_in">console</span>.log(res);</span></span><br><span class="line"><span class="javascript">   &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://localhost:3001/json?callback=fn&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="3-cors实现原理"><a href="#3-cors实现原理" class="headerlink" title="3.cors实现原理"></a>3.cors实现原理</h4><p>cors 是 Express 的一个第三方中间件.通过安装和配置 cors 中间件，可以很方便解决跨域问题。</p>
+<ul>
+<li>使用步骤<ul>
+<li>安装中间件：<code>npm i cors</code></li>
+<li>导入中间件：`const cors = require(‘cors’)</li>
+<li>配置中间件：在路由之前调用<code>app.use(cors())</code></li>
+</ul>
+</li>
+<li>案例代码<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入 express 模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line"></span><br><span class="line">// 创建 express 的服务器实例</span><br><span class="line">const app = express()</span><br><span class="line"></span><br><span class="line">// 导入中间件</span><br><span class="line">const cors = require(&#x27;cors&#x27;)</span><br><span class="line">// 配置中间件</span><br><span class="line">app.use(cors())</span><br><span class="line"></span><br><span class="line">// 配置解析表单数据的中间件</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;))</span><br><span class="line"></span><br><span class="line">// 导入路由模块</span><br><span class="line">const router = require(&#x27;./020-apiRouter&#x27;)</span><br><span class="line">// 把路由模块，注册到 app 上</span><br><span class="line">app.use(&#x27;/api&#x27;, router)</span><br><span class="line"></span><br><span class="line">// 调用 app.listen 方法，指定端口号并启动 web 服务器</span><br><span class="line">app.listen(3000, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;running……&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>jsonp</tag>
+        <tag>跨域</tag>
       </tags>
   </entry>
   <entry>
@@ -316,6 +316,92 @@
       <tags>
         <tag>node</tag>
         <tag>中间件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数组遍历方法</title>
+    <url>/2021/10/20/%E6%95%B0%E7%BB%84%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h4 id="reduce-求数组和"><a href="#reduce-求数组和" class="headerlink" title="reduce 求数组和"></a>reduce 求数组和</h4><ol>
+<li><p>语法：</p>
+<span id="more"></span>
+<pre><code> arr.reduce(function(prev,cur,index,arr)&#123;
+ ...
+ &#125;, init);
+</code></pre>
+</li>
+<li><p>回调里面有4个参数：</p>
+<ul>
+<li>prev 表示上一次调用回调时的返回值，或者初始值 init;</li>
+<li>cur 表示当前正在处理的数组元素；</li>
+<li>index 表示当前正在处理的数组元素的索引，若提供 init 值，则索引为0，否则索引为1；</li>
+<li>arr 表示原数组；</li>
+<li>init 表示初始值。</li>
+</ul>
+</li>
+<li><p>传入初始值<br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017194223.png"><br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017194227.png"></p>
+</li>
+<li><p>不传初始值<br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017194231.png"><br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017194233.png" alt="4"></p>
+</li>
+</ol>
+<h4 id="jquery-遍历数组"><a href="#jquery-遍历数组" class="headerlink" title="jquery 遍历数组"></a>jquery 遍历数组</h4><ol>
+<li>只能运用于<code>jquery</code>语法中，i是数组的索引，x是数组的值.<br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017195814.png"></li>
+</ol>
+<h4 id="forEach-遍历数组"><a href="#forEach-遍历数组" class="headerlink" title="forEach 遍历数组"></a>forEach 遍历数组</h4><ol>
+<li>无return  即使有return，也不会返回任何值，并且会影响原来的数组</li>
+<li>有三个默认值：</li>
+</ol>
+<ul>
+<li>第一个 当前数组值</li>
+<li>第二个 索引</li>
+<li>第三个 就是原数组<br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017195818.png" alt="57"><br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017195821.png" alt="07"></li>
+</ul>
+<h4 id="filter-过滤数组"><a href="#filter-过滤数组" class="headerlink" title="filter 过滤数组"></a>filter 过滤数组</h4><ol>
+<li><p>过滤数组，返回一个满足要求的数组</p>
+</li>
+<li><p>有两个默认值</p>
+<ul>
+<li>第一个当前索引值</li>
+<li>第二个索引</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">let arr1 = arr.filter( (value, index) =&gt; value&lt;3)</span><br><span class="line">console.log(arr1)    // [1, 2]</span><br></pre></td></tr></table></figure>
+<h4 id="map-遍历数组"><a href="#map-遍历数组" class="headerlink" title="map 遍历数组"></a>map 遍历数组</h4></li>
+<li><p>映射数组(遍历数组),有return 返回一个新数组</p>
+</li>
+<li><p>有三个默认值：</p>
+<ul>
+<li>第一个 当前数组值</li>
+<li>第二个 索引</li>
+<li>第三个 就是原数组</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var res1 = arr1.map((item,index,arr)=&gt;&#123; </span><br><span class="line">item = item * 3; </span><br><span class="line"> return item; </span><br><span class="line"> &#125;)</span><br><span class="line">console.log(res1); // [3,6,9,12]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="every-判断数组全满足条件"><a href="#every-判断数组全满足条件" class="headerlink" title="every 判断数组全满足条件"></a>every 判断数组全满足条件</h4><ol>
+<li><p>依据判断条件，数组的元素是否全满足，若满足则返回ture</p>
+</li>
+<li><p>有两个默认值：</p>
+<ul>
+<li>第一个当前索引值</li>
+<li>第二个索引<figure class="highlight plaintext"><figcaption><span>arr </span></figcaption><table><tr><td class="code"><pre><span class="line">let arr1 = arr.every( (value, index) =&gt;value&lt;3)</span><br><span class="line">console.log(arr1) // false</span><br><span class="line">let arr2 = arr.every( (value, index) =&gt;value&lt;6)</span><br><span class="line">console.log(arr2)  // true</span><br></pre></td></tr></table></figure>
+<h4 id="some-遍历判断数组满足条件"><a href="#some-遍历判断数组满足条件" class="headerlink" title="some 遍历判断数组满足条件"></a>some 遍历判断数组满足条件</h4></li>
+</ul>
+</li>
+<li><p>依据判断条件，数组的元素是否有一个满足，若有一个满足则返回ture</p>
+</li>
+<li><p>有两个默认值：</p>
+<ul>
+<li>第一个当前索引值</li>
+<li>第二个索引</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [1,2,3,4,5]</span><br><span class="line">let arr1 = arr.some( (value, index) =&gt;value&lt;3)</span><br><span class="line">console.log(arr1) // true</span><br><span class="line">let arr2 = arr.some( (value, index) =&gt;value&gt;6)</span><br><span class="line">console.log(arr2) // false</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>Ps : Array.from() 将伪数组变成数组，就是只要有length的就可以转成数组</p>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let str = &#x27;12345&#x27;</span><br><span class="line">console.log(Array.from(str))    // [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;]</span><br><span class="line">let obj = &#123;0:&#x27;a&#x27;,1:&#x27;b&#x27;,length:2&#125;</span><br><span class="line">console.log(Array.from(obj))   // [&quot;a&quot;, &quot;b&quot;]</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+        <tag>数组遍历</tag>
       </tags>
   </entry>
   <entry>
@@ -440,92 +526,6 @@
       <tags>
         <tag>搭建博客</tag>
         <tag>kexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数组遍历方法</title>
-    <url>/2021/10/20/%E6%95%B0%E7%BB%84%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h4 id="reduce-求数组和"><a href="#reduce-求数组和" class="headerlink" title="reduce 求数组和"></a>reduce 求数组和</h4><ol>
-<li><p>语法：</p>
-<span id="more"></span>
-<pre><code> arr.reduce(function(prev,cur,index,arr)&#123;
- ...
- &#125;, init);
-</code></pre>
-</li>
-<li><p>回调里面有4个参数：</p>
-<ul>
-<li>prev 表示上一次调用回调时的返回值，或者初始值 init;</li>
-<li>cur 表示当前正在处理的数组元素；</li>
-<li>index 表示当前正在处理的数组元素的索引，若提供 init 值，则索引为0，否则索引为1；</li>
-<li>arr 表示原数组；</li>
-<li>init 表示初始值。</li>
-</ul>
-</li>
-<li><p>传入初始值<br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017194223.png"><br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017194227.png"></p>
-</li>
-<li><p>不传初始值<br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017194231.png"><br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017194233.png" alt="4"></p>
-</li>
-</ol>
-<h4 id="jquery-遍历数组"><a href="#jquery-遍历数组" class="headerlink" title="jquery 遍历数组"></a>jquery 遍历数组</h4><ol>
-<li>只能运用于<code>jquery</code>语法中，i是数组的索引，x是数组的值.<br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017195814.png"></li>
-</ol>
-<h4 id="forEach-遍历数组"><a href="#forEach-遍历数组" class="headerlink" title="forEach 遍历数组"></a>forEach 遍历数组</h4><ol>
-<li>无return  即使有return，也不会返回任何值，并且会影响原来的数组</li>
-<li>有三个默认值：</li>
-</ol>
-<ul>
-<li>第一个 当前数组值</li>
-<li>第二个 索引</li>
-<li>第三个 就是原数组<br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017195818.png" alt="57"><br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211017195821.png" alt="07"></li>
-</ul>
-<h4 id="filter-过滤数组"><a href="#filter-过滤数组" class="headerlink" title="filter 过滤数组"></a>filter 过滤数组</h4><ol>
-<li><p>过滤数组，返回一个满足要求的数组</p>
-</li>
-<li><p>有两个默认值</p>
-<ul>
-<li>第一个当前索引值</li>
-<li>第二个索引</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">let arr1 = arr.filter( (value, index) =&gt; value&lt;3)</span><br><span class="line">console.log(arr1)    // [1, 2]</span><br></pre></td></tr></table></figure>
-<h4 id="map-遍历数组"><a href="#map-遍历数组" class="headerlink" title="map 遍历数组"></a>map 遍历数组</h4></li>
-<li><p>映射数组(遍历数组),有return 返回一个新数组</p>
-</li>
-<li><p>有三个默认值：</p>
-<ul>
-<li>第一个 当前数组值</li>
-<li>第二个 索引</li>
-<li>第三个 就是原数组</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var res1 = arr1.map((item,index,arr)=&gt;&#123; </span><br><span class="line">item = item * 3; </span><br><span class="line"> return item; </span><br><span class="line"> &#125;)</span><br><span class="line">console.log(res1); // [3,6,9,12]</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="every-判断数组全满足条件"><a href="#every-判断数组全满足条件" class="headerlink" title="every 判断数组全满足条件"></a>every 判断数组全满足条件</h4><ol>
-<li><p>依据判断条件，数组的元素是否全满足，若满足则返回ture</p>
-</li>
-<li><p>有两个默认值：</p>
-<ul>
-<li>第一个当前索引值</li>
-<li>第二个索引<figure class="highlight plaintext"><figcaption><span>arr </span></figcaption><table><tr><td class="code"><pre><span class="line">let arr1 = arr.every( (value, index) =&gt;value&lt;3)</span><br><span class="line">console.log(arr1) // false</span><br><span class="line">let arr2 = arr.every( (value, index) =&gt;value&lt;6)</span><br><span class="line">console.log(arr2)  // true</span><br></pre></td></tr></table></figure>
-<h4 id="some-遍历判断数组满足条件"><a href="#some-遍历判断数组满足条件" class="headerlink" title="some 遍历判断数组满足条件"></a>some 遍历判断数组满足条件</h4></li>
-</ul>
-</li>
-<li><p>依据判断条件，数组的元素是否有一个满足，若有一个满足则返回ture</p>
-</li>
-<li><p>有两个默认值：</p>
-<ul>
-<li>第一个当前索引值</li>
-<li>第二个索引</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [1,2,3,4,5]</span><br><span class="line">let arr1 = arr.some( (value, index) =&gt;value&lt;3)</span><br><span class="line">console.log(arr1) // true</span><br><span class="line">let arr2 = arr.some( (value, index) =&gt;value&gt;6)</span><br><span class="line">console.log(arr2) // false</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>Ps : Array.from() 将伪数组变成数组，就是只要有length的就可以转成数组</p>
-   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let str = &#x27;12345&#x27;</span><br><span class="line">console.log(Array.from(str))    // [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;]</span><br><span class="line">let obj = &#123;0:&#x27;a&#x27;,1:&#x27;b&#x27;,length:2&#125;</span><br><span class="line">console.log(Array.from(obj))   // [&quot;a&quot;, &quot;b&quot;]</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>js</tag>
-        <tag>数组遍历</tag>
       </tags>
   </entry>
 </search>
