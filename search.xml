@@ -1,40 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>VUE中v-for更新检测</title>
-    <url>/2021/10/20/VUE%E4%B8%ADv-for%E6%9B%B4%E6%96%B0%E6%A3%80%E6%B5%8B/</url>
-    <content><![CDATA[<h5 id="口诀："><a href="#口诀：" class="headerlink" title="口诀："></a>口诀：</h5><ul>
-<li>数组变更方法，就会导致 v-for 更新，页面更新<span id="more"></span></li>
-<li>数组非变更方法：返回新数组，就不会导致 v-for 更新，更新值检测不到可采用覆盖或者 this.$set()</li>
-</ul>
-<h6 id="一、数组变更方法如下："><a href="#一、数组变更方法如下：" class="headerlink" title="一、数组变更方法如下："></a>一、数组变更方法如下：</h6><h6 id="1-arr-push-从后面添加元素"><a href="#1-arr-push-从后面添加元素" class="headerlink" title="1. arr.push()从后面添加元素"></a>1. arr.push()从后面添加元素</h6><pre><code>    arr.push(5)
-</code></pre>
-<h6 id="2-arr-pop-从后面删除元素，只能是一个"><a href="#2-arr-pop-从后面删除元素，只能是一个" class="headerlink" title="2. arr.pop()从后面删除元素，只能是一个"></a>2. arr.pop()从后面删除元素，只能是一个</h6><pre><code>    arr.pop()
-</code></pre>
-<h6 id="3-arr-shift-从前面删除元素，只能删除一个"><a href="#3-arr-shift-从前面删除元素，只能删除一个" class="headerlink" title="3. arr.shift()从前面删除元素，只能删除一个"></a>3. arr.shift()从前面删除元素，只能删除一个</h6><pre><code>    arr.shift()
-</code></pre>
-<h6 id="4-arr-unshift-从前面添加元素，返回值时添加完后数组长度"><a href="#4-arr-unshift-从前面添加元素，返回值时添加完后数组长度" class="headerlink" title="4. arr.unshift()从前面添加元素，返回值时添加完后数组长度"></a>4. arr.unshift()从前面添加元素，返回值时添加完后数组长度</h6><pre><code>    arr.unshift(8)
-</code></pre>
-<h6 id="5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数"><a href="#5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数" class="headerlink" title="5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数"></a>5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.splice(2,2))     //[3,4]</span><br><span class="line">console.log(arr)    // [1,2,5]</span><br></pre></td></tr></table></figure>
-
-<h6 id="6-arr-sort-将数组进行排序，返回值排好的数组"><a href="#6-arr-sort-将数组进行排序，返回值排好的数组" class="headerlink" title="6. arr.sort()将数组进行排序，返回值排好的数组"></a>6. arr.sort()将数组进行排序，返回值排好的数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [2,10,6,1,4,22,3]</span><br><span class="line">console.log(arr.sort())   // [1, 10, 2, 22, 3, 4, 6]</span><br><span class="line">let arr1 = arr.sort((a, b) =&gt;a - b)  </span><br><span class="line">console.log(arr1)   // [1, 2, 3, 4, 6, 10, 22]</span><br><span class="line">let arr2 = arr.sort((a, b) =&gt;b-a)  </span><br><span class="line">console.log(arr2)  // [22, 10, 6, 4, 3, 2, 1]</span><br></pre></td></tr></table></figure>
-
-<h6 id="7-arr-reverse-将数组反转"><a href="#7-arr-reverse-将数组反转" class="headerlink" title="7. arr.reverse() 将数组反转"></a>7. arr.reverse() 将数组反转</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.reverse())    // [5,4,3,2,1]</span><br><span class="line">console.log(arr)    // [5,4,3,2,1]</span><br></pre></td></tr></table></figure>
-
-<h5 id="二、数组非变更方法如下："><a href="#二、数组非变更方法如下：" class="headerlink" title="二、数组非变更方法如下："></a>二、数组非变更方法如下：</h5><h6 id="1-arr-concat-连接两个数组"><a href="#1-arr-concat-连接两个数组" class="headerlink" title="1. arr.concat()连接两个数组"></a>1. arr.concat()连接两个数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.concat([1,2]))  // [1,2,3,4,5,1,2]</span><br><span class="line">console.log(arr)   // [1,2,3,4,5]</span><br></pre></td></tr></table></figure>
-<h6 id="2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值"><a href="#2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值" class="headerlink" title="2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值"></a>2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.slice(1,3))   // [2,3]</span><br></pre></td></tr></table></figure>
-<h5 id="三、覆盖方法"><a href="#三、覆盖方法" class="headerlink" title="三、覆盖方法"></a>三、覆盖方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;截取前3个&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">    sliceBtn()&#123;</span><br><span class="line">   // 2. 数组slice方法不会造成v-for更新</span><br><span class="line">   // slice不会改变原始数组</span><br><span class="line">   // this.arr.slice(0, 3)</span><br><span class="line"></span><br><span class="line">   // 解决v-for更新 - 覆盖原始数组</span><br><span class="line">   let newArr = this.arr.slice(0, 3)</span><br><span class="line">   this.arr = newArr</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
-
-<h5 id="四、this-set-方法"><a href="#四、this-set-方法" class="headerlink" title="四、this.$set()方法"></a>四、this.$set()方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;更新下标0的值&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">   sliceBtn()&#123;</span><br><span class="line">   // 更新某个值时，v-for是检测不到的</span><br><span class="line">   // this.arr[0] = 1000</span><br><span class="line">   </span><br><span class="line">   // 解决- this.$set()</span><br><span class="line">   // 参数1：更新目标结构</span><br><span class="line">   // 参数2：更新位置</span><br><span class="line">   // 参数3：更新值</span><br><span class="line">    this.$set(this.arr,0,1000)</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
-        <tag>v-for循环</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MySQL 数据库</title>
     <url>/2021/10/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
     <content><![CDATA[<h3 id="一、数据库基本概念"><a href="#一、数据库基本概念" class="headerlink" title="一、数据库基本概念"></a>一、数据库基本概念</h3><h4 id="1-什么是数据库"><a href="#1-什么是数据库" class="headerlink" title="1.什么是数据库"></a>1.什么是数据库</h4><ul>
@@ -157,6 +123,40 @@
       </tags>
   </entry>
   <entry>
+    <title>VUE中v-for更新检测</title>
+    <url>/2021/10/20/VUE%E4%B8%ADv-for%E6%9B%B4%E6%96%B0%E6%A3%80%E6%B5%8B/</url>
+    <content><![CDATA[<h5 id="口诀："><a href="#口诀：" class="headerlink" title="口诀："></a>口诀：</h5><ul>
+<li>数组变更方法，就会导致 v-for 更新，页面更新<span id="more"></span></li>
+<li>数组非变更方法：返回新数组，就不会导致 v-for 更新，更新值检测不到可采用覆盖或者 this.$set()</li>
+</ul>
+<h6 id="一、数组变更方法如下："><a href="#一、数组变更方法如下：" class="headerlink" title="一、数组变更方法如下："></a>一、数组变更方法如下：</h6><h6 id="1-arr-push-从后面添加元素"><a href="#1-arr-push-从后面添加元素" class="headerlink" title="1. arr.push()从后面添加元素"></a>1. arr.push()从后面添加元素</h6><pre><code>    arr.push(5)
+</code></pre>
+<h6 id="2-arr-pop-从后面删除元素，只能是一个"><a href="#2-arr-pop-从后面删除元素，只能是一个" class="headerlink" title="2. arr.pop()从后面删除元素，只能是一个"></a>2. arr.pop()从后面删除元素，只能是一个</h6><pre><code>    arr.pop()
+</code></pre>
+<h6 id="3-arr-shift-从前面删除元素，只能删除一个"><a href="#3-arr-shift-从前面删除元素，只能删除一个" class="headerlink" title="3. arr.shift()从前面删除元素，只能删除一个"></a>3. arr.shift()从前面删除元素，只能删除一个</h6><pre><code>    arr.shift()
+</code></pre>
+<h6 id="4-arr-unshift-从前面添加元素，返回值时添加完后数组长度"><a href="#4-arr-unshift-从前面添加元素，返回值时添加完后数组长度" class="headerlink" title="4. arr.unshift()从前面添加元素，返回值时添加完后数组长度"></a>4. arr.unshift()从前面添加元素，返回值时添加完后数组长度</h6><pre><code>    arr.unshift(8)
+</code></pre>
+<h6 id="5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数"><a href="#5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数" class="headerlink" title="5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数"></a>5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.splice(2,2))     //[3,4]</span><br><span class="line">console.log(arr)    // [1,2,5]</span><br></pre></td></tr></table></figure>
+
+<h6 id="6-arr-sort-将数组进行排序，返回值排好的数组"><a href="#6-arr-sort-将数组进行排序，返回值排好的数组" class="headerlink" title="6. arr.sort()将数组进行排序，返回值排好的数组"></a>6. arr.sort()将数组进行排序，返回值排好的数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [2,10,6,1,4,22,3]</span><br><span class="line">console.log(arr.sort())   // [1, 10, 2, 22, 3, 4, 6]</span><br><span class="line">let arr1 = arr.sort((a, b) =&gt;a - b)  </span><br><span class="line">console.log(arr1)   // [1, 2, 3, 4, 6, 10, 22]</span><br><span class="line">let arr2 = arr.sort((a, b) =&gt;b-a)  </span><br><span class="line">console.log(arr2)  // [22, 10, 6, 4, 3, 2, 1]</span><br></pre></td></tr></table></figure>
+
+<h6 id="7-arr-reverse-将数组反转"><a href="#7-arr-reverse-将数组反转" class="headerlink" title="7. arr.reverse() 将数组反转"></a>7. arr.reverse() 将数组反转</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.reverse())    // [5,4,3,2,1]</span><br><span class="line">console.log(arr)    // [5,4,3,2,1]</span><br></pre></td></tr></table></figure>
+
+<h5 id="二、数组非变更方法如下："><a href="#二、数组非变更方法如下：" class="headerlink" title="二、数组非变更方法如下："></a>二、数组非变更方法如下：</h5><h6 id="1-arr-concat-连接两个数组"><a href="#1-arr-concat-连接两个数组" class="headerlink" title="1. arr.concat()连接两个数组"></a>1. arr.concat()连接两个数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.concat([1,2]))  // [1,2,3,4,5,1,2]</span><br><span class="line">console.log(arr)   // [1,2,3,4,5]</span><br></pre></td></tr></table></figure>
+<h6 id="2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值"><a href="#2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值" class="headerlink" title="2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值"></a>2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.slice(1,3))   // [2,3]</span><br></pre></td></tr></table></figure>
+<h5 id="三、覆盖方法"><a href="#三、覆盖方法" class="headerlink" title="三、覆盖方法"></a>三、覆盖方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;截取前3个&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">    sliceBtn()&#123;</span><br><span class="line">   // 2. 数组slice方法不会造成v-for更新</span><br><span class="line">   // slice不会改变原始数组</span><br><span class="line">   // this.arr.slice(0, 3)</span><br><span class="line"></span><br><span class="line">   // 解决v-for更新 - 覆盖原始数组</span><br><span class="line">   let newArr = this.arr.slice(0, 3)</span><br><span class="line">   this.arr = newArr</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
+
+<h5 id="四、this-set-方法"><a href="#四、this-set-方法" class="headerlink" title="四、this.$set()方法"></a>四、this.$set()方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;更新下标0的值&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">   sliceBtn()&#123;</span><br><span class="line">   // 更新某个值时，v-for是检测不到的</span><br><span class="line">   // this.arr[0] = 1000</span><br><span class="line">   </span><br><span class="line">   // 解决- this.$set()</span><br><span class="line">   // 参数1：更新目标结构</span><br><span class="line">   // 参数2：更新位置</span><br><span class="line">   // 参数3：更新值</span><br><span class="line">    this.$set(this.arr,0,1000)</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>v-for循环</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>jsonp or cors 解决跨域</title>
     <url>/2021/10/08/jsonp%E5%92%8Ccors%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F/</url>
     <content><![CDATA[<p>JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。对于JSON大家应该是很了解了吧，不是很清楚的朋友可以去json.org上了解下，简单易懂。</p>
@@ -182,6 +182,71 @@
       <tags>
         <tag>jsonp</tag>
         <tag>跨域</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue基本指令与脚手架基本配置</title>
+    <url>/2021/10/20/vue%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4%E4%B8%8E%E8%84%9A%E6%89%8B%E6%9E%B6%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h5 id="一、脚手架-vue-cli-创建项目启动服务"><a href="#一、脚手架-vue-cli-创建项目启动服务" class="headerlink" title="一、脚手架(@vue/cli)创建项目启动服务"></a>一、脚手架(@vue/cli)创建项目启动服务</h5><h6 id="1、创建项目"><a href="#1、创建项目" class="headerlink" title="1、创建项目"></a>1、创建项目</h6><span id="more"></span>
+
+<pre><code>    vue create 项目名字
+</code></pre>
+<h6 id="2、启动项目"><a href="#2、启动项目" class="headerlink" title="2、启动项目"></a>2、启动项目</h6><p>   进入项目根目录，运行以下命令</p>
+<pre><code>    yarn serve
+</code></pre>
+<h6 id="3、脚手架目录代码分析"><a href="#3、脚手架目录代码分析" class="headerlink" title="3、脚手架目录代码分析"></a>3、脚手架目录代码分析</h6>   <figure class="highlight plaintext"><figcaption><span># 项目目录</span></figcaption><table><tr><td class="code"><pre><span class="line">   ├── node_modules # 项目依赖的第三方包</span><br><span class="line">   ├── public       # 静态文件目录</span><br><span class="line">     ├── favicon.ico# 浏览器小图标</span><br><span class="line">     └── index.html # 单页面的html文件(网页浏览的是它)</span><br><span class="line">   ├── src          # 业务文件夹</span><br><span class="line">     ├── assets     # 静态资源</span><br><span class="line">       └── logo.png # vue的logo图片</span><br><span class="line">     ├── components # 组件目录</span><br><span class="line">       └── HelloWorld.vue # 欢迎页面vue代码文件 </span><br><span class="line">     ├── App.vue    # 整个应用的根组件</span><br><span class="line">     └── main.js    # 入口js文件</span><br><span class="line">   ├── .gitignore   # git提交忽略配置</span><br><span class="line">   ├── babel.config.js  # babel配置</span><br><span class="line">   ├── package.json  # 依赖包列表</span><br><span class="line">   |—— vue.config.js # 覆盖 webpack 的配置,文件自己添加</span><br><span class="line">   ├── README.md    # 项目说明</span><br><span class="line">└── yarn.lock    # 项目包版本锁定和缓存地址</span><br></pre></td></tr></table></figure>
+<h6 id="4、主要文件及含义"><a href="#4、主要文件及含义" class="headerlink" title="4、主要文件及含义"></a>4、主要文件及含义</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node_modules下都是下载的第三方包</span><br><span class="line">public/index.html – 浏览器运行的网页</span><br><span class="line">src/main.js – webpack打包的入口文件</span><br><span class="line">src/App.vue – vue项目入口页面</span><br><span class="line">package.json – 依赖包列表文件</span><br><span class="line">vue.config.js # 覆盖 webpack 的配置,文件自己添加</span><br></pre></td></tr></table></figure>
+
+<h6 id="5、脚手架自定义配置"><a href="#5、脚手架自定义配置" class="headerlink" title="5、脚手架自定义配置"></a>5、脚手架自定义配置</h6><ul>
+<li><code>src</code> 并列新建 <code>vue.config.js</code> </li>
+</ul>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> /* 覆盖webpack的配置 */</span><br><span class="line">module.exports = &#123;</span><br><span class="line">devServer: &#123; // 自定义服务配置</span><br><span class="line">  open: true, // 自动打开浏览器</span><br><span class="line">  port: 3000</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="6、关闭代码检查工具"><a href="#6、关闭代码检查工具" class="headerlink" title="6、关闭代码检查工具"></a>6、关闭代码检查工具</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">    // ...其他配置</span><br><span class="line">    lintOnSave: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="7、打包压缩配置"><a href="#7、打包压缩配置" class="headerlink" title="7、打包压缩配置"></a>7、打包压缩配置</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> module.exports = &#123;</span><br><span class="line">    // ...其他配置</span><br><span class="line">    mode: &#x27;development&#x27; // 开发环境, 不压缩, 不混淆 打包速度非常快,不设置默认压缩</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="二、Vue指令"><a href="#二、Vue指令" class="headerlink" title="二、Vue指令"></a>二、Vue指令</h5><h6 id="1、插值表达式"><a href="#1、插值表达式" class="headerlink" title="1、插值表达式"></a>1、插值表达式</h6><p>   语法：</p>
+<pre><code>    &lt;h1&gt;&#123;&#123; msg &#125;&#125;&lt;/h1&gt;
+</code></pre>
+<h6 id="2-v-bind-属性动态赋值"><a href="#2-v-bind-属性动态赋值" class="headerlink" title="2. v-bind 属性动态赋值"></a>2. v-bind 属性动态赋值</h6><p>   语法：<code>v-bind: 属性名 = &#39;变量&#39;</code><br>   简写：<code>:属性名 = &#39;vue 变量&#39;</code></p>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- vue指令-v-bind属性动态赋值 --&gt;</span><br><span class="line">&lt;a v-bind:href=&quot;url&quot;&gt;我是a标签&lt;/a&gt;</span><br><span class="line">&lt;img :src=&quot;imgSrc&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h6 id="3-v-on-事件指令"><a href="#3-v-on-事件指令" class="headerlink" title="3. v-on 事件指令"></a>3. v-on 事件指令</h6><p>   语法：v-on: 事件名 = ‘少量代码/函数/函数(实参)’<br>   简写：@事件名 = ‘少量代码/函数/函数(实参)’</p>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;button v-on:click=&quot;count = count + 1&quot;&gt;增加1&lt;/button&gt;</span><br><span class="line">&lt;button @click=&quot;addFn&quot;&gt;增加1个&lt;/button&gt;</span><br><span class="line">&lt;button v-on:click=&quot;addCountFn(5)&quot;&gt;一次加5件&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+<h6 id="4、-v-on-事件对象"><a href="#4、-v-on-事件对象" class="headerlink" title="4、 v-on 事件对象"></a>4、 v-on 事件对象</h6><p>   无传参：通过形参直接接收<br>   有传参：通过固定值 <code>$event</code> 指代事件对象传给事件处理函数</p>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a @click=&quot;two(10, $event)&quot; href=&quot;http://www.baidu.com&quot;&gt;阻止去百度&lt;/a&gt;</span><br><span class="line"></span><br><span class="line"> two(num, e)&#123;  // num = 10 ; e = 事件对象 a</span><br><span class="line">   e.preventDefault()</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="5、-v-on-修饰符"><a href="#5、-v-on-修饰符" class="headerlink" title="5、 v-on 修饰符"></a>5、 v-on 修饰符</h6><p>   语法：@事件名.修饰符 = ‘methods 里的函数’</p>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.stop - 阻止自身而引起事件冒泡</span><br><span class="line">.prevent - 阻止默认行为</span><br><span class="line">.once - 程序运行期间, 只触发一次事件处理函数</span><br><span class="line">.capture - 有3个div事件冒泡会3-2-1，如果给div2加上关键字顺序为2-3-1</span><br><span class="line">.self 忽略其他元素冒泡或者捕获事件，只局限于自身</span><br><span class="line">-------------------------------------</span><br><span class="line">&lt;button @click.stop=&quot;btn&quot;&gt;.stop阻止事件冒泡&lt;/button&gt;  </span><br><span class="line">&lt;a href=&quot;http://www.baidu.com&quot; @click.prevent=&quot;btn&quot;&gt;.prevent阻止默认行为&lt;/a&gt; </span><br><span class="line"> &lt;button @click.once=&quot;btn&quot;&gt;.once程序运行期间, 只触发一次事件处理函数&lt;/button&gt;  </span><br></pre></td></tr></table></figure>
+
+<h6 id="6、-v-on-按键修饰符·"><a href="#6、-v-on-按键修饰符·" class="headerlink" title="6、 v-on 按键修饰符·"></a>6、 v-on 按键修饰符·</h6><p>   语法：@keyup.按键名字 /按键数字编码</p>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">         &lt;input type=&quot;text&quot; @keydown.enter=&quot;enterFn&quot;&gt; // 按下了回车键</span><br><span class="line"></span><br><span class="line">   更多按键参考 [vue 官网](https://cn.vuejs.org/v2/guide/events.html#%E6%8C%89%E9%94%AE%E7%A0%81)</span><br><span class="line">###### 7、系统修饰符</span><br><span class="line"></span><br><span class="line">   使用以下修饰符，对应按键处于按下状态才会触发鼠标或者键盘监听</span><br></pre></td></tr></table></figure>
+<p>   修饰符：.ctrl  .alt  .shift  .meta</p>
+<pre><code>&lt;button @click.shift=&#39;btnf&#39;&gt;&lt;/button&gt;  // 只有当按下 shift 键才可以触发点击事件
+</code></pre>
+<h6 id="8、v-model-表单指令"><a href="#8、v-model-表单指令" class="headerlink" title="8、v-model 表单指令"></a>8、v-model 表单指令</h6><p>   双向数据绑定：</p>
+<p>   数据变化 =&gt; 视图自动同步<br>   视图变化 =&gt; 数据自动同步</p>
+<p>   演示：</p>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot; v-model=&quot;username&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;select v-model=&quot;from&quot;&gt;  // 下拉框绑定在select上</span><br><span class="line">     &lt;option disabled value=&quot;&quot;&gt;请选择&lt;/option&gt;  //disabled 禁用选项</span><br><span class="line">     &lt;option value=&quot;天津市&quot;&gt;天津&lt;/option&gt;</span><br><span class="line">   &lt;/select&gt;</span><br><span class="line">   </span><br><span class="line">   &lt;input type=&quot;checkbox&quot; v-model=&quot;hobby&quot; value=&quot;抽烟&quot;&gt;抽烟  //复选框变量 hobby 是数组</span><br></pre></td></tr></table></figure>
+<h6 id="9、v-model-表单修饰符"><a href="#9、v-model-表单修饰符" class="headerlink" title="9、v-model 表单修饰符"></a>9、v-model 表单修饰符</h6><p>   .number 以 parseFloat 转成数字类型<br>   .trim  去除首尾空白字符<br>   .lazy   光标离开表单输送</p>
+<p>   演示：</p>
+<pre><code>    &lt;input type=&quot;text&quot; v-model.number=&quot;age&quot;&gt;
+</code></pre>
+<h6 id="10、v-text和v-html插值"><a href="#10、v-text和v-html插值" class="headerlink" title="10、v-text和v-html插值"></a>10、v-text和v-html插值</h6><p>   注意：会覆盖插值表达式</p>
+<p>   语法：<br>      v-text = ‘vue 数据变量’<br>      v-html = ‘vue 数据变量’<br>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;p v-text=&quot;str&quot;&gt; &lt;span&gt;我是一个span标签&lt;/span&gt; &lt;/p&gt;</span><br><span class="line">&lt;p v-html=&quot;str&quot;&gt; 我是一个span标签 &lt;/p&gt;</span><br><span class="line"></span><br><span class="line">str: &quot;&lt;span&gt;我是一个span标签&lt;/span&gt;&quot;</span><br></pre></td></tr></table></figure></p>
+<h6 id="11、v-show-和-v-if-隐藏移除"><a href="#11、v-show-和-v-if-隐藏移除" class="headerlink" title="11、v-show 和 v-if 隐藏移除"></a>11、v-show 和 v-if 隐藏移除</h6><p>   语法：<br>      v-show = ‘vue 变量’  //变量 true 为隐藏 false 为显示<br>      v-if = ‘vue 变量’  //变量 true 为隐藏 false 为显示</p>
+<p>   原理：<br>      v-show 用的是display:none 隐藏(频繁切换使用)<br>      v-if 直接从 DOM 树上移除</p>
+<p>   高级：<br>      v-else 使用<br>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;p v-if=&quot;age &gt; 18&quot;&gt;我成年了&lt;/p&gt;</span><br><span class="line">&lt;p v-else&gt;还得多吃饭&lt;/p&gt;  // 显示</span><br><span class="line">     </span><br><span class="line">age:15</span><br></pre></td></tr></table></figure></p>
+<h6 id="12、v-for-循环指令"><a href="#12、v-for-循环指令" class="headerlink" title="12、v-for 循环指令"></a>12、v-for 循环指令</h6><p>   语法：<br>      v-for = ‘(值，索引) in 目标结果’<br>      v-for = ‘值 in 目标结构’</p>
+<p>   目标结构：<br>      可以遍历数组、对象、数字、字符串、(可遍历结构)</p>
+<p>   演示：<br>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 遍历数组 item 值，index 索引</span><br><span class="line">&lt;li v-for=&quot;(item, index) in arr&quot; :key=&quot;item&quot;&gt;</span><br><span class="line"></span><br><span class="line">//遍历对象 value 值，key 属性名</span><br><span class="line">&lt;div v-for=&quot;(value, key) in arr&quot; :key=&quot;value&quot;&gt;</span><br><span class="line"></span><br><span class="line">遍历整数，假设 arr:5 ,那么&#123;&#123;i&#125;&#125; 为 1，2，3，4，5</span><br><span class="line"> &lt;div v-for=&quot;i in arr&quot; :key=&quot;i&quot;&gt;&#123;&#123; i &#125;&#125;&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>   **PS: **谁循环，v-for 语句写在谁身上</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>vue 指令</tag>
+        <tag>脚手架</tag>
       </tags>
   </entry>
   <entry>
@@ -375,71 +440,6 @@
       <tags>
         <tag>搭建博客</tag>
         <tag>kexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vue基本指令与脚手架基本配置</title>
-    <url>/2021/10/20/vue%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4%E4%B8%8E%E8%84%9A%E6%89%8B%E6%9E%B6%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h5 id="一、脚手架-vue-cli-创建项目启动服务"><a href="#一、脚手架-vue-cli-创建项目启动服务" class="headerlink" title="一、脚手架(@vue/cli)创建项目启动服务"></a>一、脚手架(@vue/cli)创建项目启动服务</h5><h6 id="1、创建项目"><a href="#1、创建项目" class="headerlink" title="1、创建项目"></a>1、创建项目</h6><span id="more"></span>
-
-<pre><code>    vue create 项目名字
-</code></pre>
-<h6 id="2、启动项目"><a href="#2、启动项目" class="headerlink" title="2、启动项目"></a>2、启动项目</h6><p>   进入项目根目录，运行以下命令</p>
-<pre><code>    yarn serve
-</code></pre>
-<h6 id="3、脚手架目录代码分析"><a href="#3、脚手架目录代码分析" class="headerlink" title="3、脚手架目录代码分析"></a>3、脚手架目录代码分析</h6>   <figure class="highlight plaintext"><figcaption><span># 项目目录</span></figcaption><table><tr><td class="code"><pre><span class="line">   ├── node_modules # 项目依赖的第三方包</span><br><span class="line">   ├── public       # 静态文件目录</span><br><span class="line">     ├── favicon.ico# 浏览器小图标</span><br><span class="line">     └── index.html # 单页面的html文件(网页浏览的是它)</span><br><span class="line">   ├── src          # 业务文件夹</span><br><span class="line">     ├── assets     # 静态资源</span><br><span class="line">       └── logo.png # vue的logo图片</span><br><span class="line">     ├── components # 组件目录</span><br><span class="line">       └── HelloWorld.vue # 欢迎页面vue代码文件 </span><br><span class="line">     ├── App.vue    # 整个应用的根组件</span><br><span class="line">     └── main.js    # 入口js文件</span><br><span class="line">   ├── .gitignore   # git提交忽略配置</span><br><span class="line">   ├── babel.config.js  # babel配置</span><br><span class="line">   ├── package.json  # 依赖包列表</span><br><span class="line">   |—— vue.config.js # 覆盖 webpack 的配置,文件自己添加</span><br><span class="line">   ├── README.md    # 项目说明</span><br><span class="line">└── yarn.lock    # 项目包版本锁定和缓存地址</span><br></pre></td></tr></table></figure>
-<h6 id="4、主要文件及含义"><a href="#4、主要文件及含义" class="headerlink" title="4、主要文件及含义"></a>4、主要文件及含义</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node_modules下都是下载的第三方包</span><br><span class="line">public/index.html – 浏览器运行的网页</span><br><span class="line">src/main.js – webpack打包的入口文件</span><br><span class="line">src/App.vue – vue项目入口页面</span><br><span class="line">package.json – 依赖包列表文件</span><br><span class="line">vue.config.js # 覆盖 webpack 的配置,文件自己添加</span><br></pre></td></tr></table></figure>
-
-<h6 id="5、脚手架自定义配置"><a href="#5、脚手架自定义配置" class="headerlink" title="5、脚手架自定义配置"></a>5、脚手架自定义配置</h6><ul>
-<li><code>src</code> 并列新建 <code>vue.config.js</code> </li>
-</ul>
-   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> /* 覆盖webpack的配置 */</span><br><span class="line">module.exports = &#123;</span><br><span class="line">devServer: &#123; // 自定义服务配置</span><br><span class="line">  open: true, // 自动打开浏览器</span><br><span class="line">  port: 3000</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h6 id="6、关闭代码检查工具"><a href="#6、关闭代码检查工具" class="headerlink" title="6、关闭代码检查工具"></a>6、关闭代码检查工具</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">    // ...其他配置</span><br><span class="line">    lintOnSave: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h6 id="7、打包压缩配置"><a href="#7、打包压缩配置" class="headerlink" title="7、打包压缩配置"></a>7、打包压缩配置</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> module.exports = &#123;</span><br><span class="line">    // ...其他配置</span><br><span class="line">    mode: &#x27;development&#x27; // 开发环境, 不压缩, 不混淆 打包速度非常快,不设置默认压缩</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="二、Vue指令"><a href="#二、Vue指令" class="headerlink" title="二、Vue指令"></a>二、Vue指令</h5><h6 id="1、插值表达式"><a href="#1、插值表达式" class="headerlink" title="1、插值表达式"></a>1、插值表达式</h6><p>   语法：</p>
-<pre><code>    &lt;h1&gt;&#123;&#123; msg &#125;&#125;&lt;/h1&gt;
-</code></pre>
-<h6 id="2-v-bind-属性动态赋值"><a href="#2-v-bind-属性动态赋值" class="headerlink" title="2. v-bind 属性动态赋值"></a>2. v-bind 属性动态赋值</h6><p>   语法：<code>v-bind: 属性名 = &#39;变量&#39;</code><br>   简写：<code>:属性名 = &#39;vue 变量&#39;</code></p>
-   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- vue指令-v-bind属性动态赋值 --&gt;</span><br><span class="line">&lt;a v-bind:href=&quot;url&quot;&gt;我是a标签&lt;/a&gt;</span><br><span class="line">&lt;img :src=&quot;imgSrc&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h6 id="3-v-on-事件指令"><a href="#3-v-on-事件指令" class="headerlink" title="3. v-on 事件指令"></a>3. v-on 事件指令</h6><p>   语法：v-on: 事件名 = ‘少量代码/函数/函数(实参)’<br>   简写：@事件名 = ‘少量代码/函数/函数(实参)’</p>
-   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;button v-on:click=&quot;count = count + 1&quot;&gt;增加1&lt;/button&gt;</span><br><span class="line">&lt;button @click=&quot;addFn&quot;&gt;增加1个&lt;/button&gt;</span><br><span class="line">&lt;button v-on:click=&quot;addCountFn(5)&quot;&gt;一次加5件&lt;/button&gt;</span><br></pre></td></tr></table></figure>
-<h6 id="4、-v-on-事件对象"><a href="#4、-v-on-事件对象" class="headerlink" title="4、 v-on 事件对象"></a>4、 v-on 事件对象</h6><p>   无传参：通过形参直接接收<br>   有传参：通过固定值 <code>$event</code> 指代事件对象传给事件处理函数</p>
-   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a @click=&quot;two(10, $event)&quot; href=&quot;http://www.baidu.com&quot;&gt;阻止去百度&lt;/a&gt;</span><br><span class="line"></span><br><span class="line"> two(num, e)&#123;  // num = 10 ; e = 事件对象 a</span><br><span class="line">   e.preventDefault()</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<h6 id="5、-v-on-修饰符"><a href="#5、-v-on-修饰符" class="headerlink" title="5、 v-on 修饰符"></a>5、 v-on 修饰符</h6><p>   语法：@事件名.修饰符 = ‘methods 里的函数’</p>
-   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.stop - 阻止自身而引起事件冒泡</span><br><span class="line">.prevent - 阻止默认行为</span><br><span class="line">.once - 程序运行期间, 只触发一次事件处理函数</span><br><span class="line">.capture - 有3个div事件冒泡会3-2-1，如果给div2加上关键字顺序为2-3-1</span><br><span class="line">.self 忽略其他元素冒泡或者捕获事件，只局限于自身</span><br><span class="line">-------------------------------------</span><br><span class="line">&lt;button @click.stop=&quot;btn&quot;&gt;.stop阻止事件冒泡&lt;/button&gt;  </span><br><span class="line">&lt;a href=&quot;http://www.baidu.com&quot; @click.prevent=&quot;btn&quot;&gt;.prevent阻止默认行为&lt;/a&gt; </span><br><span class="line"> &lt;button @click.once=&quot;btn&quot;&gt;.once程序运行期间, 只触发一次事件处理函数&lt;/button&gt;  </span><br></pre></td></tr></table></figure>
-
-<h6 id="6、-v-on-按键修饰符·"><a href="#6、-v-on-按键修饰符·" class="headerlink" title="6、 v-on 按键修饰符·"></a>6、 v-on 按键修饰符·</h6><p>   语法：@keyup.按键名字 /按键数字编码</p>
-   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">         &lt;input type=&quot;text&quot; @keydown.enter=&quot;enterFn&quot;&gt; // 按下了回车键</span><br><span class="line"></span><br><span class="line">   更多按键参考 [vue 官网](https://cn.vuejs.org/v2/guide/events.html#%E6%8C%89%E9%94%AE%E7%A0%81)</span><br><span class="line">###### 7、系统修饰符</span><br><span class="line"></span><br><span class="line">   使用以下修饰符，对应按键处于按下状态才会触发鼠标或者键盘监听</span><br></pre></td></tr></table></figure>
-<p>   修饰符：.ctrl  .alt  .shift  .meta</p>
-<pre><code>&lt;button @click.shift=&#39;btnf&#39;&gt;&lt;/button&gt;  // 只有当按下 shift 键才可以触发点击事件
-</code></pre>
-<h6 id="8、v-model-表单指令"><a href="#8、v-model-表单指令" class="headerlink" title="8、v-model 表单指令"></a>8、v-model 表单指令</h6><p>   双向数据绑定：</p>
-<p>   数据变化 =&gt; 视图自动同步<br>   视图变化 =&gt; 数据自动同步</p>
-<p>   演示：</p>
-   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot; v-model=&quot;username&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;select v-model=&quot;from&quot;&gt;  // 下拉框绑定在select上</span><br><span class="line">     &lt;option disabled value=&quot;&quot;&gt;请选择&lt;/option&gt;  //disabled 禁用选项</span><br><span class="line">     &lt;option value=&quot;天津市&quot;&gt;天津&lt;/option&gt;</span><br><span class="line">   &lt;/select&gt;</span><br><span class="line">   </span><br><span class="line">   &lt;input type=&quot;checkbox&quot; v-model=&quot;hobby&quot; value=&quot;抽烟&quot;&gt;抽烟  //复选框变量 hobby 是数组</span><br></pre></td></tr></table></figure>
-<h6 id="9、v-model-表单修饰符"><a href="#9、v-model-表单修饰符" class="headerlink" title="9、v-model 表单修饰符"></a>9、v-model 表单修饰符</h6><p>   .number 以 parseFloat 转成数字类型<br>   .trim  去除首尾空白字符<br>   .lazy   光标离开表单输送</p>
-<p>   演示：</p>
-<pre><code>    &lt;input type=&quot;text&quot; v-model.number=&quot;age&quot;&gt;
-</code></pre>
-<h6 id="10、v-text和v-html插值"><a href="#10、v-text和v-html插值" class="headerlink" title="10、v-text和v-html插值"></a>10、v-text和v-html插值</h6><p>   注意：会覆盖插值表达式</p>
-<p>   语法：<br>      v-text = ‘vue 数据变量’<br>      v-html = ‘vue 数据变量’<br>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;p v-text=&quot;str&quot;&gt; &lt;span&gt;我是一个span标签&lt;/span&gt; &lt;/p&gt;</span><br><span class="line">&lt;p v-html=&quot;str&quot;&gt; 我是一个span标签 &lt;/p&gt;</span><br><span class="line"></span><br><span class="line">str: &quot;&lt;span&gt;我是一个span标签&lt;/span&gt;&quot;</span><br></pre></td></tr></table></figure></p>
-<h6 id="11、v-show-和-v-if-隐藏移除"><a href="#11、v-show-和-v-if-隐藏移除" class="headerlink" title="11、v-show 和 v-if 隐藏移除"></a>11、v-show 和 v-if 隐藏移除</h6><p>   语法：<br>      v-show = ‘vue 变量’  //变量 true 为隐藏 false 为显示<br>      v-if = ‘vue 变量’  //变量 true 为隐藏 false 为显示</p>
-<p>   原理：<br>      v-show 用的是display:none 隐藏(频繁切换使用)<br>      v-if 直接从 DOM 树上移除</p>
-<p>   高级：<br>      v-else 使用<br>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;p v-if=&quot;age &gt; 18&quot;&gt;我成年了&lt;/p&gt;</span><br><span class="line">&lt;p v-else&gt;还得多吃饭&lt;/p&gt;  // 显示</span><br><span class="line">     </span><br><span class="line">age:15</span><br></pre></td></tr></table></figure></p>
-<h6 id="12、v-for-循环指令"><a href="#12、v-for-循环指令" class="headerlink" title="12、v-for 循环指令"></a>12、v-for 循环指令</h6><p>   语法：<br>      v-for = ‘(值，索引) in 目标结果’<br>      v-for = ‘值 in 目标结构’</p>
-<p>   目标结构：<br>      可以遍历数组、对象、数字、字符串、(可遍历结构)</p>
-<p>   演示：<br>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 遍历数组 item 值，index 索引</span><br><span class="line">&lt;li v-for=&quot;(item, index) in arr&quot; :key=&quot;item&quot;&gt;</span><br><span class="line"></span><br><span class="line">//遍历对象 value 值，key 属性名</span><br><span class="line">&lt;div v-for=&quot;(value, key) in arr&quot; :key=&quot;value&quot;&gt;</span><br><span class="line"></span><br><span class="line">遍历整数，假设 arr:5 ,那么&#123;&#123;i&#125;&#125; 为 1，2，3，4，5</span><br><span class="line"> &lt;div v-for=&quot;i in arr&quot; :key=&quot;i&quot;&gt;&#123;&#123; i &#125;&#125;&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>   **PS: **谁循环，v-for 语句写在谁身上</p>
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>vue 指令</tag>
-        <tag>脚手架</tag>
       </tags>
   </entry>
   <entry>
