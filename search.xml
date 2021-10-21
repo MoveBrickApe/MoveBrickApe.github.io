@@ -7,7 +7,7 @@
 <li>数组变更方法，就会导致 v-for 更新，页面更新<span id="more"></span></li>
 <li>数组非变更方法：返回新数组，就不会导致 v-for 更新，更新值检测不到可采用覆盖或者 this.$set()</li>
 </ul>
-<h6 id="数组变更方法如下："><a href="#数组变更方法如下：" class="headerlink" title="数组变更方法如下："></a>数组变更方法如下：</h6><h6 id="1-arr-push-从后面添加元素"><a href="#1-arr-push-从后面添加元素" class="headerlink" title="1. arr.push()从后面添加元素"></a>1. arr.push()从后面添加元素</h6><pre><code>    arr.push(5)
+<h6 id="一、数组变更方法如下："><a href="#一、数组变更方法如下：" class="headerlink" title="一、数组变更方法如下："></a>一、数组变更方法如下：</h6><h6 id="1-arr-push-从后面添加元素"><a href="#1-arr-push-从后面添加元素" class="headerlink" title="1. arr.push()从后面添加元素"></a>1. arr.push()从后面添加元素</h6><pre><code>    arr.push(5)
 </code></pre>
 <h6 id="2-arr-pop-从后面删除元素，只能是一个"><a href="#2-arr-pop-从后面删除元素，只能是一个" class="headerlink" title="2. arr.pop()从后面删除元素，只能是一个"></a>2. arr.pop()从后面删除元素，只能是一个</h6><pre><code>    arr.pop()
 </code></pre>
@@ -21,11 +21,11 @@
 
 <h6 id="7-arr-reverse-将数组反转"><a href="#7-arr-reverse-将数组反转" class="headerlink" title="7. arr.reverse() 将数组反转"></a>7. arr.reverse() 将数组反转</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.reverse())    // [5,4,3,2,1]</span><br><span class="line">console.log(arr)    // [5,4,3,2,1]</span><br></pre></td></tr></table></figure>
 
-<h5 id="数组非变更方法如下："><a href="#数组非变更方法如下：" class="headerlink" title="数组非变更方法如下："></a>数组非变更方法如下：</h5><h6 id="1-arr-concat-连接两个数组"><a href="#1-arr-concat-连接两个数组" class="headerlink" title="1. arr.concat()连接两个数组"></a>1. arr.concat()连接两个数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.concat([1,2]))  // [1,2,3,4,5,1,2]</span><br><span class="line">console.log(arr)   // [1,2,3,4,5]</span><br></pre></td></tr></table></figure>
+<h5 id="二、数组非变更方法如下："><a href="#二、数组非变更方法如下：" class="headerlink" title="二、数组非变更方法如下："></a>二、数组非变更方法如下：</h5><h6 id="1-arr-concat-连接两个数组"><a href="#1-arr-concat-连接两个数组" class="headerlink" title="1. arr.concat()连接两个数组"></a>1. arr.concat()连接两个数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.concat([1,2]))  // [1,2,3,4,5,1,2]</span><br><span class="line">console.log(arr)   // [1,2,3,4,5]</span><br></pre></td></tr></table></figure>
 <h6 id="2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值"><a href="#2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值" class="headerlink" title="2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值"></a>2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.slice(1,3))   // [2,3]</span><br></pre></td></tr></table></figure>
-<h5 id="覆盖方法"><a href="#覆盖方法" class="headerlink" title="覆盖方法"></a>覆盖方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;截取前3个&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">    sliceBtn()&#123;</span><br><span class="line">   // 2. 数组slice方法不会造成v-for更新</span><br><span class="line">   // slice不会改变原始数组</span><br><span class="line">   // this.arr.slice(0, 3)</span><br><span class="line"></span><br><span class="line">   // 解决v-for更新 - 覆盖原始数组</span><br><span class="line">   let newArr = this.arr.slice(0, 3)</span><br><span class="line">   this.arr = newArr</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
+<h5 id="三、覆盖方法"><a href="#三、覆盖方法" class="headerlink" title="三、覆盖方法"></a>三、覆盖方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;截取前3个&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">    sliceBtn()&#123;</span><br><span class="line">   // 2. 数组slice方法不会造成v-for更新</span><br><span class="line">   // slice不会改变原始数组</span><br><span class="line">   // this.arr.slice(0, 3)</span><br><span class="line"></span><br><span class="line">   // 解决v-for更新 - 覆盖原始数组</span><br><span class="line">   let newArr = this.arr.slice(0, 3)</span><br><span class="line">   this.arr = newArr</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
 
-<h5 id="this-set-方法"><a href="#this-set-方法" class="headerlink" title="this.$set()方法"></a>this.$set()方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;更新下标0的值&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">   sliceBtn()&#123;</span><br><span class="line">   // 更新某个值时，v-for是检测不到的</span><br><span class="line">   // this.arr[0] = 1000</span><br><span class="line">   </span><br><span class="line">   // 解决- this.$set()</span><br><span class="line">   // 参数1：更新目标结构</span><br><span class="line">   // 参数2：更新位置</span><br><span class="line">   // 参数3：更新值</span><br><span class="line">   let newArr = this.arr.slice(0, 3)</span><br><span class="line">   this.arr = newArr</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>]]></content>
+<h5 id="四、this-set-方法"><a href="#四、this-set-方法" class="headerlink" title="四、this.$set()方法"></a>四、this.$set()方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;更新下标0的值&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">   sliceBtn()&#123;</span><br><span class="line">   // 更新某个值时，v-for是检测不到的</span><br><span class="line">   // this.arr[0] = 1000</span><br><span class="line">   </span><br><span class="line">   // 解决- this.$set()</span><br><span class="line">   // 参数1：更新目标结构</span><br><span class="line">   // 参数2：更新位置</span><br><span class="line">   // 参数3：更新值</span><br><span class="line">    this.$set(this.arr,0,1000)</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -35,68 +35,153 @@
       </tags>
   </entry>
   <entry>
-    <title>vue基本指令与脚手架基本配置</title>
-    <url>/2021/10/20/vue%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4%E4%B8%8E%E8%84%9A%E6%89%8B%E6%9E%B6%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h4 id="脚手架-vue-cli-创建项目启动服务"><a href="#脚手架-vue-cli-创建项目启动服务" class="headerlink" title="脚手架(@vue/cli)创建项目启动服务"></a>脚手架(@vue/cli)创建项目启动服务</h4><h6 id="1、创建项目"><a href="#1、创建项目" class="headerlink" title="1、创建项目"></a>1、创建项目</h6><span id="more"></span>
-
-<pre><code>    vue create 项目名字
-</code></pre>
-<h6 id="2、启动项目"><a href="#2、启动项目" class="headerlink" title="2、启动项目"></a>2、启动项目</h6><p>   进入项目根目录，运行以下命令</p>
-<pre><code>    yarn serve
-</code></pre>
-<h6 id="3、脚手架目录代码分析"><a href="#3、脚手架目录代码分析" class="headerlink" title="3、脚手架目录代码分析"></a>3、脚手架目录代码分析</h6>   <figure class="highlight plaintext"><figcaption><span># 项目目录</span></figcaption><table><tr><td class="code"><pre><span class="line">   ├── node_modules # 项目依赖的第三方包</span><br><span class="line">   ├── public       # 静态文件目录</span><br><span class="line">     ├── favicon.ico# 浏览器小图标</span><br><span class="line">     └── index.html # 单页面的html文件(网页浏览的是它)</span><br><span class="line">   ├── src          # 业务文件夹</span><br><span class="line">     ├── assets     # 静态资源</span><br><span class="line">       └── logo.png # vue的logo图片</span><br><span class="line">     ├── components # 组件目录</span><br><span class="line">       └── HelloWorld.vue # 欢迎页面vue代码文件 </span><br><span class="line">     ├── App.vue    # 整个应用的根组件</span><br><span class="line">     └── main.js    # 入口js文件</span><br><span class="line">   ├── .gitignore   # git提交忽略配置</span><br><span class="line">   ├── babel.config.js  # babel配置</span><br><span class="line">   ├── package.json  # 依赖包列表</span><br><span class="line">   |—— vue.config.js # 覆盖 webpack 的配置,文件自己添加</span><br><span class="line">   ├── README.md    # 项目说明</span><br><span class="line">└── yarn.lock    # 项目包版本锁定和缓存地址</span><br></pre></td></tr></table></figure>
-<h6 id="4、主要文件及含义"><a href="#4、主要文件及含义" class="headerlink" title="4、主要文件及含义"></a>4、主要文件及含义</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node_modules下都是下载的第三方包</span><br><span class="line">public/index.html – 浏览器运行的网页</span><br><span class="line">src/main.js – webpack打包的入口文件</span><br><span class="line">src/App.vue – vue项目入口页面</span><br><span class="line">package.json – 依赖包列表文件</span><br><span class="line">vue.config.js # 覆盖 webpack 的配置,文件自己添加</span><br></pre></td></tr></table></figure>
-
-<h6 id="5、脚手架自定义配置"><a href="#5、脚手架自定义配置" class="headerlink" title="5、脚手架自定义配置"></a>5、脚手架自定义配置</h6><ul>
-<li><code>src</code> 并列新建 <code>vue.config.js</code> </li>
+    <title>MySQL 数据库</title>
+    <url>/2021/10/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
+    <content><![CDATA[<h3 id="一、数据库基本概念"><a href="#一、数据库基本概念" class="headerlink" title="一、数据库基本概念"></a>一、数据库基本概念</h3><h4 id="1-什么是数据库"><a href="#1-什么是数据库" class="headerlink" title="1.什么是数据库"></a>1.什么是数据库</h4><ul>
+<li>数据库是用来组织、存储和管理数据的仓库<span id="more"></span></li>
+<li>为了方便管理互联网世界中数据，就有了数据库管理系统的概念。用户可以对数据库进行新增、查询、更新、删除等操作。</li>
 </ul>
-   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> /* 覆盖webpack的配置 */</span><br><span class="line">module.exports = &#123;</span><br><span class="line">devServer: &#123; // 自定义服务配置</span><br><span class="line">  open: true, // 自动打开浏览器</span><br><span class="line">  port: 3000</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h6 id="6、关闭代码检查工具"><a href="#6、关闭代码检查工具" class="headerlink" title="6、关闭代码检查工具"></a>6、关闭代码检查工具</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">    // ...其他配置</span><br><span class="line">    lintOnSave: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h6 id="7、打包压缩配置"><a href="#7、打包压缩配置" class="headerlink" title="7、打包压缩配置"></a>7、打包压缩配置</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> module.exports = &#123;</span><br><span class="line">    // ...其他配置</span><br><span class="line">    mode: &#x27;development&#x27; // 开发环境, 不压缩, 不混淆 打包速度非常快,不设置默认压缩</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Vue指令"><a href="#Vue指令" class="headerlink" title="Vue指令"></a>Vue指令</h4><h6 id="1、插值表达式"><a href="#1、插值表达式" class="headerlink" title="1、插值表达式"></a>1、插值表达式</h6><p>   语法：</p>
-<pre><code>    &lt;h1&gt;&#123;&#123; msg &#125;&#125;&lt;/h1&gt;
+<h4 id="2-常见数据库及其分类"><a href="#2-常见数据库及其分类" class="headerlink" title="2.常见数据库及其分类"></a>2.常见数据库及其分类</h4><ul>
+<li>常见数据库分类<ul>
+<li>MySQL 数据库</li>
+<li>Oracle 数据库（收费）</li>
+<li>SQL Server 数据库（收费）</li>
+<li>Mongodb 数据库</li>
+</ul>
+</li>
+</ul>
+<h3 id="二、SQL-语句"><a href="#二、SQL-语句" class="headerlink" title="二、SQL 语句"></a>二、SQL 语句</h3><h4 id="1、什么是SQL"><a href="#1、什么是SQL" class="headerlink" title="1、什么是SQL"></a>1、什么是SQL</h4><ul>
+<li>SQL 是结构化查询语言，专门用来访问和数据库的编程语言，能够以变成形式，操作数据库里面的数据。</li>
+<li>三个关键点：<ul>
+<li>SQL 是一门数据库编程语言</li>
+<li>使用 SQL 语言编写出来的代码，叫做 SQL 语句</li>
+<li>SQL 语言只能关系型数据库中使用（例如 MySQL、Oracle、SQL Server）。非关系型数据库（例如 Mongodb）不支持 SQL 语言</li>
+</ul>
+</li>
+</ul>
+<h4 id="2、SQL-的语句"><a href="#2、SQL-的语句" class="headerlink" title="2、SQL 的语句"></a>2、SQL 的语句</h4><ul>
+<li><p>数据库名字 <code>users</code></p>
+</li>
+<li><p>通过 * 把 users 表中的所有的数据查询出来</p>
+<pre><code>  select * from users
 </code></pre>
-<h6 id="2-v-bind-属性动态赋值"><a href="#2-v-bind-属性动态赋值" class="headerlink" title="2. v-bind 属性动态赋值"></a>2. v-bind 属性动态赋值</h6><p>   语法：<code>v-bind: 属性名 = &#39;变量&#39;</code><br>   简写：<code>:属性名 = &#39;vue 变量&#39;</code></p>
-   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- vue指令-v-bind属性动态赋值 --&gt;</span><br><span class="line">&lt;a v-bind:href=&quot;url&quot;&gt;我是a标签&lt;/a&gt;</span><br><span class="line">&lt;img :src=&quot;imgSrc&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h6 id="3-v-on-事件指令"><a href="#3-v-on-事件指令" class="headerlink" title="3. v-on 事件指令"></a>3. v-on 事件指令</h6><p>   语法：v-on: 事件名 = ‘少量代码/函数/函数(实参)’<br>   简写：@事件名 = ‘少量代码/函数/函数(实参)’</p>
-   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;button v-on:click=&quot;count = count + 1&quot;&gt;增加1&lt;/button&gt;</span><br><span class="line">&lt;button @click=&quot;addFn&quot;&gt;增加1个&lt;/button&gt;</span><br><span class="line">&lt;button v-on:click=&quot;addCountFn(5)&quot;&gt;一次加5件&lt;/button&gt;</span><br></pre></td></tr></table></figure>
-<h6 id="4、-v-on-事件对象"><a href="#4、-v-on-事件对象" class="headerlink" title="4、 v-on 事件对象"></a>4、 v-on 事件对象</h6><p>   无传参：通过形参直接接收<br>   有传参：通过固定值 <code>$event</code> 指代事件对象传给事件处理函数</p>
-   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a @click=&quot;two(10, $event)&quot; href=&quot;http://www.baidu.com&quot;&gt;阻止去百度&lt;/a&gt;</span><br><span class="line"></span><br><span class="line"> two(num, e)&#123;  // num = 10 ; e = 事件对象 a</span><br><span class="line">   e.preventDefault()</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<h6 id="5、-v-on-修饰符"><a href="#5、-v-on-修饰符" class="headerlink" title="5、 v-on 修饰符"></a>5、 v-on 修饰符</h6><p>   语法：@事件名.修饰符 = ‘methods 里的函数’</p>
-   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.stop - 阻止自身而引起事件冒泡</span><br><span class="line">.prevent - 阻止默认行为</span><br><span class="line">.once - 程序运行期间, 只触发一次事件处理函数</span><br><span class="line">.capture - 有3个div事件冒泡会3-2-1，如果给div2加上关键字顺序为2-3-1</span><br><span class="line">.self 忽略其他元素冒泡或者捕获事件，只局限于自身</span><br><span class="line">-------------------------------------</span><br><span class="line">&lt;button @click.stop=&quot;btn&quot;&gt;.stop阻止事件冒泡&lt;/button&gt;  </span><br><span class="line">&lt;a href=&quot;http://www.baidu.com&quot; @click.prevent=&quot;btn&quot;&gt;.prevent阻止默认行为&lt;/a&gt; </span><br><span class="line"> &lt;button @click.once=&quot;btn&quot;&gt;.once程序运行期间, 只触发一次事件处理函数&lt;/button&gt;  </span><br></pre></td></tr></table></figure>
-
-<h6 id="6、-v-on-按键修饰符·"><a href="#6、-v-on-按键修饰符·" class="headerlink" title="6、 v-on 按键修饰符·"></a>6、 v-on 按键修饰符·</h6><p>   语法：@keyup.按键名字 /按键数字编码</p>
-   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">         &lt;input type=&quot;text&quot; @keydown.enter=&quot;enterFn&quot;&gt; // 按下了回车键</span><br><span class="line"></span><br><span class="line">   更多按键参考 [vue 官网](https://cn.vuejs.org/v2/guide/events.html#%E6%8C%89%E9%94%AE%E7%A0%81)</span><br><span class="line">###### 7、系统修饰符</span><br><span class="line"></span><br><span class="line">   使用以下修饰符，对应按键处于按下状态才会触发鼠标或者键盘监听</span><br></pre></td></tr></table></figure>
-<p>   修饰符：.ctrl  .alt  .shift  .meta</p>
-<pre><code>&lt;button @click.shift=&#39;btnf&#39;&gt;&lt;/button&gt;  // 只有当按下 shift 键才可以触发点击事件
+</li>
+<li><p>把表格 username,password 项都找出来</p>
+<pre><code>  select username,password from users
 </code></pre>
-<h6 id="8、v-model-表单指令"><a href="#8、v-model-表单指令" class="headerlink" title="8、v-model 表单指令"></a>8、v-model 表单指令</h6><p>   双向数据绑定：</p>
-<p>   数据变化 =&gt; 视图自动同步<br>   视图变化 =&gt; 数据自动同步</p>
-<p>   演示：</p>
-   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot; v-model=&quot;username&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;select v-model=&quot;from&quot;&gt;  // 下拉框绑定在select上</span><br><span class="line">     &lt;option disabled value=&quot;&quot;&gt;请选择&lt;/option&gt;  //disabled 禁用选项</span><br><span class="line">     &lt;option value=&quot;天津市&quot;&gt;天津&lt;/option&gt;</span><br><span class="line">   &lt;/select&gt;</span><br><span class="line">   </span><br><span class="line">   &lt;input type=&quot;checkbox&quot; v-model=&quot;hobby&quot; value=&quot;抽烟&quot;&gt;抽烟  //复选框变量 hobby 是数组</span><br></pre></td></tr></table></figure>
-<h6 id="9、v-model-表单修饰符"><a href="#9、v-model-表单修饰符" class="headerlink" title="9、v-model 表单修饰符"></a>9、v-model 表单修饰符</h6><p>   .number 以 parseFloat 转成数字类型<br>   .trim  去除首尾空白字符<br>   .lazy   光标离开表单输送</p>
-<p>   演示：</p>
-<pre><code>    &lt;input type=&quot;text&quot; v-model.number=&quot;age&quot;&gt;
+</li>
+<li><p>向数据表插入新的数据行</p>
+<pre><code>  insert into users (username,password) values (&#39;mz&#39;,&#39;123&#39;)
+  insert into users set username = &#39;mz&#39;,password = &#39;123&#39;
 </code></pre>
-<h6 id="10、v-text和v-html插值"><a href="#10、v-text和v-html插值" class="headerlink" title="10、v-text和v-html插值"></a>10、v-text和v-html插值</h6><p>   注意：会覆盖插值表达式</p>
-<p>   语法：<br>      v-text = ‘vue 数据变量’<br>      v-html = ‘vue 数据变量’<br>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;p v-text=&quot;str&quot;&gt; &lt;span&gt;我是一个span标签&lt;/span&gt; &lt;/p&gt;</span><br><span class="line">&lt;p v-html=&quot;str&quot;&gt; 我是一个span标签 &lt;/p&gt;</span><br><span class="line"></span><br><span class="line">str: &quot;&lt;span&gt;我是一个span标签&lt;/span&gt;&quot;</span><br></pre></td></tr></table></figure></p>
-<h6 id="11、v-show-和-v-if-隐藏移除"><a href="#11、v-show-和-v-if-隐藏移除" class="headerlink" title="11、v-show 和 v-if 隐藏移除"></a>11、v-show 和 v-if 隐藏移除</h6><p>   语法：<br>      v-show = ‘vue 变量’  //变量 true 为隐藏 false 为显示<br>      v-if = ‘vue 变量’  //变量 true 为隐藏 false 为显示</p>
-<p>   原理：<br>      v-show 用的是display:none 隐藏(频繁切换使用)<br>      v-if 直接从 DOM 树上移除</p>
-<p>   高级：<br>      v-else 使用<br>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;p v-if=&quot;age &gt; 18&quot;&gt;我成年了&lt;/p&gt;</span><br><span class="line">&lt;p v-else&gt;还得多吃饭&lt;/p&gt;  // 显示</span><br><span class="line">     </span><br><span class="line">age:15</span><br></pre></td></tr></table></figure></p>
-<h6 id="12、v-for-循环指令"><a href="#12、v-for-循环指令" class="headerlink" title="12、v-for 循环指令"></a>12、v-for 循环指令</h6><p>   语法：<br>      v-for = ‘(值，索引) in 目标结果’<br>      v-for = ‘值 in 目标结构’</p>
-<p>   目标结构：<br>      可以遍历数组、对象、数字、字符串、(可遍历结构)</p>
-<p>   演示：<br>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 遍历数组 item 值，index 索引</span><br><span class="line">&lt;li v-for=&quot;(item, index) in arr&quot; :key=&quot;item&quot;&gt;</span><br><span class="line"></span><br><span class="line">//遍历对象 value 值，key 属性名</span><br><span class="line">&lt;div v-for=&quot;(value, key) in arr&quot; :key=&quot;value&quot;&gt;</span><br><span class="line"></span><br><span class="line">遍历整数，假设 arr:5 ,那么&#123;&#123;i&#125;&#125; 为 1，2，3，4，5</span><br><span class="line"> &lt;div v-for=&quot;i in arr&quot; :key=&quot;i&quot;&gt;&#123;&#123; i &#125;&#125;&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>   **PS: **谁循环，v-for 语句写在谁身上</p>
+</li>
+<li><p>选择性更新数据 where 后面更新的条件</p>
+<pre><code>  update users set password=8888,status=1 where id=4
+</code></pre>
+</li>
+<li><p>删除表中 <code>id=1</code> 行</p>
+<pre><code>  delete from users where id=1 
+</code></pre>
+</li>
+<li><p><code>where</code>子句 运算符</p>
+<p> <img src="/2021/10/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/1.png"></p>
+</li>
+<li><p>可以通过 where 子句来限定 select 的查询条件</p>
+</li>
+<li><p>查询 id 为 1 的所有用户</p>
+<pre><code>  select * from users where id=1
+</code></pre>
+</li>
+<li><p>查询 username 不等于 zx 的所有用户</p>
+<pre><code>  select * from users where username&lt;&gt;&#39;zx&#39;
+</code></pre>
+</li>
+<li><p>使用 and 来显示所有 status=0,并且 id 小于3 的用户</p>
+<pre><code>  select * from users where status=0 and id&lt;3
+</code></pre>
+</li>
+<li><p>使用 or 来显示所有 status 为1，或者 username 为 zs 的用户</p>
+<pre><code>  select * from users where status=0 or username=&#39;zs&#39;
+</code></pre>
+</li>
+<li><p>order by 子句 - 升序排序，按照 id</p>
+<pre><code>  select * from users order by id asc
+</code></pre>
+</li>
+<li><p>order by 子句 - 降序排序 按 username 第一个字母进行降序排序</p>
+<pre><code>  select * from users order by username desc
+</code></pre>
+</li>
+<li><p>多重排序</p>
+<pre><code>  select * from users order by id asc,username desc
+</code></pre>
+</li>
+<li><p>count(*)函数用于返回查询 status=1 结果的总数据条数的数量得到一个数字</p>
+<pre><code>  select count(*) from users where status=1
+</code></pre>
+</li>
+<li><p>使用 AS 为列设置别名</p>
+</li>
+<li><p>将列名 username 改为 uname , password 改为 upwd</p>
+<pre><code>  select username as uname, password as upwd from users
+</code></pre>
+</li>
+</ul>
+<h3 id="三、MySQL模块"><a href="#三、MySQL模块" class="headerlink" title="三、MySQL模块"></a>三、MySQL模块</h3><h4 id="1、作用"><a href="#1、作用" class="headerlink" title="1、作用"></a>1、作用</h4><ul>
+<li>通过 mysql 模块连接到 mySQL 数据库</li>
+<li>通过 mysql 模块执行 SQL 语句</li>
+</ul>
+<h4 id="2、安装配置-mysql-模块"><a href="#2、安装配置-mysql-模块" class="headerlink" title="2、安装配置 mysql 模块"></a>2、安装配置 mysql 模块</h4><ul>
+<li>安装命令<br>`npm i mysql</li>
+<li>配置 mysql 模块<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 1.导入 musql 模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line"></span><br><span class="line">// 2.建立与 mysql 数据库连接</span><br><span class="line">const db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 检测 mysql 模块是否能正常工作</span><br><span class="line">db.query(&#x27;select 1&#x27;,(err,data)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    console.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3、使用-select-语句查询数据"><a href="#3、使用-select-语句查询数据" class="headerlink" title="3、使用 select 语句查询数据"></a>3、使用 select 语句查询数据</h4>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 1.导入mysql模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line"></span><br><span class="line">// 与服务器建立连接</span><br><span class="line">var db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 查询users中所有用户数据</span><br><span class="line">db.query(&#x27;select * from users&#x27;,(err,data)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    console.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、使用-insert-into-语句插入数据"><a href="#4、使用-insert-into-语句插入数据" class="headerlink" title="4、使用 insert into 语句插入数据"></a>4、使用 insert into 语句插入数据</h4>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入mysql模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line">// 与数据库建立连接</span><br><span class="line">var db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line">// 要插入的数据</span><br><span class="line">const data = &#123;</span><br><span class="line">    username:&#x27;kxu&#x27;,</span><br><span class="line">    password:&#x27;123&#x27;</span><br><span class="line">&#125;</span><br><span class="line">// mysql语句</span><br><span class="line">const dl = &#x27;insert into users set?&#x27;</span><br><span class="line"></span><br><span class="line">// 给数据库插入值</span><br><span class="line">db.query(dl,data,(err,user)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    console.log(user);</span><br><span class="line">    if(user.affectedRows ===1) return console.log(&#x27;插入成功&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、使用-update-语句更新数据"><a href="#5、使用-update-语句更新数据" class="headerlink" title="5、使用 update 语句更新数据"></a>5、使用 update 语句更新数据</h4>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 1.导入 mysql 模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line">// 与数据库建立连接</span><br><span class="line">var db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 要更新的数据</span><br><span class="line">const data = &#123;</span><br><span class="line">    id: 4,</span><br><span class="line">    username:&#x27;ffff&#x27;,</span><br><span class="line">    password:&#x27;123&#x27;,</span><br><span class="line">&#125;</span><br><span class="line">// mysql语句</span><br><span class="line">const ql = &#x27;update users set ? where id=?&#x27;</span><br><span class="line"></span><br><span class="line">// 更新数据</span><br><span class="line">db.query(ql,[data,data.id],(err,user)=&gt;&#123;</span><br><span class="line">    console.log(user);</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    if (user.affectedRows===1) return console.log(&#x27;更新成功&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-使用-update-语句标记删除数据"><a href="#6-使用-update-语句标记删除数据" class="headerlink" title="6.使用 update 语句标记删除数据"></a>6.使用 update 语句标记删除数据</h4>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line"></span><br><span class="line">// 连接数据库</span><br><span class="line">var db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// mysql语句</span><br><span class="line">const dl = &#x27;update users set status=0 where id=?&#x27;</span><br><span class="line"></span><br><span class="line">// 删除</span><br><span class="line">db.query(dl,9,(err,data)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    if(data.affectedRows===1) return  console.log(&#x27;删除成功&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-通过-node-来操作-mysql"><a href="#7-通过-node-来操作-mysql" class="headerlink" title="7.通过 node 来操作 mysql"></a>7.通过 node 来操作 mysql</h4>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line">// 连接数据库</span><br><span class="line">const db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 把数据返回客户端</span><br><span class="line">app.get(&#x27;/user&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    db.query(&#x27;select * from users&#x27;, (err, data) =&gt; &#123;</span><br><span class="line">        if(err) return console.log(err.message);</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            status:0,</span><br><span class="line">            msg:&#x27;请求成功&#x27;,</span><br><span class="line">            data</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">// 解析post数据全局中间件</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;))</span><br><span class="line">// 给users中添加用户名密码</span><br><span class="line">app.post(&#x27;/postuser&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    const body = req.body</span><br><span class="line">    const dl = &#x27;insert into users set ?&#x27;</span><br><span class="line">    db.query(dl,body, (err, data) =&gt; &#123;</span><br><span class="line">        if (err) return console.log(err.message);</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            status: 0,</span><br><span class="line">            msg: &#x27;添加成功&#x27;,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">// 根据id更新用户名</span><br><span class="line">app.post(&#x27;/duser&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    const body = req.body</span><br><span class="line">    const dl = &#x27;update users set ? where id=?&#x27;</span><br><span class="line">    db.query(dl,[body,body.id], (err, data) =&gt; &#123;</span><br><span class="line">        if (err) return console.log(err.message);</span><br><span class="line">        if(data.affactedRows!==1) console.log(&#x27;更新失败&#x27;);</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            status: 0,</span><br><span class="line">            msg: &#x27;更新成功&#x27;,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">// 根据id删除</span><br><span class="line">app.get(&#x27;/iuser/:id&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    const user = req.params.id</span><br><span class="line">    const dl = &#x27;delete from users where id=?&#x27;</span><br><span class="line">    db.query(dl, user, (err, data) =&gt; &#123;</span><br><span class="line">        if (err) return console.log(err.message);</span><br><span class="line">        if (data.affactedRows !== 1) console.log(&#x27;更新失败&#x27;);</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            status: 0,</span><br><span class="line">            msg: &#x27;删除成功&#x27;,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3000,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
 ]]></content>
       <categories>
         <category>前端</category>
       </categories>
       <tags>
-        <tag>vue 指令</tag>
-        <tag>脚手架</tag>
+        <tag>MySQL数据库</tag>
+        <tag>node</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jsonp or cors 解决跨域</title>
+    <url>/2021/10/08/jsonp%E5%92%8Ccors%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F/</url>
+    <content><![CDATA[<p>JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。对于JSON大家应该是很了解了吧，不是很清楚的朋友可以去json.org上了解下，简单易懂。</p>
+<span id="more"></span>
+<h4 id="1-什么是跨域"><a href="#1-什么是跨域" class="headerlink" title="1.什么是跨域"></a>1.什么是跨域</h4><p>要了解跨域，先说说同源策略。同源策略是 Netscape 公司提出的一个著名的安全策略，所有支持 JavaScript 的浏览器都会使用这个策略。所谓同源是指，域名，协议，端口相同。当页面在执行一个脚本时会检查所访问的资源是否同源，如果非同源，那么在请求数据时，浏览器会在控制台中报一个异常。拒绝访问。</p>
+<h4 id="2-jsonp实现原理"><a href="#2-jsonp实现原理" class="headerlink" title="2.jsonp实现原理"></a>2.jsonp实现原理</h4><p>利用在页面创建<code>&lt;script&gt;</code>节点的方法向不同域提交HTTP，然后调用 html 页面函数，通过这项技术可以解决跨域提交Ajax请求的问题。<br>缺点：只支持 get 请求</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">app.get(&#x27;/json&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // 结构</span><br><span class="line">    const &#123;callback&#125; =req.query</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        name:&#x27;fs&#x27;,</span><br><span class="line">        age:12</span><br><span class="line">    &#125;</span><br><span class="line">    // 转为查询字符串</span><br><span class="line">    res.send(`$&#123;callback&#125;($&#123;JSON.stringify(obj)&#125;)`)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3001,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">   <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">res</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">       <span class="built_in">console</span>.log(res);</span></span><br><span class="line"><span class="javascript">   &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://localhost:3001/json?callback=fn&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="3-cors实现原理"><a href="#3-cors实现原理" class="headerlink" title="3.cors实现原理"></a>3.cors实现原理</h4><p>cors 是 Express 的一个第三方中间件.通过安装和配置 cors 中间件，可以很方便解决跨域问题。</p>
+<ul>
+<li>使用步骤<ul>
+<li>安装中间件：<code>npm i cors</code></li>
+<li>导入中间件：`const cors = require(‘cors’)</li>
+<li>配置中间件：在路由之前调用<code>app.use(cors())</code></li>
+</ul>
+</li>
+<li>案例代码<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入 express 模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line"></span><br><span class="line">// 创建 express 的服务器实例</span><br><span class="line">const app = express()</span><br><span class="line"></span><br><span class="line">// 导入中间件</span><br><span class="line">const cors = require(&#x27;cors&#x27;)</span><br><span class="line">// 配置中间件</span><br><span class="line">app.use(cors())</span><br><span class="line"></span><br><span class="line">// 配置解析表单数据的中间件</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;))</span><br><span class="line"></span><br><span class="line">// 导入路由模块</span><br><span class="line">const router = require(&#x27;./020-apiRouter&#x27;)</span><br><span class="line">// 把路由模块，注册到 app 上</span><br><span class="line">app.use(&#x27;/api&#x27;, router)</span><br><span class="line"></span><br><span class="line">// 调用 app.listen 方法，指定端口号并启动 web 服务器</span><br><span class="line">app.listen(3000, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;running……&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>jsonp</tag>
+        <tag>跨域</tag>
       </tags>
   </entry>
   <entry>
@@ -153,13 +238,13 @@
 </ul>
 <h5 id="7-自定义中间件"><a href="#7-自定义中间件" class="headerlink" title="7.自定义中间件"></a>7.自定义中间件</h5><ul>
 <li><p>自己手动模拟一个类似于 <code>express.urlencoded</code> 这样的中间件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入 express 模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">// 创建 express 的服务器实例</span><br><span class="line">const app = express()</span><br><span class="line">// 4. 导入 Node 内置模块 querystring</span><br><span class="line">const qs = require(&#x27;querystring&#x27;)</span><br><span class="line">// 解析表单数据的中间件</span><br><span class="line">app.use((req,res,next)=&gt;&#123;</span><br><span class="line">    // 定义中间价具体的业务逻辑</span><br><span class="line">// 1. 定义一个 str 字符串，专门用来存储客户端发送过来的请求体数据</span><br><span class="line">    let str = &#x27;&#x27;</span><br><span class="line">// 2. 监听 req 的 data 事件</span><br><span class="line">    req.on(&#x27;data&#x27;,rem =&gt;&#123;</span><br><span class="line">        str+=rem</span><br><span class="line">    &#125;)</span><br><span class="line">// 3. 监听 req 的 end 事件</span><br><span class="line">    req.on(&#x27;end&#x27;,()=&gt;&#123;</span><br><span class="line">        // 5. 调用 qs.parse() 方法，将查询字符串解析成对象</span><br><span class="line">        const arr = qs.parse(str)</span><br><span class="line">        req.body=arr</span><br><span class="line">        next()</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">    app.post(&#x27;/user&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">        // 6. 将解析出来的数据对象挂载为 req.body 属性</span><br><span class="line">        res.send(req.body)</span><br><span class="line">    &#125;)</span><br><span class="line">// 调用 app.listen方法，指定端口号并启动 web 服务器</span><br><span class="line">app.listen(3000,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入 express 模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">// 创建 express 的服务器实例</span><br><span class="line">const app = express()</span><br><span class="line">// 4. 导入 Node 内置模块 querystring</span><br><span class="line">const qs = require(&#x27;querystring&#x27;)</span><br><span class="line">// 解析表单数据的中间件</span><br><span class="line">app.use((req,res,next)=&gt;&#123;</span><br><span class="line"> // 定义中间价具体的业务逻辑</span><br><span class="line">// 1. 定义一个 str 字符串，专门用来存储客户端发送过来的请求体数据</span><br><span class="line"> let str = &#x27;&#x27;</span><br><span class="line">// 2. 监听 req 的 data 事件</span><br><span class="line"> req.on(&#x27;data&#x27;,rem =&gt;&#123;</span><br><span class="line">     str+=rem</span><br><span class="line"> &#125;)</span><br><span class="line">// 3. 监听 req 的 end 事件</span><br><span class="line"> req.on(&#x27;end&#x27;,()=&gt;&#123;</span><br><span class="line">     // 5. 调用 qs.parse() 方法，将查询字符串解析成对象</span><br><span class="line">     const arr = qs.parse(str)</span><br><span class="line">     req.body=arr</span><br><span class="line">     next()</span><br><span class="line"> &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"> app.post(&#x27;/user&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">     // 6. 将解析出来的数据对象挂载为 req.body 属性</span><br><span class="line">     res.send(req.body)</span><br><span class="line"> &#125;)</span><br><span class="line">// 调用 app.listen方法，指定端口号并启动 web 服务器</span><br><span class="line">app.listen(3000,()=&gt;&#123;</span><br><span class="line"> console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
 <li><p>在上面基础上封装</p>
 <p>服务器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入 express 模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">// 创建 express 的服务器实例</span><br><span class="line">const app = express()</span><br><span class="line">// 4. 导入 Node 内置模块 querystring</span><br><span class="line">// 导入中间件模块</span><br><span class="line">const arr = require(&#x27;./封装中间件&#x27;)</span><br><span class="line">// 全局中间件</span><br><span class="line">app.use(arr)</span><br><span class="line">app.post(&#x27;/user&#x27;, (req, res) =&gt; &#123;</span><br><span class="line">    // 6. 将解析出来的数据对象挂载为 req.body 属性</span><br><span class="line">    res.send(req.body)</span><br><span class="line">&#125;)</span><br><span class="line">// 调用 app.listen方法，指定端口号并启动 web 服务器</span><br><span class="line">app.listen(3000, () =&gt; &#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入 express 模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">// 创建 express 的服务器实例</span><br><span class="line">const app = express()</span><br><span class="line">// 4. 导入 Node 内置模块 querystring</span><br><span class="line">// 导入中间件模块</span><br><span class="line">const arr = require(&#x27;./封装中间件&#x27;)</span><br><span class="line">// 全局中间件</span><br><span class="line">app.use(arr)</span><br><span class="line">app.post(&#x27;/user&#x27;, (req, res) =&gt; &#123;</span><br><span class="line">    // 6. 将解析出来的数据对象挂载为 req.body 属性</span><br><span class="line">    res.send(req.body)</span><br><span class="line">&#125;)</span><br><span class="line">// 调用 app.listen方法，指定端口号并启动 web 服务器</span><br><span class="line">app.listen(3000, () =&gt; &#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
 </ul>
 <p>中间件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const qs = require(&#x27;querystring&#x27;)</span><br><span class="line">// 解析表单数据的中间件</span><br><span class="line">module.exports=((req, res, next) =&gt; &#123;</span><br><span class="line">    // 定义中间价具体的业务逻辑</span><br><span class="line">    // 1. 定义一个 str 字符串，专门用来存储客户端发送过来的请求体数据</span><br><span class="line">    let str = &#x27;&#x27;</span><br><span class="line">    // 2. 监听 req 的 data 事件</span><br><span class="line">    req.on(&#x27;data&#x27;, rem =&gt; &#123;</span><br><span class="line">        str += rem</span><br><span class="line">    &#125;)</span><br><span class="line">    // 3. 监听 req 的 end 事件</span><br><span class="line">    req.on(&#x27;end&#x27;, () =&gt; &#123;</span><br><span class="line">        // 5. 调用 qs.parse() 方法，将查询字符串解析成对象</span><br><span class="line">        const arr = qs.parse(str)</span><br><span class="line">        req.body = arr</span><br><span class="line">        next()</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const qs = require(&#x27;querystring&#x27;)</span><br><span class="line">// 解析表单数据的中间件</span><br><span class="line">module.exports=((req, res, next) =&gt; &#123;</span><br><span class="line">    // 定义中间价具体的业务逻辑</span><br><span class="line">    // 1. 定义一个 str 字符串，专门用来存储客户端发送过来的请求体数据</span><br><span class="line">    let str = &#x27;&#x27;</span><br><span class="line">    // 2. 监听 req 的 data 事件</span><br><span class="line">    req.on(&#x27;data&#x27;, rem =&gt; &#123;</span><br><span class="line">        str += rem</span><br><span class="line">    &#125;)</span><br><span class="line">    // 3. 监听 req 的 end 事件</span><br><span class="line">    req.on(&#x27;end&#x27;, () =&gt; &#123;</span><br><span class="line">        // 5. 调用 qs.parse() 方法，将查询字符串解析成对象</span><br><span class="line">        const arr = qs.parse(str)</span><br><span class="line">        req.body = arr</span><br><span class="line">        next()</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -169,65 +254,32 @@
       </tags>
   </entry>
   <entry>
-    <title>jsonp or cors 解决跨域</title>
-    <url>/2021/10/08/jsonp%E5%92%8Ccors%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F/</url>
-    <content><![CDATA[<p>JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。对于JSON大家应该是很了解了吧，不是很清楚的朋友可以去json.org上了解下，简单易懂。</p>
-<span id="more"></span>
-<h4 id="1-什么是跨域"><a href="#1-什么是跨域" class="headerlink" title="1.什么是跨域"></a>1.什么是跨域</h4><p>要了解跨域，先说说同源策略。同源策略是 Netscape 公司提出的一个著名的安全策略，所有支持 JavaScript 的浏览器都会使用这个策略。所谓同源是指，域名，协议，端口相同。当页面在执行一个脚本时会检查所访问的资源是否同源，如果非同源，那么在请求数据时，浏览器会在控制台中报一个异常。拒绝访问。</p>
-<h4 id="2-jsonp实现原理"><a href="#2-jsonp实现原理" class="headerlink" title="2.jsonp实现原理"></a>2.jsonp实现原理</h4><p>利用在页面创建<code>&lt;script&gt;</code>节点的方法向不同域提交HTTP，然后调用 html 页面函数，通过这项技术可以解决跨域提交Ajax请求的问题。<br>缺点：只支持 get 请求</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">app.get(&#x27;/json&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // 结构</span><br><span class="line">    const &#123;callback&#125; =req.query</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        name:&#x27;fs&#x27;,</span><br><span class="line">        age:12</span><br><span class="line">    &#125;</span><br><span class="line">    // 转为查询字符串</span><br><span class="line">    res.send(`$&#123;callback&#125;($&#123;JSON.stringify(obj)&#125;)`)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3001,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">   <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">res</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">       <span class="built_in">console</span>.log(res);</span></span><br><span class="line"><span class="javascript">   &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://localhost:3001/json?callback=fn&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="3-cors实现原理"><a href="#3-cors实现原理" class="headerlink" title="3.cors实现原理"></a>3.cors实现原理</h4><p>cors 是 Express 的一个第三方中间件.通过安装和配置 cors 中间件，可以很方便解决跨域问题。</p>
-<ul>
-<li>使用步骤<ul>
-<li>安装中间件：<code>npm i cors</code></li>
-<li>导入中间件：`const cors = require(‘cors’)</li>
-<li>配置中间件：在路由之前调用<code>app.use(cors())</code></li>
-</ul>
-</li>
-<li>案例代码<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入 express 模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line"></span><br><span class="line">// 创建 express 的服务器实例</span><br><span class="line">const app = express()</span><br><span class="line"></span><br><span class="line">// 导入中间件</span><br><span class="line">const cors = require(&#x27;cors&#x27;)</span><br><span class="line">// 配置中间件</span><br><span class="line">app.use(cors())</span><br><span class="line"></span><br><span class="line">// 配置解析表单数据的中间件</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;))</span><br><span class="line"></span><br><span class="line">// 导入路由模块</span><br><span class="line">const router = require(&#x27;./020-apiRouter&#x27;)</span><br><span class="line">// 把路由模块，注册到 app 上</span><br><span class="line">app.use(&#x27;/api&#x27;, router)</span><br><span class="line"></span><br><span class="line">// 调用 app.listen 方法，指定端口号并启动 web 服务器</span><br><span class="line">app.listen(3000, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;running……&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>jsonp</tag>
-        <tag>跨域</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>导入导出、回调地狱、同异微宏任务</title>
     <url>/2021/10/16/%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E3%80%81%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1%E3%80%81%E5%90%8C%E5%BC%82%E5%BE%AE%E5%AE%8F%E4%BB%BB%E5%8A%A1/</url>
-    <content><![CDATA[<ul>
-<li>默认导入导出<ul>
-<li>默认导出： export default {xxx}<span id="more"></span></li>
-<li>默认导入： import 接收名称 from ‘模块地址</li>
-</ul>
+    <content><![CDATA[<h4 id="一、默认导入导出"><a href="#一、默认导入导出" class="headerlink" title="一、默认导入导出"></a>一、默认导入导出</h4><ul>
+<li><p>默认导出： export default {xxx}</p>
+ <span id="more"></span></li>
+<li><p>默认导入： import 接收名称 from ‘模块地址</p>
+<p> <strong>每个模块只允许默认导出一次</strong></p>
 </li>
 </ul>
-<p><strong>每个模块只允许默认导出一次</strong></p>
-<ul>
-<li><p>按需导入导出</p>
-<pre><code>  按需导出：export 导出的成员（let a = 10)
-  按需导入： import &#123;多个接收名称&#125; from &#39;模块地址&#39;
+<h4 id="二、按需导入导出"><a href="#二、按需导入导出" class="headerlink" title="二、按需导入导出"></a>二、按需导入导出</h4><pre><code>    按需导出：export 导出的成员（let a = 10)
+    按需导入： import &#123;多个接收名称&#125; from &#39;模块地址&#39;
 </code></pre>
-</li>
-</ul>
-<p><strong>每个模块可以按需导出多次</strong></p>
-<p><code>as</code> 关键字可以改名字<code>（import &#123;a as b&#125; from &#39;模块地址&#39;）</code></p>
+<p>   <strong>每个模块可以按需导出多次</strong></p>
+<pre><code>    `as` 关键字可以改名字`（import &#123;a as b&#125; from &#39;模块地址&#39;）`
+</code></pre>
 <ul>
 <li><p>按需导入导出可以同时使用，导入方法不同</p>
-<ul>
-<li>import   <strong>默认导入名称</strong>，**{按需导入名称}** from ‘模块地址’</li>
-</ul>
+<pre><code>  - import   **默认导入名称**，**&#123;按需导入名称&#125;** from &#39;模块地址&#39;
+</code></pre>
 </li>
 <li><p>直接运行导入模块代码，并不执行模块向外共享代码</p>
 <pre><code>  import &#39;模块地址&#39;
 </code></pre>
 </li>
-<li><p>解决回调地狱</p>
-<ul>
+</ul>
+<h4 id="三、解决回调地狱"><a href="#三、解决回调地狱" class="headerlink" title="三、解决回调地狱"></a>三、解决回调地狱</h4><ul>
 <li><code>async</code> 和 <code>await</code> 语法</li>
 <li>注意：<ul>
 <li><code>await</code>关键字后面要跟 <strong>promise对象</strong></li>
@@ -237,17 +289,9 @@
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<p><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192759.png"></p>
-<ul>
-<li><p>同步任务与异步任务</p>
-<p> <img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211020200855.png"></p>
-</li>
-<li><p>宏任务与微任务</p>
-<p><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192907.png"></p>
-</li>
-</ul>
+<p>   <img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192759.png"></p>
+<h4 id="四、同步任务与异步任务"><a href="#四、同步任务与异步任务" class="headerlink" title="四、同步任务与异步任务"></a>四、同步任务与异步任务</h4><p>   <img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211020200855.png"></p>
+<h4 id="五、宏任务与微任务"><a href="#五、宏任务与微任务" class="headerlink" title="五、宏任务与微任务"></a>五、宏任务与微任务</h4><p>   <img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192907.png"></p>
 <p>  <img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192855.png"></p>
 ]]></content>
       <categories>
@@ -259,131 +303,68 @@
       </tags>
   </entry>
   <entry>
-    <title>MySQL 数据库</title>
-    <url>/2021/10/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
-    <content><![CDATA[<h2 id="一、数据库基本概念"><a href="#一、数据库基本概念" class="headerlink" title="一、数据库基本概念"></a>一、数据库基本概念</h2><h4 id="1-什么是数据库"><a href="#1-什么是数据库" class="headerlink" title="1.什么是数据库"></a>1.什么是数据库</h4><ul>
-<li>数据库是用来组织、存储和管理数据的仓库<span id="more"></span></li>
-<li>为了方便管理互联网世界中数据，就有了数据库管理系统的概念。用户可以对数据库进行新增、查询、更新、删除等操作。</li>
-</ul>
-<h4 id="2-常见数据库及其分类"><a href="#2-常见数据库及其分类" class="headerlink" title="2.常见数据库及其分类"></a>2.常见数据库及其分类</h4><ul>
-<li>常见数据库分类<ul>
-<li>MySQL 数据库</li>
-<li>Oracle 数据库（收费）</li>
-<li>SQL Server 数据库（收费）</li>
-<li>Mongodb 数据库</li>
-</ul>
-</li>
-</ul>
-<h2 id="二、SQL-语句"><a href="#二、SQL-语句" class="headerlink" title="二、SQL 语句"></a>二、SQL 语句</h2><h4 id="1、什么是SQL"><a href="#1、什么是SQL" class="headerlink" title="1、什么是SQL"></a>1、什么是SQL</h4><ul>
-<li>SQL 是结构化查询语言，专门用来访问和数据库的编程语言，能够以变成形式，操作数据库里面的数据。</li>
-<li>三个关键点：<ul>
-<li>SQL 是一门数据库编程语言</li>
-<li>使用 SQL 语言编写出来的代码，叫做 SQL 语句</li>
-<li>SQL 语言只能关系型数据库中使用（例如 MySQL、Oracle、SQL Server）。非关系型数据库（例如 Mongodb）不支持 SQL 语言</li>
-</ul>
-</li>
-</ul>
-<h4 id="2、SQL-的语句"><a href="#2、SQL-的语句" class="headerlink" title="2、SQL 的语句"></a>2、SQL 的语句</h4><ul>
-<li><p>数据库名字 <code>users</code></p>
-</li>
-<li><p>通过 * 把 users 表中的所有的数据查询出来</p>
-<pre><code>  select * from users
-</code></pre>
-</li>
-<li><p>把表格 username,password 项都找出来</p>
-<pre><code>  select username,password from users
-</code></pre>
-</li>
-<li><p>向数据表插入新的数据行</p>
-<pre><code>  insert into users (username,password) values (&#39;mz&#39;,&#39;123&#39;)
-  insert into users set username = &#39;mz&#39;,password = &#39;123&#39;
-</code></pre>
-</li>
-<li><p>选择性更新数据 where 后面更新的条件</p>
-<pre><code>  update users set password=8888,status=1 where id=4
-</code></pre>
-</li>
-<li><p>删除表中 <code>id=1</code> 行</p>
-<pre><code>  delete from users where id=1 
-</code></pre>
-</li>
-<li><p><code>where</code>子句 运算符</p>
-<p> <img src="/2021/10/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/1.png"></p>
-</li>
-<li><p>可以通过 where 子句来限定 select 的查询条件</p>
-</li>
-<li><ul>
-<li><p>查询 id 为 1 的所有用户</p>
-<pre><code> select * from users where id=1
-</code></pre>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><p>查询 username 不等于 zx 的所有用户</p>
-<pre><code> select * from users where username&lt;&gt;&#39;zx&#39;
-</code></pre>
-</li>
-</ul>
-</li>
-<li><p>使用 and 来显示所有 status=0,并且 id 小于3 的用户</p>
-<pre><code>  select * from users where status=0 and id&lt;3
-</code></pre>
-</li>
-<li><p>使用 or 来显示所有 status 为1，或者 username 为 zs 的用户</p>
-<pre><code>  select * from users where status=0 or username=&#39;zs&#39;
-</code></pre>
-</li>
-<li><p>order by 子句 - 升序排序，按照 id</p>
-<pre><code>  select * from users order by id asc
-</code></pre>
-</li>
-<li><p>order by 子句 - 降序排序 按 username 第一个字母进行降序排序</p>
-<pre><code>  select * from users order by username desc
-</code></pre>
-</li>
-<li><p>多重排序</p>
-<pre><code>  select * from users order by id asc,username desc
-</code></pre>
-</li>
-<li><p>count(*)函数用于返回查询 status=1 结果的总数据条数的数量得到一个数字</p>
-<pre><code>  select count(*) from users where status=1
-</code></pre>
-</li>
-<li><p>使用 AS 为列设置别名</p>
-</li>
-<li><p>将列名 username 改为 uname , password 改为 upwd</p>
-<pre><code>  select username as uname, password as upwd from users
-</code></pre>
-</li>
-</ul>
-<h2 id="三、MySQL模块"><a href="#三、MySQL模块" class="headerlink" title="三、MySQL模块"></a>三、MySQL模块</h2><h4 id="1、作用"><a href="#1、作用" class="headerlink" title="1、作用"></a>1、作用</h4><ul>
-<li>通过 mysql 模块连接到 mySQL 数据库</li>
-<li>通过 mysql 模块执行 SQL 语句</li>
-</ul>
-<h4 id="2、安装配置-mysql-模块"><a href="#2、安装配置-mysql-模块" class="headerlink" title="2、安装配置 mysql 模块"></a>2、安装配置 mysql 模块</h4><ul>
-<li>安装命令<br>`npm i mysql</li>
-<li>配置 mysql 模块<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 1.导入 musql 模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line"></span><br><span class="line">// 2.建立与 mysql 数据库连接</span><br><span class="line">const db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 检测 mysql 模块是否能正常工作</span><br><span class="line">db.query(&#x27;select 1&#x27;,(err,data)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    console.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="3、使用-select-语句查询数据"><a href="#3、使用-select-语句查询数据" class="headerlink" title="3、使用 select 语句查询数据"></a>3、使用 select 语句查询数据</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 1.导入mysql模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line"></span><br><span class="line">// 与服务器建立连接</span><br><span class="line">var db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 查询users中所有用户数据</span><br><span class="line">db.query(&#x27;select * from users&#x27;,(err,data)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    console.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+    <title>vue基本指令与脚手架基本配置</title>
+    <url>/2021/10/20/vue%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4%E4%B8%8E%E8%84%9A%E6%89%8B%E6%9E%B6%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h5 id="一、脚手架-vue-cli-创建项目启动服务"><a href="#一、脚手架-vue-cli-创建项目启动服务" class="headerlink" title="一、脚手架(@vue/cli)创建项目启动服务"></a>一、脚手架(@vue/cli)创建项目启动服务</h5><h6 id="1、创建项目"><a href="#1、创建项目" class="headerlink" title="1、创建项目"></a>1、创建项目</h6><span id="more"></span>
 
-<h4 id="4、使用-insert-into-语句插入数据"><a href="#4、使用-insert-into-语句插入数据" class="headerlink" title="4、使用 insert into 语句插入数据"></a>4、使用 insert into 语句插入数据</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入mysql模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line">// 与数据库建立连接</span><br><span class="line">var db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line">// 要插入的数据</span><br><span class="line">const data = &#123;</span><br><span class="line">    username:&#x27;kxu&#x27;,</span><br><span class="line">    password:&#x27;123&#x27;</span><br><span class="line">&#125;</span><br><span class="line">// mysql语句</span><br><span class="line">const dl = &#x27;insert into users set?&#x27;</span><br><span class="line"></span><br><span class="line">// 给数据库插入值</span><br><span class="line">db.query(dl,data,(err,user)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    console.log(user);</span><br><span class="line">    if(user.affectedRows ===1) return console.log(&#x27;插入成功&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<pre><code>    vue create 项目名字
+</code></pre>
+<h6 id="2、启动项目"><a href="#2、启动项目" class="headerlink" title="2、启动项目"></a>2、启动项目</h6><p>   进入项目根目录，运行以下命令</p>
+<pre><code>    yarn serve
+</code></pre>
+<h6 id="3、脚手架目录代码分析"><a href="#3、脚手架目录代码分析" class="headerlink" title="3、脚手架目录代码分析"></a>3、脚手架目录代码分析</h6>   <figure class="highlight plaintext"><figcaption><span># 项目目录</span></figcaption><table><tr><td class="code"><pre><span class="line">   ├── node_modules # 项目依赖的第三方包</span><br><span class="line">   ├── public       # 静态文件目录</span><br><span class="line">     ├── favicon.ico# 浏览器小图标</span><br><span class="line">     └── index.html # 单页面的html文件(网页浏览的是它)</span><br><span class="line">   ├── src          # 业务文件夹</span><br><span class="line">     ├── assets     # 静态资源</span><br><span class="line">       └── logo.png # vue的logo图片</span><br><span class="line">     ├── components # 组件目录</span><br><span class="line">       └── HelloWorld.vue # 欢迎页面vue代码文件 </span><br><span class="line">     ├── App.vue    # 整个应用的根组件</span><br><span class="line">     └── main.js    # 入口js文件</span><br><span class="line">   ├── .gitignore   # git提交忽略配置</span><br><span class="line">   ├── babel.config.js  # babel配置</span><br><span class="line">   ├── package.json  # 依赖包列表</span><br><span class="line">   |—— vue.config.js # 覆盖 webpack 的配置,文件自己添加</span><br><span class="line">   ├── README.md    # 项目说明</span><br><span class="line">└── yarn.lock    # 项目包版本锁定和缓存地址</span><br></pre></td></tr></table></figure>
+<h6 id="4、主要文件及含义"><a href="#4、主要文件及含义" class="headerlink" title="4、主要文件及含义"></a>4、主要文件及含义</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node_modules下都是下载的第三方包</span><br><span class="line">public/index.html – 浏览器运行的网页</span><br><span class="line">src/main.js – webpack打包的入口文件</span><br><span class="line">src/App.vue – vue项目入口页面</span><br><span class="line">package.json – 依赖包列表文件</span><br><span class="line">vue.config.js # 覆盖 webpack 的配置,文件自己添加</span><br></pre></td></tr></table></figure>
 
-<h4 id="5、使用-update-语句更新数据"><a href="#5、使用-update-语句更新数据" class="headerlink" title="5、使用 update 语句更新数据"></a>5、使用 update 语句更新数据</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 1.导入 mysql 模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line">// 与数据库建立连接</span><br><span class="line">var db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 要更新的数据</span><br><span class="line">const data = &#123;</span><br><span class="line">    id: 4,</span><br><span class="line">    username:&#x27;ffff&#x27;,</span><br><span class="line">    password:&#x27;123&#x27;,</span><br><span class="line">&#125;</span><br><span class="line">// mysql语句</span><br><span class="line">const ql = &#x27;update users set ? where id=?&#x27;</span><br><span class="line"></span><br><span class="line">// 更新数据</span><br><span class="line">db.query(ql,[data,data.id],(err,user)=&gt;&#123;</span><br><span class="line">    console.log(user);</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    if (user.affectedRows===1) return console.log(&#x27;更新成功&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h6 id="5、脚手架自定义配置"><a href="#5、脚手架自定义配置" class="headerlink" title="5、脚手架自定义配置"></a>5、脚手架自定义配置</h6><ul>
+<li><code>src</code> 并列新建 <code>vue.config.js</code> </li>
+</ul>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> /* 覆盖webpack的配置 */</span><br><span class="line">module.exports = &#123;</span><br><span class="line">devServer: &#123; // 自定义服务配置</span><br><span class="line">  open: true, // 自动打开浏览器</span><br><span class="line">  port: 3000</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="6、关闭代码检查工具"><a href="#6、关闭代码检查工具" class="headerlink" title="6、关闭代码检查工具"></a>6、关闭代码检查工具</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">    // ...其他配置</span><br><span class="line">    lintOnSave: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="7、打包压缩配置"><a href="#7、打包压缩配置" class="headerlink" title="7、打包压缩配置"></a>7、打包压缩配置</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> module.exports = &#123;</span><br><span class="line">    // ...其他配置</span><br><span class="line">    mode: &#x27;development&#x27; // 开发环境, 不压缩, 不混淆 打包速度非常快,不设置默认压缩</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="6-使用-update-语句标记删除数据"><a href="#6-使用-update-语句标记删除数据" class="headerlink" title="6.使用 update 语句标记删除数据"></a>6.使用 update 语句标记删除数据</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line"></span><br><span class="line">// 连接数据库</span><br><span class="line">var db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// mysql语句</span><br><span class="line">const dl = &#x27;update users set status=0 where id=?&#x27;</span><br><span class="line"></span><br><span class="line">// 删除</span><br><span class="line">db.query(dl,9,(err,data)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    if(data.affectedRows===1) return  console.log(&#x27;删除成功&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h5 id="二、Vue指令"><a href="#二、Vue指令" class="headerlink" title="二、Vue指令"></a>二、Vue指令</h5><h6 id="1、插值表达式"><a href="#1、插值表达式" class="headerlink" title="1、插值表达式"></a>1、插值表达式</h6><p>   语法：</p>
+<pre><code>    &lt;h1&gt;&#123;&#123; msg &#125;&#125;&lt;/h1&gt;
+</code></pre>
+<h6 id="2-v-bind-属性动态赋值"><a href="#2-v-bind-属性动态赋值" class="headerlink" title="2. v-bind 属性动态赋值"></a>2. v-bind 属性动态赋值</h6><p>   语法：<code>v-bind: 属性名 = &#39;变量&#39;</code><br>   简写：<code>:属性名 = &#39;vue 变量&#39;</code></p>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- vue指令-v-bind属性动态赋值 --&gt;</span><br><span class="line">&lt;a v-bind:href=&quot;url&quot;&gt;我是a标签&lt;/a&gt;</span><br><span class="line">&lt;img :src=&quot;imgSrc&quot;&gt;</span><br></pre></td></tr></table></figure>
 
-<h4 id="7-通过-node-来操作-mysql"><a href="#7-通过-node-来操作-mysql" class="headerlink" title="7.通过 node 来操作 mysql"></a>7.通过 node 来操作 mysql</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">const mysql = require(&#x27;mysql&#x27;)</span><br><span class="line">// 连接数据库</span><br><span class="line">const db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;,  // 数据库的 ip 地址</span><br><span class="line">    user: &#x27;root&#x27;, // 登录数据库的账号</span><br><span class="line">    password: &#x27;root&#x27;, // 登录数据库的密码</span><br><span class="line">    database: &#x27;web67&#x27; // 指定要操作哪个数据库</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 把数据返回客户端</span><br><span class="line">app.get(&#x27;/user&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    db.query(&#x27;select * from users&#x27;, (err, data) =&gt; &#123;</span><br><span class="line">        if(err) return console.log(err.message);</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            status:0,</span><br><span class="line">            msg:&#x27;请求成功&#x27;,</span><br><span class="line">            data</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">// 解析post数据全局中间件</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;))</span><br><span class="line">// 给users中添加用户名密码</span><br><span class="line">app.post(&#x27;/postuser&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    const body = req.body</span><br><span class="line">    const dl = &#x27;insert into users set ?&#x27;</span><br><span class="line">    db.query(dl,body, (err, data) =&gt; &#123;</span><br><span class="line">        if (err) return console.log(err.message);</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            status: 0,</span><br><span class="line">            msg: &#x27;添加成功&#x27;,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">// 根据id更新用户名</span><br><span class="line">app.post(&#x27;/duser&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    const body = req.body</span><br><span class="line">    const dl = &#x27;update users set ? where id=?&#x27;</span><br><span class="line">    db.query(dl,[body,body.id], (err, data) =&gt; &#123;</span><br><span class="line">        if (err) return console.log(err.message);</span><br><span class="line">        if(data.affactedRows!==1) console.log(&#x27;更新失败&#x27;);</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            status: 0,</span><br><span class="line">            msg: &#x27;更新成功&#x27;,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">// 根据id删除</span><br><span class="line">app.get(&#x27;/iuser/:id&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    const user = req.params.id</span><br><span class="line">    const dl = &#x27;delete from users where id=?&#x27;</span><br><span class="line">    db.query(dl, user, (err, data) =&gt; &#123;</span><br><span class="line">        if (err) return console.log(err.message);</span><br><span class="line">        if (data.affactedRows !== 1) console.log(&#x27;更新失败&#x27;);</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            status: 0,</span><br><span class="line">            msg: &#x27;删除成功&#x27;,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3000,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h6 id="3-v-on-事件指令"><a href="#3-v-on-事件指令" class="headerlink" title="3. v-on 事件指令"></a>3. v-on 事件指令</h6><p>   语法：v-on: 事件名 = ‘少量代码/函数/函数(实参)’<br>   简写：@事件名 = ‘少量代码/函数/函数(实参)’</p>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;button v-on:click=&quot;count = count + 1&quot;&gt;增加1&lt;/button&gt;</span><br><span class="line">&lt;button @click=&quot;addFn&quot;&gt;增加1个&lt;/button&gt;</span><br><span class="line">&lt;button v-on:click=&quot;addCountFn(5)&quot;&gt;一次加5件&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+<h6 id="4、-v-on-事件对象"><a href="#4、-v-on-事件对象" class="headerlink" title="4、 v-on 事件对象"></a>4、 v-on 事件对象</h6><p>   无传参：通过形参直接接收<br>   有传参：通过固定值 <code>$event</code> 指代事件对象传给事件处理函数</p>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a @click=&quot;two(10, $event)&quot; href=&quot;http://www.baidu.com&quot;&gt;阻止去百度&lt;/a&gt;</span><br><span class="line"></span><br><span class="line"> two(num, e)&#123;  // num = 10 ; e = 事件对象 a</span><br><span class="line">   e.preventDefault()</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 
+<h6 id="5、-v-on-修饰符"><a href="#5、-v-on-修饰符" class="headerlink" title="5、 v-on 修饰符"></a>5、 v-on 修饰符</h6><p>   语法：@事件名.修饰符 = ‘methods 里的函数’</p>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.stop - 阻止自身而引起事件冒泡</span><br><span class="line">.prevent - 阻止默认行为</span><br><span class="line">.once - 程序运行期间, 只触发一次事件处理函数</span><br><span class="line">.capture - 有3个div事件冒泡会3-2-1，如果给div2加上关键字顺序为2-3-1</span><br><span class="line">.self 忽略其他元素冒泡或者捕获事件，只局限于自身</span><br><span class="line">-------------------------------------</span><br><span class="line">&lt;button @click.stop=&quot;btn&quot;&gt;.stop阻止事件冒泡&lt;/button&gt;  </span><br><span class="line">&lt;a href=&quot;http://www.baidu.com&quot; @click.prevent=&quot;btn&quot;&gt;.prevent阻止默认行为&lt;/a&gt; </span><br><span class="line"> &lt;button @click.once=&quot;btn&quot;&gt;.once程序运行期间, 只触发一次事件处理函数&lt;/button&gt;  </span><br></pre></td></tr></table></figure>
 
-
+<h6 id="6、-v-on-按键修饰符·"><a href="#6、-v-on-按键修饰符·" class="headerlink" title="6、 v-on 按键修饰符·"></a>6、 v-on 按键修饰符·</h6><p>   语法：@keyup.按键名字 /按键数字编码</p>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">         &lt;input type=&quot;text&quot; @keydown.enter=&quot;enterFn&quot;&gt; // 按下了回车键</span><br><span class="line"></span><br><span class="line">   更多按键参考 [vue 官网](https://cn.vuejs.org/v2/guide/events.html#%E6%8C%89%E9%94%AE%E7%A0%81)</span><br><span class="line">###### 7、系统修饰符</span><br><span class="line"></span><br><span class="line">   使用以下修饰符，对应按键处于按下状态才会触发鼠标或者键盘监听</span><br></pre></td></tr></table></figure>
+<p>   修饰符：.ctrl  .alt  .shift  .meta</p>
+<pre><code>&lt;button @click.shift=&#39;btnf&#39;&gt;&lt;/button&gt;  // 只有当按下 shift 键才可以触发点击事件
+</code></pre>
+<h6 id="8、v-model-表单指令"><a href="#8、v-model-表单指令" class="headerlink" title="8、v-model 表单指令"></a>8、v-model 表单指令</h6><p>   双向数据绑定：</p>
+<p>   数据变化 =&gt; 视图自动同步<br>   视图变化 =&gt; 数据自动同步</p>
+<p>   演示：</p>
+   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot; v-model=&quot;username&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;select v-model=&quot;from&quot;&gt;  // 下拉框绑定在select上</span><br><span class="line">     &lt;option disabled value=&quot;&quot;&gt;请选择&lt;/option&gt;  //disabled 禁用选项</span><br><span class="line">     &lt;option value=&quot;天津市&quot;&gt;天津&lt;/option&gt;</span><br><span class="line">   &lt;/select&gt;</span><br><span class="line">   </span><br><span class="line">   &lt;input type=&quot;checkbox&quot; v-model=&quot;hobby&quot; value=&quot;抽烟&quot;&gt;抽烟  //复选框变量 hobby 是数组</span><br></pre></td></tr></table></figure>
+<h6 id="9、v-model-表单修饰符"><a href="#9、v-model-表单修饰符" class="headerlink" title="9、v-model 表单修饰符"></a>9、v-model 表单修饰符</h6><p>   .number 以 parseFloat 转成数字类型<br>   .trim  去除首尾空白字符<br>   .lazy   光标离开表单输送</p>
+<p>   演示：</p>
+<pre><code>    &lt;input type=&quot;text&quot; v-model.number=&quot;age&quot;&gt;
+</code></pre>
+<h6 id="10、v-text和v-html插值"><a href="#10、v-text和v-html插值" class="headerlink" title="10、v-text和v-html插值"></a>10、v-text和v-html插值</h6><p>   注意：会覆盖插值表达式</p>
+<p>   语法：<br>      v-text = ‘vue 数据变量’<br>      v-html = ‘vue 数据变量’<br>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;p v-text=&quot;str&quot;&gt; &lt;span&gt;我是一个span标签&lt;/span&gt; &lt;/p&gt;</span><br><span class="line">&lt;p v-html=&quot;str&quot;&gt; 我是一个span标签 &lt;/p&gt;</span><br><span class="line"></span><br><span class="line">str: &quot;&lt;span&gt;我是一个span标签&lt;/span&gt;&quot;</span><br></pre></td></tr></table></figure></p>
+<h6 id="11、v-show-和-v-if-隐藏移除"><a href="#11、v-show-和-v-if-隐藏移除" class="headerlink" title="11、v-show 和 v-if 隐藏移除"></a>11、v-show 和 v-if 隐藏移除</h6><p>   语法：<br>      v-show = ‘vue 变量’  //变量 true 为隐藏 false 为显示<br>      v-if = ‘vue 变量’  //变量 true 为隐藏 false 为显示</p>
+<p>   原理：<br>      v-show 用的是display:none 隐藏(频繁切换使用)<br>      v-if 直接从 DOM 树上移除</p>
+<p>   高级：<br>      v-else 使用<br>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;p v-if=&quot;age &gt; 18&quot;&gt;我成年了&lt;/p&gt;</span><br><span class="line">&lt;p v-else&gt;还得多吃饭&lt;/p&gt;  // 显示</span><br><span class="line">     </span><br><span class="line">age:15</span><br></pre></td></tr></table></figure></p>
+<h6 id="12、v-for-循环指令"><a href="#12、v-for-循环指令" class="headerlink" title="12、v-for 循环指令"></a>12、v-for 循环指令</h6><p>   语法：<br>      v-for = ‘(值，索引) in 目标结果’<br>      v-for = ‘值 in 目标结构’</p>
+<p>   目标结构：<br>      可以遍历数组、对象、数字、字符串、(可遍历结构)</p>
+<p>   演示：<br>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 遍历数组 item 值，index 索引</span><br><span class="line">&lt;li v-for=&quot;(item, index) in arr&quot; :key=&quot;item&quot;&gt;</span><br><span class="line"></span><br><span class="line">//遍历对象 value 值，key 属性名</span><br><span class="line">&lt;div v-for=&quot;(value, key) in arr&quot; :key=&quot;value&quot;&gt;</span><br><span class="line"></span><br><span class="line">遍历整数，假设 arr:5 ,那么&#123;&#123;i&#125;&#125; 为 1，2，3，4，5</span><br><span class="line"> &lt;div v-for=&quot;i in arr&quot; :key=&quot;i&quot;&gt;&#123;&#123; i &#125;&#125;&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>   **PS: **谁循环，v-for 语句写在谁身上</p>
 ]]></content>
       <categories>
         <category>前端</category>
       </categories>
       <tags>
-        <tag>node</tag>
-        <tag>MySQL数据库</tag>
+        <tag>vue 指令</tag>
+        <tag>脚手架</tag>
       </tags>
   </entry>
   <entry>
