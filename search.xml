@@ -1,40 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>VUE中v-for更新检测</title>
-    <url>/2021/10/20/VUE%E4%B8%ADv-for%E6%9B%B4%E6%96%B0%E6%A3%80%E6%B5%8B/</url>
-    <content><![CDATA[<h5 id="口诀："><a href="#口诀：" class="headerlink" title="口诀："></a>口诀：</h5><ul>
-<li>数组变更方法，就会导致 v-for 更新，页面更新<span id="more"></span></li>
-<li>数组非变更方法：返回新数组，就不会导致 v-for 更新，更新值检测不到可采用覆盖或者 this.$set()</li>
-</ul>
-<h6 id="一、数组变更方法如下："><a href="#一、数组变更方法如下：" class="headerlink" title="一、数组变更方法如下："></a>一、数组变更方法如下：</h6><h6 id="1-arr-push-从后面添加元素"><a href="#1-arr-push-从后面添加元素" class="headerlink" title="1. arr.push()从后面添加元素"></a>1. arr.push()从后面添加元素</h6><pre><code>    arr.push(5)
-</code></pre>
-<h6 id="2-arr-pop-从后面删除元素，只能是一个"><a href="#2-arr-pop-从后面删除元素，只能是一个" class="headerlink" title="2. arr.pop()从后面删除元素，只能是一个"></a>2. arr.pop()从后面删除元素，只能是一个</h6><pre><code>    arr.pop()
-</code></pre>
-<h6 id="3-arr-shift-从前面删除元素，只能删除一个"><a href="#3-arr-shift-从前面删除元素，只能删除一个" class="headerlink" title="3. arr.shift()从前面删除元素，只能删除一个"></a>3. arr.shift()从前面删除元素，只能删除一个</h6><pre><code>    arr.shift()
-</code></pre>
-<h6 id="4-arr-unshift-从前面添加元素，返回值时添加完后数组长度"><a href="#4-arr-unshift-从前面添加元素，返回值时添加完后数组长度" class="headerlink" title="4. arr.unshift()从前面添加元素，返回值时添加完后数组长度"></a>4. arr.unshift()从前面添加元素，返回值时添加完后数组长度</h6><pre><code>    arr.unshift(8)
-</code></pre>
-<h6 id="5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数"><a href="#5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数" class="headerlink" title="5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数"></a>5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.splice(2,2))     //[3,4]</span><br><span class="line">console.log(arr)    // [1,2,5]</span><br></pre></td></tr></table></figure>
-
-<h6 id="6-arr-sort-将数组进行排序，返回值排好的数组"><a href="#6-arr-sort-将数组进行排序，返回值排好的数组" class="headerlink" title="6. arr.sort()将数组进行排序，返回值排好的数组"></a>6. arr.sort()将数组进行排序，返回值排好的数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [2,10,6,1,4,22,3]</span><br><span class="line">console.log(arr.sort())   // [1, 10, 2, 22, 3, 4, 6]</span><br><span class="line">let arr1 = arr.sort((a, b) =&gt;a - b)  </span><br><span class="line">console.log(arr1)   // [1, 2, 3, 4, 6, 10, 22]</span><br><span class="line">let arr2 = arr.sort((a, b) =&gt;b-a)  </span><br><span class="line">console.log(arr2)  // [22, 10, 6, 4, 3, 2, 1]</span><br></pre></td></tr></table></figure>
-
-<h6 id="7-arr-reverse-将数组反转"><a href="#7-arr-reverse-将数组反转" class="headerlink" title="7. arr.reverse() 将数组反转"></a>7. arr.reverse() 将数组反转</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.reverse())    // [5,4,3,2,1]</span><br><span class="line">console.log(arr)    // [5,4,3,2,1]</span><br></pre></td></tr></table></figure>
-
-<h5 id="二、数组非变更方法如下："><a href="#二、数组非变更方法如下：" class="headerlink" title="二、数组非变更方法如下："></a>二、数组非变更方法如下：</h5><h6 id="1-arr-concat-连接两个数组"><a href="#1-arr-concat-连接两个数组" class="headerlink" title="1. arr.concat()连接两个数组"></a>1. arr.concat()连接两个数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.concat([1,2]))  // [1,2,3,4,5,1,2]</span><br><span class="line">console.log(arr)   // [1,2,3,4,5]</span><br></pre></td></tr></table></figure>
-<h6 id="2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值"><a href="#2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值" class="headerlink" title="2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值"></a>2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.slice(1,3))   // [2,3]</span><br></pre></td></tr></table></figure>
-<h5 id="三、覆盖方法"><a href="#三、覆盖方法" class="headerlink" title="三、覆盖方法"></a>三、覆盖方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;截取前3个&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">    sliceBtn()&#123;</span><br><span class="line">   // 2. 数组slice方法不会造成v-for更新</span><br><span class="line">   // slice不会改变原始数组</span><br><span class="line">   // this.arr.slice(0, 3)</span><br><span class="line"></span><br><span class="line">   // 解决v-for更新 - 覆盖原始数组</span><br><span class="line">   let newArr = this.arr.slice(0, 3)</span><br><span class="line">   this.arr = newArr</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
-
-<h5 id="四、this-set-方法"><a href="#四、this-set-方法" class="headerlink" title="四、this.$set()方法"></a>四、this.$set()方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;更新下标0的值&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">   sliceBtn()&#123;</span><br><span class="line">   // 更新某个值时，v-for是检测不到的</span><br><span class="line">   // this.arr[0] = 1000</span><br><span class="line">   </span><br><span class="line">   // 解决- this.$set()</span><br><span class="line">   // 参数1：更新目标结构</span><br><span class="line">   // 参数2：更新位置</span><br><span class="line">   // 参数3：更新值</span><br><span class="line">    this.$set(this.arr,0,1000)</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
-        <tag>v-for循环</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MySQL 数据库</title>
     <url>/2021/10/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
     <content><![CDATA[<h3 id="一、数据库基本概念"><a href="#一、数据库基本概念" class="headerlink" title="一、数据库基本概念"></a>一、数据库基本概念</h3><h4 id="1-什么是数据库"><a href="#1-什么是数据库" class="headerlink" title="1.什么是数据库"></a>1.什么是数据库</h4><ul>
@@ -84,7 +50,7 @@
 </code></pre>
 </li>
 <li><p><code>where</code>子句 运算符</p>
-<p> <img src="/2021/10/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/1.png"></p>
+<p> <img src="./MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/1.png"></p>
 </li>
 <li><p>可以通过 where 子句来限定 select 的查询条件</p>
 </li>
@@ -157,6 +123,40 @@
       </tags>
   </entry>
   <entry>
+    <title>VUE中v-for更新检测</title>
+    <url>/2021/10/20/VUE%E4%B8%ADv-for%E6%9B%B4%E6%96%B0%E6%A3%80%E6%B5%8B/</url>
+    <content><![CDATA[<h5 id="口诀："><a href="#口诀：" class="headerlink" title="口诀："></a>口诀：</h5><ul>
+<li>数组变更方法，就会导致 v-for 更新，页面更新<span id="more"></span></li>
+<li>数组非变更方法：返回新数组，就不会导致 v-for 更新，更新值检测不到可采用覆盖或者 this.$set()</li>
+</ul>
+<h6 id="一、数组变更方法如下："><a href="#一、数组变更方法如下：" class="headerlink" title="一、数组变更方法如下："></a>一、数组变更方法如下：</h6><h6 id="1-arr-push-从后面添加元素"><a href="#1-arr-push-从后面添加元素" class="headerlink" title="1. arr.push()从后面添加元素"></a>1. arr.push()从后面添加元素</h6><pre><code>    arr.push(5)
+</code></pre>
+<h6 id="2-arr-pop-从后面删除元素，只能是一个"><a href="#2-arr-pop-从后面删除元素，只能是一个" class="headerlink" title="2. arr.pop()从后面删除元素，只能是一个"></a>2. arr.pop()从后面删除元素，只能是一个</h6><pre><code>    arr.pop()
+</code></pre>
+<h6 id="3-arr-shift-从前面删除元素，只能删除一个"><a href="#3-arr-shift-从前面删除元素，只能删除一个" class="headerlink" title="3. arr.shift()从前面删除元素，只能删除一个"></a>3. arr.shift()从前面删除元素，只能删除一个</h6><pre><code>    arr.shift()
+</code></pre>
+<h6 id="4-arr-unshift-从前面添加元素，返回值时添加完后数组长度"><a href="#4-arr-unshift-从前面添加元素，返回值时添加完后数组长度" class="headerlink" title="4. arr.unshift()从前面添加元素，返回值时添加完后数组长度"></a>4. arr.unshift()从前面添加元素，返回值时添加完后数组长度</h6><pre><code>    arr.unshift(8)
+</code></pre>
+<h6 id="5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数"><a href="#5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数" class="headerlink" title="5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数"></a>5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.splice(2,2))     //[3,4]</span><br><span class="line">console.log(arr)    // [1,2,5]</span><br></pre></td></tr></table></figure>
+
+<h6 id="6-arr-sort-将数组进行排序，返回值排好的数组"><a href="#6-arr-sort-将数组进行排序，返回值排好的数组" class="headerlink" title="6. arr.sort()将数组进行排序，返回值排好的数组"></a>6. arr.sort()将数组进行排序，返回值排好的数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [2,10,6,1,4,22,3]</span><br><span class="line">console.log(arr.sort())   // [1, 10, 2, 22, 3, 4, 6]</span><br><span class="line">let arr1 = arr.sort((a, b) =&gt;a - b)  </span><br><span class="line">console.log(arr1)   // [1, 2, 3, 4, 6, 10, 22]</span><br><span class="line">let arr2 = arr.sort((a, b) =&gt;b-a)  </span><br><span class="line">console.log(arr2)  // [22, 10, 6, 4, 3, 2, 1]</span><br></pre></td></tr></table></figure>
+
+<h6 id="7-arr-reverse-将数组反转"><a href="#7-arr-reverse-将数组反转" class="headerlink" title="7. arr.reverse() 将数组反转"></a>7. arr.reverse() 将数组反转</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.reverse())    // [5,4,3,2,1]</span><br><span class="line">console.log(arr)    // [5,4,3,2,1]</span><br></pre></td></tr></table></figure>
+
+<h5 id="二、数组非变更方法如下："><a href="#二、数组非变更方法如下：" class="headerlink" title="二、数组非变更方法如下："></a>二、数组非变更方法如下：</h5><h6 id="1-arr-concat-连接两个数组"><a href="#1-arr-concat-连接两个数组" class="headerlink" title="1. arr.concat()连接两个数组"></a>1. arr.concat()连接两个数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.concat([1,2]))  // [1,2,3,4,5,1,2]</span><br><span class="line">console.log(arr)   // [1,2,3,4,5]</span><br></pre></td></tr></table></figure>
+<h6 id="2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值"><a href="#2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值" class="headerlink" title="2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值"></a>2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.slice(1,3))   // [2,3]</span><br></pre></td></tr></table></figure>
+<h5 id="三、覆盖方法"><a href="#三、覆盖方法" class="headerlink" title="三、覆盖方法"></a>三、覆盖方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;截取前3个&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">    sliceBtn()&#123;</span><br><span class="line">   // 2. 数组slice方法不会造成v-for更新</span><br><span class="line">   // slice不会改变原始数组</span><br><span class="line">   // this.arr.slice(0, 3)</span><br><span class="line"></span><br><span class="line">   // 解决v-for更新 - 覆盖原始数组</span><br><span class="line">   let newArr = this.arr.slice(0, 3)</span><br><span class="line">   this.arr = newArr</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
+
+<h5 id="四、this-set-方法"><a href="#四、this-set-方法" class="headerlink" title="四、this.$set()方法"></a>四、this.$set()方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;更新下标0的值&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">   sliceBtn()&#123;</span><br><span class="line">   // 更新某个值时，v-for是检测不到的</span><br><span class="line">   // this.arr[0] = 1000</span><br><span class="line">   </span><br><span class="line">   // 解决- this.$set()</span><br><span class="line">   // 参数1：更新目标结构</span><br><span class="line">   // 参数2：更新位置</span><br><span class="line">   // 参数3：更新值</span><br><span class="line">    this.$set(this.arr,0,1000)</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>v-for循环</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>vue基本指令与脚手架基本配置</title>
     <url>/2021/10/20/vue%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4%E4%B8%8E%E8%84%9A%E6%89%8B%E6%9E%B6%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h5 id="一、脚手架-vue-cli-创建项目启动服务"><a href="#一、脚手架-vue-cli-创建项目启动服务" class="headerlink" title="一、脚手架(@vue/cli)创建项目启动服务"></a>一、脚手架(@vue/cli)创建项目启动服务</h5><h6 id="1、创建项目"><a href="#1、创建项目" class="headerlink" title="1、创建项目"></a>1、创建项目</h6><span id="more"></span>
@@ -219,34 +219,6 @@
       <tags>
         <tag>vue 指令</tag>
         <tag>脚手架</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>jsonp or cors 解决跨域</title>
-    <url>/2021/10/08/jsonp%E5%92%8Ccors%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F/</url>
-    <content><![CDATA[<p>JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。对于JSON大家应该是很了解了吧，不是很清楚的朋友可以去json.org上了解下，简单易懂。</p>
-<span id="more"></span>
-<h4 id="1-什么是跨域"><a href="#1-什么是跨域" class="headerlink" title="1.什么是跨域"></a>1.什么是跨域</h4><p>要了解跨域，先说说同源策略。同源策略是 Netscape 公司提出的一个著名的安全策略，所有支持 JavaScript 的浏览器都会使用这个策略。所谓同源是指，域名，协议，端口相同。当页面在执行一个脚本时会检查所访问的资源是否同源，如果非同源，那么在请求数据时，浏览器会在控制台中报一个异常。拒绝访问。</p>
-<h4 id="2-jsonp实现原理"><a href="#2-jsonp实现原理" class="headerlink" title="2.jsonp实现原理"></a>2.jsonp实现原理</h4><p>利用在页面创建<code>&lt;script&gt;</code>节点的方法向不同域提交HTTP，然后调用 html 页面函数，通过这项技术可以解决跨域提交Ajax请求的问题。<br>缺点：只支持 get 请求</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">app.get(&#x27;/json&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // 结构</span><br><span class="line">    const &#123;callback&#125; =req.query</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        name:&#x27;fs&#x27;,</span><br><span class="line">        age:12</span><br><span class="line">    &#125;</span><br><span class="line">    // 转为查询字符串</span><br><span class="line">    res.send(`$&#123;callback&#125;($&#123;JSON.stringify(obj)&#125;)`)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3001,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">   <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">res</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">       <span class="built_in">console</span>.log(res);</span></span><br><span class="line"><span class="javascript">   &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://localhost:3001/json?callback=fn&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="3-cors实现原理"><a href="#3-cors实现原理" class="headerlink" title="3.cors实现原理"></a>3.cors实现原理</h4><p>cors 是 Express 的一个第三方中间件.通过安装和配置 cors 中间件，可以很方便解决跨域问题。</p>
-<ul>
-<li>使用步骤<ul>
-<li>安装中间件：<code>npm i cors</code></li>
-<li>导入中间件：`const cors = require(‘cors’)</li>
-<li>配置中间件：在路由之前调用<code>app.use(cors())</code></li>
-</ul>
-</li>
-<li>案例代码<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入 express 模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line"></span><br><span class="line">// 创建 express 的服务器实例</span><br><span class="line">const app = express()</span><br><span class="line"></span><br><span class="line">// 导入中间件</span><br><span class="line">const cors = require(&#x27;cors&#x27;)</span><br><span class="line">// 配置中间件</span><br><span class="line">app.use(cors())</span><br><span class="line"></span><br><span class="line">// 配置解析表单数据的中间件</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;))</span><br><span class="line"></span><br><span class="line">// 导入路由模块</span><br><span class="line">const router = require(&#x27;./020-apiRouter&#x27;)</span><br><span class="line">// 把路由模块，注册到 app 上</span><br><span class="line">app.use(&#x27;/api&#x27;, router)</span><br><span class="line"></span><br><span class="line">// 调用 app.listen 方法，指定端口号并启动 web 服务器</span><br><span class="line">app.listen(3000, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;running……&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>jsonp</tag>
-        <tag>跨域</tag>
       </tags>
   </entry>
   <entry>
@@ -316,6 +288,83 @@
       <tags>
         <tag>node</tag>
         <tag>中间件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>导入导出、回调地狱、同异微宏任务</title>
+    <url>/2021/10/16/%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E3%80%81%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1%E3%80%81%E5%90%8C%E5%BC%82%E5%BE%AE%E5%AE%8F%E4%BB%BB%E5%8A%A1/</url>
+    <content><![CDATA[<h4 id="一、默认导入导出"><a href="#一、默认导入导出" class="headerlink" title="一、默认导入导出"></a>一、默认导入导出</h4><ul>
+<li><p>默认导出： export default {xxx}</p>
+ <span id="more"></span></li>
+<li><p>默认导入： import 接收名称 from ‘模块地址</p>
+<p> <strong>每个模块只允许默认导出一次</strong></p>
+</li>
+</ul>
+<h4 id="二、按需导入导出"><a href="#二、按需导入导出" class="headerlink" title="二、按需导入导出"></a>二、按需导入导出</h4><pre><code>    按需导出：export 导出的成员（let a = 10)
+    按需导入： import &#123;多个接收名称&#125; from &#39;模块地址&#39;
+</code></pre>
+<p>   <strong>每个模块可以按需导出多次</strong></p>
+<pre><code>    `as` 关键字可以改名字`（import &#123;a as b&#125; from &#39;模块地址&#39;）`
+</code></pre>
+<ul>
+<li><p>按需导入导出可以同时使用，导入方法不同</p>
+<pre><code>  - import   **默认导入名称**，**&#123;按需导入名称&#125;** from &#39;模块地址&#39;
+</code></pre>
+</li>
+<li><p>直接运行导入模块代码，并不执行模块向外共享代码</p>
+<pre><code>  import &#39;模块地址&#39;
+</code></pre>
+</li>
+</ul>
+<h4 id="三、解决回调地狱"><a href="#三、解决回调地狱" class="headerlink" title="三、解决回调地狱"></a>三、解决回调地狱</h4><ul>
+<li><code>async</code> 和 <code>await</code> 语法</li>
+<li>注意：<ul>
+<li><code>await</code>关键字后面要跟 <strong>promise对象</strong></li>
+<li><code>awaut</code>关键字仅仅只能出现在被<code>async</code>修饰函数里面</li>
+<li> 在<code>async</code>方法中，第一个<code>await</code>,之前得代码会同步执行，<code>await</code>之后的代码会异步执行</li>
+<li> <code>thenfs</code>是第三方包读取文件包</li>
+</ul>
+</li>
+</ul>
+<p>   <img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192759.png"></p>
+<h4 id="四、同步任务与异步任务"><a href="#四、同步任务与异步任务" class="headerlink" title="四、同步任务与异步任务"></a>四、同步任务与异步任务</h4><p>   <img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211020200855.png"></p>
+<h4 id="五、宏任务与微任务"><a href="#五、宏任务与微任务" class="headerlink" title="五、宏任务与微任务"></a>五、宏任务与微任务</h4><p>   <img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192907.png"></p>
+<p>  <img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192855.png"></p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>回调地狱</tag>
+        <tag>同异微宏任务</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jsonp or cors 解决跨域</title>
+    <url>/2021/10/08/jsonp%E5%92%8Ccors%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F/</url>
+    <content><![CDATA[<p>JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。对于JSON大家应该是很了解了吧，不是很清楚的朋友可以去json.org上了解下，简单易懂。</p>
+<span id="more"></span>
+<h4 id="1-什么是跨域"><a href="#1-什么是跨域" class="headerlink" title="1.什么是跨域"></a>1.什么是跨域</h4><p>要了解跨域，先说说同源策略。同源策略是 Netscape 公司提出的一个著名的安全策略，所有支持 JavaScript 的浏览器都会使用这个策略。所谓同源是指，域名，协议，端口相同。当页面在执行一个脚本时会检查所访问的资源是否同源，如果非同源，那么在请求数据时，浏览器会在控制台中报一个异常。拒绝访问。</p>
+<h4 id="2-jsonp实现原理"><a href="#2-jsonp实现原理" class="headerlink" title="2.jsonp实现原理"></a>2.jsonp实现原理</h4><p>利用在页面创建<code>&lt;script&gt;</code>节点的方法向不同域提交HTTP，然后调用 html 页面函数，通过这项技术可以解决跨域提交Ajax请求的问题。<br>缺点：只支持 get 请求</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line">const app = express()</span><br><span class="line">app.get(&#x27;/json&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // 结构</span><br><span class="line">    const &#123;callback&#125; =req.query</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        name:&#x27;fs&#x27;,</span><br><span class="line">        age:12</span><br><span class="line">    &#125;</span><br><span class="line">    // 转为查询字符串</span><br><span class="line">    res.send(`$&#123;callback&#125;($&#123;JSON.stringify(obj)&#125;)`)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3001,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;完成&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">   <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">res</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">       <span class="built_in">console</span>.log(res);</span></span><br><span class="line"><span class="javascript">   &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://localhost:3001/json?callback=fn&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="3-cors实现原理"><a href="#3-cors实现原理" class="headerlink" title="3.cors实现原理"></a>3.cors实现原理</h4><p>cors 是 Express 的一个第三方中间件.通过安装和配置 cors 中间件，可以很方便解决跨域问题。</p>
+<ul>
+<li>使用步骤<ul>
+<li>安装中间件：<code>npm i cors</code></li>
+<li>导入中间件：`const cors = require(‘cors’)</li>
+<li>配置中间件：在路由之前调用<code>app.use(cors())</code></li>
+</ul>
+</li>
+<li>案例代码<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入 express 模块</span><br><span class="line">const express = require(&#x27;express&#x27;)</span><br><span class="line"></span><br><span class="line">// 创建 express 的服务器实例</span><br><span class="line">const app = express()</span><br><span class="line"></span><br><span class="line">// 导入中间件</span><br><span class="line">const cors = require(&#x27;cors&#x27;)</span><br><span class="line">// 配置中间件</span><br><span class="line">app.use(cors())</span><br><span class="line"></span><br><span class="line">// 配置解析表单数据的中间件</span><br><span class="line">app.use(express.urlencoded(&#123; extended: false &#125;))</span><br><span class="line"></span><br><span class="line">// 导入路由模块</span><br><span class="line">const router = require(&#x27;./020-apiRouter&#x27;)</span><br><span class="line">// 把路由模块，注册到 app 上</span><br><span class="line">app.use(&#x27;/api&#x27;, router)</span><br><span class="line"></span><br><span class="line">// 调用 app.listen 方法，指定端口号并启动 web 服务器</span><br><span class="line">app.listen(3000, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;running……&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>jsonp</tag>
+        <tag>跨域</tag>
       </tags>
   </entry>
   <entry>
@@ -405,52 +454,197 @@
       </tags>
   </entry>
   <entry>
-    <title>导入导出、回调地狱、同异微宏任务</title>
-    <url>/2021/10/16/%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E3%80%81%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1%E3%80%81%E5%90%8C%E5%BC%82%E5%BE%AE%E5%AE%8F%E4%BB%BB%E5%8A%A1/</url>
-    <content><![CDATA[<h4 id="一、默认导入导出"><a href="#一、默认导入导出" class="headerlink" title="一、默认导入导出"></a>一、默认导入导出</h4><ul>
-<li><p>默认导出： export default {xxx}</p>
- <span id="more"></span></li>
-<li><p>默认导入： import 接收名称 from ‘模块地址</p>
-<p> <strong>每个模块只允许默认导出一次</strong></p>
+    <title>计算机与网络</title>
+    <url>/2021/10/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%8E%E7%BD%91%E7%BB%9C/</url>
+    <content><![CDATA[<h5 id="1、计算机简介"><a href="#1、计算机简介" class="headerlink" title="1、计算机简介"></a>1、计算机简介</h5><ul>
+<li><p>计算机诞生目的取代人力。就是人类奴隶。</p>
+<span id="more"></span></li>
+<li><p>程序员是就是计算机硬件灵魂，硬件以外是软件。</p>
 </li>
-</ul>
-<h4 id="二、按需导入导出"><a href="#二、按需导入导出" class="headerlink" title="二、按需导入导出"></a>二、按需导入导出</h4><pre><code>    按需导出：export 导出的成员（let a = 10)
-    按需导入： import &#123;多个接收名称&#125; from &#39;模块地址&#39;
-</code></pre>
-<p>   <strong>每个模块可以按需导出多次</strong></p>
-<pre><code>    `as` 关键字可以改名字`（import &#123;a as b&#125; from &#39;模块地址&#39;）`
-</code></pre>
+<li><p>软件可以分为两大类：：</p>
 <ul>
-<li><p>按需导入导出可以同时使用，导入方法不同</p>
-<pre><code>  - import   **默认导入名称**，**&#123;按需导入名称&#125;** from &#39;模块地址&#39;
-</code></pre>
-</li>
-<li><p>直接运行导入模块代码，并不执行模块向外共享代码</p>
-<pre><code>  import &#39;模块地址&#39;
-</code></pre>
-</li>
-</ul>
-<h4 id="三、解决回调地狱"><a href="#三、解决回调地狱" class="headerlink" title="三、解决回调地狱"></a>三、解决回调地狱</h4><ul>
-<li><code>async</code> 和 <code>await</code> 语法</li>
-<li>注意：<ul>
-<li><code>await</code>关键字后面要跟 <strong>promise对象</strong></li>
-<li><code>awaut</code>关键字仅仅只能出现在被<code>async</code>修饰函数里面</li>
-<li> 在<code>async</code>方法中，第一个<code>await</code>,之前得代码会同步执行，<code>await</code>之后的代码会异步执行</li>
-<li> <code>thenfs</code>是第三方包读取文件包</li>
+<li>操作系统：就是协调、管理、控制计算机硬件资源与高级应用软件资源得一个控制程序</li>
+<li>应用软件：app、网页</li>
 </ul>
 </li>
+<li><p>操作流程图：</p>
+</li>
 </ul>
-<p>   <img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192759.png"></p>
-<h4 id="四、同步任务与异步任务"><a href="#四、同步任务与异步任务" class="headerlink" title="四、同步任务与异步任务"></a>四、同步任务与异步任务</h4><p>   <img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211020200855.png"></p>
-<h4 id="五、宏任务与微任务"><a href="#五、宏任务与微任务" class="headerlink" title="五、宏任务与微任务"></a>五、宏任务与微任务</h4><p>   <img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192907.png"></p>
-<p>  <img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211016192855.png"></p>
+<p><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211019184049.png"></p>
+<h5 id="2、项目开发流程"><a href="#2、项目开发流程" class="headerlink" title="2、项目开发流程"></a>2、项目开发流程</h5><p>PM(产品经理伪需求)——UE (页面交互)——UI(画页面)——FE前端(展示页面)——RD后端(数据)——QA(测试人员)——OP(运维人员系统架构)</p>
+<h5 id="3、计算机分类"><a href="#3、计算机分类" class="headerlink" title="3、计算机分类"></a>3、计算机分类</h5><ul>
+<li>个人 PC :<ul>
+<li>台式机</li>
+<li>笔记本：断电有电池续命</li>
+</ul>
+</li>
+<li>服务器：最好一直开机运行，不要宕机<ul>
+<li>分类：<ul>
+<li>尺寸： 1u 2u 4u </li>
+<li>外型：机架式  刀片   塔式  云主机  小型机=&gt;高端定制</li>
+<li>品牌：dell  惠普  IBM</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="4、计算机组成"><a href="#4、计算机组成" class="headerlink" title="4、计算机组成"></a>4、计算机组成</h5><ul>
+<li>cpu (控制器 + 运算器)<ul>
+<li>2核4线程  物理层面2核，每核2线，假的4核   真4核&gt;2核4线&gt;纯2核</li>
+</ul>
+</li>
+<li>存储器：<ul>
+<li>内存：<ul>
+<li>内存条：存储数据快，断电数据丢失</li>
+</ul>
+</li>
+<li>外存：<ul>
+<li>机械磁盘：存储速度慢，断电数据不丢失</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>输入设备</li>
+<li>输出设备</li>
+<li>三大核心硬件：cpu  内存  硬盘</li>
+<li>内核态与用户态：<ul>
+<li>内核态—&gt;操作系统正在控制硬件(系统返回消息)</li>
+<li>用户态—&gt;应用程序正在运行(用户发送消息)<h5 id="5、计算机启动过程"><a href="#5、计算机启动过程" class="headerlink" title="5、计算机启动过程"></a>5、计算机启动过程</h5></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><p>计算机加电</p>
+</li>
+<li><p>启动 BIOS (计算机启动一定会先启动 bios系统) 扫描启动设备，从某一个启动设备中找到操作系统</p>
+</li>
+<li><p>读取启动设备的第一个扇区的大小(称之为主引导记录 mbr) </p>
+</li>
+<li><p>grub 程序负责将操作系统内核装入内存，启动操作系统</p>
+</li>
+<li><p>操作系统会让 bios 去检测驱动程序</p>
+<h5 id="6、操作系统"><a href="#6、操作系统" class="headerlink" title="6、操作系统"></a>6、操作系统</h5><p>前言： 操作系统核心就是进程</p>
+<p>进程：指的就是一个程序运行过程中，具体来说是指操作系统控制硬件来运行程序的过程，资源单位</p>
+<p>线程：执行单位,cpu 执行的线程，进程内代码的运行</p>
+</li>
+</ol>
+<h6 id="1、2代计算机-批处理系统："><a href="#1、2代计算机-批处理系统：" class="headerlink" title="1、2代计算机 批处理系统："></a>1、2代计算机 批处理系统：</h6><ul>
+<li>一次只把一道程序读入内存，运行完毕后，在执行下个程序，没有并发，称之为串行</li>
+<li>优点：充分利用计算机资源</li>
+<li>缺点：<ol>
+<li>整个过程需要人参与</li>
+<li>让程序员明显感觉到等待</li>
+<li>程序运行串行</li>
+</ol>
+</li>
+</ul>
+<h6 id="2-三代计算机"><a href="#2-三代计算机" class="headerlink" title="2. 三代计算机"></a>2. 三代计算机</h6><ul>
+<li><p>串行：多个任务是一个运行完毕在运行下一个</p>
+</li>
+<li><p>并发：多个任务看起来同时运行 </p>
+</li>
+<li><p>并行：真正意义上的同时运行，只有多个 cpu 才能实现</p>
+<p> 6个核只能并行6个任务，但可以并发 n 任务</p>
+</li>
+<li><p>多道技术=&gt;并发</p>
+<ol>
+<li>空间上的复用，多道技术在运行前必须加载到内存中</li>
+<li>时间上的复用，多个任务复用 cpu 时间片，通俗讲就是 cpu 在多个程序间来回切换什么时候切换：<ol>
+<li>当一个任务遇到 IO 肯定要切换=&gt;提升效率</li>
+<li>一个任务没有遇到 IO 但是占用 cpu 时间过长，也要切换=&gt; 降低效率</li>
+</ol>
+</li>
+</ol>
+<p> ps: 多个进程的内存空间是相互隔离的，而且是物理隔离</p>
+</li>
+<li><p>分时操作系统  多用户多任务</p>
+<p> 应用多道技术来实现多个任务并发运行</p>
+</li>
+<li><p>windows系统 : 单用户多任务   linux系统 : 多用户多任务</p>
+</li>
+<li><p>linux 发展历程：multics =&gt; unix =&gt; minix =&gt; linux(redhat/centos)</p>
+<h5 id="7、一个任务运行的三种状态"><a href="#7、一个任务运行的三种状态" class="headerlink" title="7、一个任务运行的三种状态"></a>7、一个任务运行的三种状态</h5></li>
+<li><p>运行：拿到 cpu 正在运行</p>
+</li>
+<li><p>就绪：等待被分配 cpu ，一旦拿到 cpu 就可以立即执行</p>
+</li>
+<li><p>阻塞态：拿到 cpu 也无法执行，必须等待 io 结束，进入就绪状态，然后。。。<br><img src="https://gitee.com/kong_xiaojun/my-image/raw/master/img/20211019193305.png"></p>
+</li>
+</ul>
+<h5 id="8、计算机网络"><a href="#8、计算机网络" class="headerlink" title="8、计算机网络"></a>8、计算机网络</h5><ul>
+<li>什么是网络？ 网络 = 物理连接介质 + 互联网通信协议</li>
+<li>为何要有网络？ 为了方便数据传输/通信，打破地域限制，信息高速公路</li>
+</ul>
+<h6 id="1、-以太网"><a href="#1、-以太网" class="headerlink" title="1、 以太网"></a>1、 以太网</h6><ol>
+<li>以太网的数据称之为数据帧，分为head+data两部分，其中head长度固定</li>
+<li>规定但凡是接入互联网的主机必须有一块网卡，网卡上有一个 mac 地址，全世界唯一</li>
+<li>以太网协议的通信采用广播通信方式=&gt;计算机通信靠吼<br>ps: 局域网通信通过以太网协议，mac 地址</li>
+</ol>
+<ul>
+<li>ip 协议<ol>
+<li>ip 地址+ mac 地址 =&gt; 全世界范围内唯一一台计算机</li>
+</ol>
+</li>
+</ul>
+<h6 id="2、-OSI-七层网络协议"><a href="#2、-OSI-七层网络协议" class="headerlink" title="2、 OSI 七层网络协议"></a>2、 OSI 七层网络协议</h6><ol>
+<li>应用层   http,  ftp , 可以自定义协议</li>
+<li>表示层</li>
+<li>会话层</li>
+<li>传输层<ul>
+<li>tcb/udp</li>
+<li>head+data:head 放的源端口  目标端口</li>
+<li>端口在本机唯一即可<br><img src="%E8%AE%A1%E7%AE%97%E6%9C%BA.assets/2.png"></li>
+</ul>
+</li>
+<li>网络层 <ul>
+<li>ip 协议：<br> 分为head+data两部分，head 放 ip 地址</li>
+</ul>
+</li>
+<li>数据链路层   <ul>
+<li>ethernet 以太网协议</li>
+</ul>
+</li>
+<li>物理层 <ul>
+<li>转换成电信号 01010101，然后发送</li>
+</ul>
+</li>
+</ol>
+<h6 id="3、-ARP-协议"><a href="#3、-ARP-协议" class="headerlink" title="3、 ARP 协议"></a>3、 ARP 协议</h6><ol>
+<li>arp 协议—-&gt;获取目标 mac ,怎么获取<br>把自己mak地址和对象mak地址和需要发送数据封装包，发给局域网所有机器，机器匹配对应的mac地址<br>前提：在一个局域网 LAN 内，靠的是目标 mac 地址找到对方在哪里，即目标地址是谁，文件就传给谁</li>
+<li>ARP会将 ip 地址转换成 mac 地址，(要么是局域网mac地址，要么是网关mac地址，不肯能是公网mac地址)<h6 id="4、tcp-与-udp-协议"><a href="#4、tcp-与-udp-协议" class="headerlink" title="4、tcp 与 udp 协议"></a>4、tcp 与 udp 协议</h6></li>
+</ol>
+<ul>
+<li>tcp 通信之前必须建立双向通道，可靠协议</li>
+<li>udp 协议=&gt; 不可靠协议</li>
+</ul>
+<ol start="3">
+<li>dhcp<br>想实现网络通信，每台计算机必须具备四要素：<ol>
+<li>本机 ip 地址</li>
+<li>子网掩码</li>
+<li>网关 ip 地址</li>
+<li>DNS 的 ip 地址<ul>
+<li>获取以上地址，有2种方式：<ul>
+<li>手动配置=&gt; 静态获取</li>
+<li>动态获取=&gt; dhcp</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>DNS <ul>
+<li>什么是dns: domain name server 域名解析服务，负责把域名解析成 ip 地址</li>
+<li>dns的查询方式：<br> 递归查询<br> 迭代查询<br> 浏览器缓存=&gt;操作系统缓存=&gt;本地hosts文件=&gt;本地dns服务=&gt;递归or迭代查询</li>
+</ul>
+</li>
+</ol>
 ]]></content>
       <categories>
-        <category>前端</category>
+        <category>计算机</category>
       </categories>
       <tags>
-        <tag>回调地狱</tag>
-        <tag>同异微宏任务</tag>
+        <tag>计算机</tag>
+        <tag>网络</tag>
       </tags>
   </entry>
   <entry>
@@ -476,14 +670,14 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &#x27;gitHub邮件地址&#x27;</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
-<li>然后电脑中 C:\Users\11343.ssh 中找到 id_rsa.pub 文件，全部复制内容，然后在 github 创建密钥,密钥名字随便取，然后把内容复制里面<br><img src="/2021/10/08/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%88%9B%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/123.png" alt="alt"><br><img src="/2021/10/08/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%88%9B%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/2.png" alt="alt"></li>
+<li>然后电脑中 C:\Users\11343.ssh 中找到 id_rsa.pub 文件，全部复制内容，然后在 github 创建密钥,密钥名字随便取，然后把内容复制里面<br><img src="./%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%88%9B%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/123.png" alt="alt"><br><img src="./%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%88%9B%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/2.png" alt="alt"></li>
 </ol>
-<p><img src="/2021/10/08/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%88%9B%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/3.png" alt="alt"></p>
+<p><img src="./%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%88%9B%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/3.png" alt="alt"></p>
 <ol start="3">
 <li><p>测试 ssh 是否绑定成功,有图片这句话就是成功</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/10/08/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%88%9B%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/4.png" alt="alt"></p>
+<p><img src="./%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%88%9B%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/4.png" alt="alt"></p>
 </li>
 </ol>
 <h5 id="4-本地生成博客内容"><a href="#4-本地生成博客内容" class="headerlink" title="4.本地生成博客内容"></a>4.本地生成博客内容</h5><ol>
@@ -498,7 +692,7 @@
 <p>branch: main</p>
 </li>
 </ol>
-<p><img src="/2021/10/08/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%88%9B%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/6.png" alt="alt"></p>
+<p><img src="./%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%88%9B%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/6.png" alt="alt"></p>
 <ol start="2">
 <li><p>安装工具</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></li>
@@ -507,16 +701,16 @@
 <li><p>上传文件到 github</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo d //等待弹出小框框</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/10/08/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%88%9B%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/12.png" alt="计划"></p>
+<p><img src="./%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%88%9B%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/12.png" alt="计划"></p>
 <p>然看到命令栏在输入 github 账户名</p>
-<p><img src="/2021/10/08/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%88%9B%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/7.png" alt="alt"></p>
+<p><img src="./%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%88%9B%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/7.png" alt="alt"></p>
 </li>
 </ol>
 <p>在里面输入 github 令牌，怎么注册令牌百度</p>
 <p>然后点确定就上传成功了</p>
 <ol start="5">
 <li><p>在 github 查看自己生成的网址，切换到自己仓库</p>
-<p><img src="/2021/10/08/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%88%9B%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/9.png" alt="alt"></p>
+<p><img src="./%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%88%9B%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/9.png" alt="alt"></p>
 </li>
 </ol>
 ]]></content>
