@@ -123,6 +123,40 @@
       </tags>
   </entry>
   <entry>
+    <title>VUE中v-for更新检测</title>
+    <url>/2021/10/20/VUE%E4%B8%ADv-for%E6%9B%B4%E6%96%B0%E6%A3%80%E6%B5%8B/</url>
+    <content><![CDATA[<h5 id="口诀："><a href="#口诀：" class="headerlink" title="口诀："></a>口诀：</h5><ul>
+<li>数组变更方法，就会导致 v-for 更新，页面更新<span id="more"></span></li>
+<li>数组非变更方法：返回新数组，就不会导致 v-for 更新，更新值检测不到可采用覆盖或者 this.$set()</li>
+</ul>
+<h6 id="一、数组变更方法如下："><a href="#一、数组变更方法如下：" class="headerlink" title="一、数组变更方法如下："></a>一、数组变更方法如下：</h6><h6 id="1-arr-push-从后面添加元素"><a href="#1-arr-push-从后面添加元素" class="headerlink" title="1. arr.push()从后面添加元素"></a>1. arr.push()从后面添加元素</h6><pre><code>    arr.push(5)
+</code></pre>
+<h6 id="2-arr-pop-从后面删除元素，只能是一个"><a href="#2-arr-pop-从后面删除元素，只能是一个" class="headerlink" title="2. arr.pop()从后面删除元素，只能是一个"></a>2. arr.pop()从后面删除元素，只能是一个</h6><pre><code>    arr.pop()
+</code></pre>
+<h6 id="3-arr-shift-从前面删除元素，只能删除一个"><a href="#3-arr-shift-从前面删除元素，只能删除一个" class="headerlink" title="3. arr.shift()从前面删除元素，只能删除一个"></a>3. arr.shift()从前面删除元素，只能删除一个</h6><pre><code>    arr.shift()
+</code></pre>
+<h6 id="4-arr-unshift-从前面添加元素，返回值时添加完后数组长度"><a href="#4-arr-unshift-从前面添加元素，返回值时添加完后数组长度" class="headerlink" title="4. arr.unshift()从前面添加元素，返回值时添加完后数组长度"></a>4. arr.unshift()从前面添加元素，返回值时添加完后数组长度</h6><pre><code>    arr.unshift(8)
+</code></pre>
+<h6 id="5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数"><a href="#5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数" class="headerlink" title="5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数"></a>5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.splice(2,2))     //[3,4]</span><br><span class="line">console.log(arr)    // [1,2,5]</span><br></pre></td></tr></table></figure>
+
+<h6 id="6-arr-sort-将数组进行排序，返回值排好的数组"><a href="#6-arr-sort-将数组进行排序，返回值排好的数组" class="headerlink" title="6. arr.sort()将数组进行排序，返回值排好的数组"></a>6. arr.sort()将数组进行排序，返回值排好的数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [2,10,6,1,4,22,3]</span><br><span class="line">console.log(arr.sort())   // [1, 10, 2, 22, 3, 4, 6]</span><br><span class="line">let arr1 = arr.sort((a, b) =&gt;a - b)  </span><br><span class="line">console.log(arr1)   // [1, 2, 3, 4, 6, 10, 22]</span><br><span class="line">let arr2 = arr.sort((a, b) =&gt;b-a)  </span><br><span class="line">console.log(arr2)  // [22, 10, 6, 4, 3, 2, 1]</span><br></pre></td></tr></table></figure>
+
+<h6 id="7-arr-reverse-将数组反转"><a href="#7-arr-reverse-将数组反转" class="headerlink" title="7. arr.reverse() 将数组反转"></a>7. arr.reverse() 将数组反转</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.reverse())    // [5,4,3,2,1]</span><br><span class="line">console.log(arr)    // [5,4,3,2,1]</span><br></pre></td></tr></table></figure>
+
+<h5 id="二、数组非变更方法如下："><a href="#二、数组非变更方法如下：" class="headerlink" title="二、数组非变更方法如下："></a>二、数组非变更方法如下：</h5><h6 id="1-arr-concat-连接两个数组"><a href="#1-arr-concat-连接两个数组" class="headerlink" title="1. arr.concat()连接两个数组"></a>1. arr.concat()连接两个数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.concat([1,2]))  // [1,2,3,4,5,1,2]</span><br><span class="line">console.log(arr)   // [1,2,3,4,5]</span><br></pre></td></tr></table></figure>
+<h6 id="2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值"><a href="#2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值" class="headerlink" title="2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值"></a>2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.slice(1,3))   // [2,3]</span><br></pre></td></tr></table></figure>
+<h5 id="三、覆盖方法"><a href="#三、覆盖方法" class="headerlink" title="三、覆盖方法"></a>三、覆盖方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;截取前3个&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">    sliceBtn()&#123;</span><br><span class="line">   // 2. 数组slice方法不会造成v-for更新</span><br><span class="line">   // slice不会改变原始数组</span><br><span class="line">   // this.arr.slice(0, 3)</span><br><span class="line"></span><br><span class="line">   // 解决v-for更新 - 覆盖原始数组</span><br><span class="line">   let newArr = this.arr.slice(0, 3)</span><br><span class="line">   this.arr = newArr</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
+
+<h5 id="四、this-set-方法"><a href="#四、this-set-方法" class="headerlink" title="四、this.$set()方法"></a>四、this.$set()方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;更新下标0的值&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">   sliceBtn()&#123;</span><br><span class="line">   // 更新某个值时，v-for是检测不到的</span><br><span class="line">   // this.arr[0] = 1000</span><br><span class="line">   </span><br><span class="line">   // 解决- this.$set()</span><br><span class="line">   // 参数1：更新目标结构</span><br><span class="line">   // 参数2：更新位置</span><br><span class="line">   // 参数3：更新值</span><br><span class="line">    this.$set(this.arr,0,1000)</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>v-for循环</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>css基础笔记</title>
     <url>/2021/10/25/css%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h6 id="1-常用属性"><a href="#1-常用属性" class="headerlink" title="1.常用属性"></a>1.常用属性</h6><p>line-height 设置行高为容器高度，可以让文本垂直居中 text-align:center; 文本水平居中 !important 权重   </p>
@@ -259,40 +293,6 @@
       <tags>
         <tag>jsonp</tag>
         <tag>跨域</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VUE中v-for更新检测</title>
-    <url>/2021/10/20/VUE%E4%B8%ADv-for%E6%9B%B4%E6%96%B0%E6%A3%80%E6%B5%8B/</url>
-    <content><![CDATA[<h5 id="口诀："><a href="#口诀：" class="headerlink" title="口诀："></a>口诀：</h5><ul>
-<li>数组变更方法，就会导致 v-for 更新，页面更新<span id="more"></span></li>
-<li>数组非变更方法：返回新数组，就不会导致 v-for 更新，更新值检测不到可采用覆盖或者 this.$set()</li>
-</ul>
-<h6 id="一、数组变更方法如下："><a href="#一、数组变更方法如下：" class="headerlink" title="一、数组变更方法如下："></a>一、数组变更方法如下：</h6><h6 id="1-arr-push-从后面添加元素"><a href="#1-arr-push-从后面添加元素" class="headerlink" title="1. arr.push()从后面添加元素"></a>1. arr.push()从后面添加元素</h6><pre><code>    arr.push(5)
-</code></pre>
-<h6 id="2-arr-pop-从后面删除元素，只能是一个"><a href="#2-arr-pop-从后面删除元素，只能是一个" class="headerlink" title="2. arr.pop()从后面删除元素，只能是一个"></a>2. arr.pop()从后面删除元素，只能是一个</h6><pre><code>    arr.pop()
-</code></pre>
-<h6 id="3-arr-shift-从前面删除元素，只能删除一个"><a href="#3-arr-shift-从前面删除元素，只能删除一个" class="headerlink" title="3. arr.shift()从前面删除元素，只能删除一个"></a>3. arr.shift()从前面删除元素，只能删除一个</h6><pre><code>    arr.shift()
-</code></pre>
-<h6 id="4-arr-unshift-从前面添加元素，返回值时添加完后数组长度"><a href="#4-arr-unshift-从前面添加元素，返回值时添加完后数组长度" class="headerlink" title="4. arr.unshift()从前面添加元素，返回值时添加完后数组长度"></a>4. arr.unshift()从前面添加元素，返回值时添加完后数组长度</h6><pre><code>    arr.unshift(8)
-</code></pre>
-<h6 id="5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数"><a href="#5-arr-splice-i-n-删除从-i-索引值-开始之后删除的-N-删除的个数-个数" class="headerlink" title="5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数"></a>5. arr.splice(i,n)删除从 i (索引值)开始之后删除的 N(删除的个数)个数</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.splice(2,2))     //[3,4]</span><br><span class="line">console.log(arr)    // [1,2,5]</span><br></pre></td></tr></table></figure>
-
-<h6 id="6-arr-sort-将数组进行排序，返回值排好的数组"><a href="#6-arr-sort-将数组进行排序，返回值排好的数组" class="headerlink" title="6. arr.sort()将数组进行排序，返回值排好的数组"></a>6. arr.sort()将数组进行排序，返回值排好的数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [2,10,6,1,4,22,3]</span><br><span class="line">console.log(arr.sort())   // [1, 10, 2, 22, 3, 4, 6]</span><br><span class="line">let arr1 = arr.sort((a, b) =&gt;a - b)  </span><br><span class="line">console.log(arr1)   // [1, 2, 3, 4, 6, 10, 22]</span><br><span class="line">let arr2 = arr.sort((a, b) =&gt;b-a)  </span><br><span class="line">console.log(arr2)  // [22, 10, 6, 4, 3, 2, 1]</span><br></pre></td></tr></table></figure>
-
-<h6 id="7-arr-reverse-将数组反转"><a href="#7-arr-reverse-将数组反转" class="headerlink" title="7. arr.reverse() 将数组反转"></a>7. arr.reverse() 将数组反转</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.reverse())    // [5,4,3,2,1]</span><br><span class="line">console.log(arr)    // [5,4,3,2,1]</span><br></pre></td></tr></table></figure>
-
-<h5 id="二、数组非变更方法如下："><a href="#二、数组非变更方法如下：" class="headerlink" title="二、数组非变更方法如下："></a>二、数组非变更方法如下：</h5><h6 id="1-arr-concat-连接两个数组"><a href="#1-arr-concat-连接两个数组" class="headerlink" title="1. arr.concat()连接两个数组"></a>1. arr.concat()连接两个数组</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.concat([1,2]))  // [1,2,3,4,5,1,2]</span><br><span class="line">console.log(arr)   // [1,2,3,4,5]</span><br></pre></td></tr></table></figure>
-<h6 id="2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值"><a href="#2-arr-slice-start-end-切去索引-start-到-end-索引值，不包含-start-索引值" class="headerlink" title="2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值"></a>2. arr.slice(start,end)切去索引 start 到 end 索引值，不包含 start 索引值</h6>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   let arr = [1,2,3,4,5]</span><br><span class="line">console.log(arr.slice(1,3))   // [2,3]</span><br></pre></td></tr></table></figure>
-<h5 id="三、覆盖方法"><a href="#三、覆盖方法" class="headerlink" title="三、覆盖方法"></a>三、覆盖方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;截取前3个&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">    sliceBtn()&#123;</span><br><span class="line">   // 2. 数组slice方法不会造成v-for更新</span><br><span class="line">   // slice不会改变原始数组</span><br><span class="line">   // this.arr.slice(0, 3)</span><br><span class="line"></span><br><span class="line">   // 解决v-for更新 - 覆盖原始数组</span><br><span class="line">   let newArr = this.arr.slice(0, 3)</span><br><span class="line">   this.arr = newArr</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
-
-<h5 id="四、this-set-方法"><a href="#四、this-set-方法" class="headerlink" title="四、this.$set()方法"></a>四、this.$set()方法</h5>   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;li v-for=&quot;(val, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">     &#123;&#123; val &#125;&#125;</span><br><span class="line">   &lt;/li&gt;</span><br><span class="line">   &lt;button @click=&quot;sliceBtn&quot;&gt;更新下标0的值&lt;/button&gt;</span><br><span class="line">   </span><br><span class="line">   sliceBtn()&#123;</span><br><span class="line">   // 更新某个值时，v-for是检测不到的</span><br><span class="line">   // this.arr[0] = 1000</span><br><span class="line">   </span><br><span class="line">   // 解决- this.$set()</span><br><span class="line">   // 参数1：更新目标结构</span><br><span class="line">   // 参数2：更新位置</span><br><span class="line">   // 参数3：更新值</span><br><span class="line">    this.$set(this.arr,0,1000)</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
-        <tag>v-for循环</tag>
       </tags>
   </entry>
   <entry>
